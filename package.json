@@ -2,10 +2,10 @@
   "name": "movie-web",
   "version": "1.0.0",
   "description": "",
+  "main": "server/src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:backend": "nodemon --exec ts-node backend/src/server.ts",
-    "start:frontend": "nodemon --exec ts-node frontend/src/app.ts",
+    "start": "nodemon --exec ts-node server/src/server.ts",
     "check:eslint": "eslint . --ext .ts",
     "lint": "npm run check:eslint && npm run check:prettier",
     "check:prettier": "prettier --check \"**/*.{ts,json,md}\"",
@@ -14,16 +14,10 @@
     "build:eslint": "eslint . --ext .ts --fix",
     "build:prettier": "prettier --write \"**/*.{ts,json,md}\"",
     "build:lint": "npm run build:eslint && npm run build:prettier",
-    "build:backend": "rimraf backend/dist && tsc --project backend/tsconfig.json",
-    "build:frontend": "rimraf frontend/dist && tsc --project frontend/tsconfig.json",
-    "build": "npm run build:backend && npm run build:frontend",
-    "ts.check:backend": "tsc --project backend/tsconfig.json",
-    "ts.check:frontend": "tsc --project frontend/tsconfig.json",
-    "ts.check": "npm run ts.check:backend && npm run ts.check:frontend",
-    "dev:backend": "cross-env BUILD_MODE=dev nodemon backend/src/server.ts",
-    "dev:frontend": "cross-env BUILD_MODE=dev nodemon frontend/src/app.ts",
-    "dev": "npm run dev:backend && npm run dev:frontend",
-    "production": "npm run ts.check && npm run build && cross-env BUILD_MODE=prod node backend/dist/server.js && node frontend/dist/app.js"
+    "build": "rimraf server/dist && tsc --project server/tsconfig.json",
+    "ts.check": "tsc --project server/tsconfig.json",
+    "dev": "cross-env BUILD_MODE=dev nodemon server/src/server.ts",
+    "production": "npm run ts.check && npm run build && cross-env BUILD_MODE=prod node server/dist/server.js"
   },
   "pre-commit": [
     "ts.check",
