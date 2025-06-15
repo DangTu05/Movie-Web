@@ -30,7 +30,7 @@ const startServer = (): Server => {
     await connectDB();
     startServer();
     app.get("/", (req, res) => {
-      res.render("./client/pages/home", {});
+      res.render("./auth/login", {});
     });
   } catch (err) {
     logger.error(err);

@@ -1,0 +1,28 @@
+meta(charset="UTF-8")
+meta(name="viewport", content="width=device-width,initial-scale=1")
+link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css", integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==", crossorigin="anonymous", referrerpolicy="no-referrer")
+link(rel="stylesheet", href="/css/base.css")
+link(rel="stylesheet", href="/css/login.css")
+title BingeBox Cinema - Đăng nhập
+link(rel="icon", type="image/png", href="/assets/images/bingebox_logo.png")
+.wrapper
+  .inner-wrap
+  .overlay
+  form.login-container
+    h2(style="color: white") LOGIN HERE
+    .form-group
+      i.icon.fa-solid.fa-user
+      label(for="username")
+      input#username(style="color: white", type="text", name="username", title="Enter your username", placeholder="Username")
+    .form-group
+      i.icon.fa-solid.fa-lock
+      label(for="password")
+      input#password(style="color: white", type="password", name="password", title="Enter your password", placeholder="Password")
+    button.login-button(type="submit") ĐĂNG NHẬP
+    p
+      | Bạn chưa có tài khoản?
+
+      a(style="color: red", href="../register/register.html") Đăng ký
+//  SweetAlert2 CDN 
+script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
+script(type="module", src="./login.js")
