@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import { Server } from "http";
 import exitHook from "async-exit-hook";
+import logger from "./configs/logger";
 import path from "path";
 import cors from "cors";
 import connectDB from "./configs/connectDB";
@@ -24,12 +25,12 @@ const startServer = (): Server => {
 /// anonymous async function(IIFE)
 (async (): Promise<void> => {
   try {
-    console.log("Connecting to database...");
+    logger.info("Connecting to database...");
     // Kết nối đến cơ sở dữ liệu MongoDB
     await connectDB();
     startServer();
   } catch (err) {
-    console.log(err);
+    logger.error(err);
     process.exit(1);
   }
 })();
