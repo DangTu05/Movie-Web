@@ -1,0 +1,31 @@
+meta(charset="UTF-8")
+meta(name="viewport", content="width=device-width,initial-scale=1")
+link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css", integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==", crossorigin="anonymous", referrerpolicy="no-referrer")
+link(rel="stylesheet", href="/css/base.css")
+link(rel="stylesheet", href="/css/register.css")
+title Document
+.wrapper
+  .inner-wrap
+  .overlay
+  form.register-container
+    .register-content
+    h2(style="color: white") REGISTER HERE
+    .form-group
+      i.icon.fa-solid.fa-envelope
+      label(for="email")
+      input#email(type="text", name="email", title="Enter your username", placeholder="Email")
+    .form-group
+      i.icon.fa-solid.fa-user
+      label(for="username")
+      input#username(type="text", name="username", title="Enter your username", placeholder="Username")
+    .form-group
+      i.icon.fa-solid.fa-lock
+      label(for="password")
+      input#password(type="password", name="password", title="Enter your password", placeholder="Password")
+    button.login-button(type="submit") ĐĂNG KÝ
+    p
+      | Bạn đã có tài khoản?
+
+      a(style="color: red", href) Đăng nhập
+//  SweetAlert2 CDN 
+script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
