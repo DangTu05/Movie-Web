@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --color-text: #fff;
+  --color-blue: #004aad;
+  --color-golden: #edd463;
+  --color-lightblue: #74b0e1;
+  --color-red: #c94d3d;
+  --color-yellow: #efb146;
+  --color-dark: #454d6a;
+  --font: "Montserrat", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font); /*toàn bộ trang font này*/
+  background: linear-gradient(90deg, #000000, #3533cd);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none !important; /*toàn bộ link ko có gạch chân*/
+}

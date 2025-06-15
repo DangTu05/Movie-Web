@@ -6,7 +6,7 @@ import path from "path";
 import cors from "cors";
 import connectDB from "./configs/connectDB";
 const app: Express = express();
-const port: number | string = 3000;
+const port: number | string = 5000;
 import configViewEngine from "./configs/viewEngine";
 const startServer = (): Server => {
   app.use(cors());
@@ -19,7 +19,7 @@ const startServer = (): Server => {
   app.use(express.static(path.join(__dirname, "public")));
 
   return app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    logger.info(`Server is running at http://localhost:${port}`);
   });
 };
 /// anonymous async function(IIFE)
@@ -29,6 +29,9 @@ const startServer = (): Server => {
     // Kết nối đến cơ sở dữ liệu MongoDB
     await connectDB();
     startServer();
+    app.get("/", (req, res) => {
+      res.render("./client/pages/home", {});
+    });
   } catch (err) {
     logger.error(err);
     process.exit(1);
