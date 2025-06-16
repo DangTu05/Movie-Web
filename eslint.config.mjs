@@ -45,7 +45,10 @@ export default [
           singleQuote: false,
           semi: true
         }
-      ]
+      ],
+      env: {
+        browser: true
+      }
     },
     ignores: ["**/node_modules/", "**/dist/"]
   }

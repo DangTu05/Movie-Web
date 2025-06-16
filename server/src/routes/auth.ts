@@ -8,6 +8,7 @@ const registerService = new RegisterService();
 const registerController = new RegisterController(registerService);
 const loginService = new LoginService();
 const loginController = new LoginController(loginService);
+router.get("/register", registerController.showViewRegister);
 router.post("/register", registerController.register);
 router.post("/login", loginController.login);
 export default router;
