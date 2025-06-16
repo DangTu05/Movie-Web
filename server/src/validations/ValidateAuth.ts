@@ -9,11 +9,16 @@ class ValidateAuth {
     password: z.string().min(6, "Mật khẩu phải có ít nhất 6 ký tự")
   });
 
-  static validateLogin(data: any): boolean {
-    if (!data.email || !data.password) {
-      return false;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static validateLogin(reqbody: Request): { success: boolean; errors?: any } {
+    const { username, password } = reqbody.body;
+    if (!username || !password) {
+      return {
+        success: false,
+        errors: { username: "Tên đăng nhập không được để trống", password: "Mật khẩu không được để trống" }
+      };
     }
-    return true;
+    return { success: true };
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,7 +30,6 @@ class ValidateAuth {
       logger.error("Validation errors:", errors);
       return { success: false, errors };
     }
-
     return { success: true };
   }
 }
