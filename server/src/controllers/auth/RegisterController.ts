@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import errorHandler from "../../utils/handler/handleAsync";
 import sendResponse from "../../utils/handler/response";
 import ValidateAuth from "../../validations/ValidateAuth";
-import { RegisterService } from "../../services/auth/registerService";
+import { RegisterService } from "../../services/auth/RegisterService";
 class RegisterController {
   constructor(private readonly registerService: RegisterService) {
     this.register = errorHandler.handleAsyncErrors(this.register.bind(this));
