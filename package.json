@@ -16,7 +16,7 @@
     "build:lint": "npm run build:eslint && npm run build:prettier",
     "build": "rimraf server/dist && tsc --project server/tsconfig.json",
     "ts.check": "tsc --project server/tsconfig.json",
-    "dev": "cross-env BUILD_MODE=dev nodemon server/src/server.ts",
+    "dev": "cross-env BUILD_MODE=dev nodemon",
     "production": "npm run ts.check && npm run build && cross-env BUILD_MODE=prod node server/dist/server.js"
   },
   "pre-commit": [
@@ -27,6 +27,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.5.0",
@@ -34,11 +35,13 @@
     "http-status-codes": "^2.3.0",
     "mongoose": "^8.15.2",
     "pug": "^3.0.3",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "zod": "^3.25.64"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@types/async-exit-hook": "^2.0.2",
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/mongoose": "^5.11.96",
