@@ -4,10 +4,76 @@ html(lang="vi")
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title Dashboard
-    link(rel="stylesheet", href="/css/admin/style.css")
+    link(rel="icon", href="/assets/img/kaiadmin/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css")
+    //  Fonts and icons 
+    script(src="/js/plugin/webfont/webfont.min.js")
+    link(rel="stylesheet", href="/assets/css/admin/dashboard/bootstrap.min.css")
+    link(rel="stylesheet", href="/assets/css/admin/dashboard/plugins.min.css")
+    link(rel="stylesheet", href="/assets/css/admin/dashboard/kaiadmin.min.css")
+    //  CSS Just for demo purpose, don't include it in your project 
+    link(rel="stylesheet", href="/assets/css/admin/dashboard/demo.css")
+    // 🟢 block để trang con chèn css riêng
+    block styles
   body
-    .container
-      block header
-      .main
-        block sidebar
+    .wrapper
+      block sidebar
+      .main-panel
+        block header
         block content
+  //    Core JS Files   
+  script(src="/js/core/jquery-3.7.1.min.js")
+  script(src="/js/core/popper.min.js")
+  script(src="/js/core/bootstrap.min.js")
+  //  jQuery Scrollbar 
+  script(src="/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js")
+  //  Chart JS 
+  script(src="/js/plugin/chart.js/chart.min.js")
+  //  jQuery Sparkline 
+  script(src="/js/plugin/jquery.sparkline/jquery.sparkline.min.js")
+  //  Chart Circle 
+  script(src="/js/plugin/chart-circle/circles.min.js")
+  //  Datatables 
+  script(src="/js/plugin/datatables/datatables.min.js")
+  //  Bootstrap Notify 
+  script(src="/js/plugin/bootstrap-notify/bootstrap-notify.min.js")
+  //  jQuery Vector Maps 
+  script(src="/js/plugin/jsvectormap/jsvectormap.min.js")
+  script(src="/js/plugin/jsvectormap/world.js")
+  //  Sweet Alert 
+  script(src="/js/plugin/sweetalert/sweetalert.min.js")
+  //  Kaiadmin JS 
+  script(src="/js/kaiadmin.min.js")
+  //  Kaiadmin DEMO methods, don't include it in your project! 
+  script(src="/js/setting-demo.js")
+  script(src="/js/demo.js")
+  script.
+    
+    $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#177dff",
+            fillColor: "rgba(23, 125, 255, 0.14)",
+          });
+    
+          $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#f3545d",
+            fillColor: "rgba(243, 84, 93, .14)",
+          });
+    
+          $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+            type: "line",
+            height: "70",
+            width: "100%",
+            lineWidth: "2",
+            lineColor: "#ffa534",
+            fillColor: "rgba(255, 165, 52, .14)",
+          });
+    
+

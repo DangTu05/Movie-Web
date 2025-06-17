@@ -1,0 +1,55 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/css/admin/create-movie.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .page-header
+    h2 Add New Movie
+    p.text-muted Create a new movie entry
+
+  .card
+    .card-body
+      form(method="POST", action="", enctype="multipart/form-data")
+        .form-group
+          label(for="title") Title
+          input#title.form-control(type="text", name="title", required)
+
+        .form-group
+          label(for="description") Description
+          textarea#description.form-control(name="description", rows="4")
+
+        .form-group
+          label(for="genre") Genre
+          select#genre.form-control(name="genre")
+            option(value="") -- Select Genre --
+            option(value="action") Hành Động
+            option(value="comedy") Hài
+            option(value="drama") Kịch Tính
+            option(value="fantasy") Khoa Học Viễn Tưởng
+            option(value="horror") Ma
+            option(value="romance") Tình Cảm
+        .form-group
+          label(for="actor") Actor
+          select#actor.form-control(name="genre")
+            option(value="") -- Select Genre --
+            option(value="") Đặng Quang Tú 
+        .form-group
+          label(for="releaseDate") Release Date
+          input#releaseDate.form-control(type="date", name="releaseDate")
+
+        .form-group
+          label(for="duration") Duration (minutes)
+          input#duration.form-control(type="number", name="duration", min="1")
+        .form-group
+          label(for="age_permission") Age Permission 
+          input#age_permission.form-control(type="number", name="age_permission", min="1",max="18")
+        .form-group
+          label(for="poster") Poster Image
+          input#poster.form-control(type="file", name="poster", accept="image/*")
+        .form-group 
+          label(for="trailer") Trailer Video
+          input#trailer.form-control(type="file", name="trailer", accept="video/*")
+        .form-group.text-end
+          button.btn.btn-primary(type="submit") Create Movie
