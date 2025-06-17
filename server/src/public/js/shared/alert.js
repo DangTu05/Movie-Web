@@ -10,7 +10,7 @@ export const showConfirm = (title, text, icon = "warning", confirmText = "Yes") 
   });
 };
 export const showInfo = (title, text, icon = "info") => {
-  Swal.fire({
+  return Swal.fire({
     title,
     text,
     icon

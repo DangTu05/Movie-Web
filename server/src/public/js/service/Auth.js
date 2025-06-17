@@ -12,6 +12,13 @@ class AuthServices {
       throw error;
     }
   }
+  async loginUser(data) {
+    try {
+      const response = await this.httpClient.request("auth/login", httpMethods.POST, httpHeaders.content.json, data);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export default AuthServices;
-//

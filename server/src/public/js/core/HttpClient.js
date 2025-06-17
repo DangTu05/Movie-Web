@@ -6,7 +6,8 @@ class HttpClient {
       const requestOptions = {
         method: method,
         headers: {
-          ...header
+          ...header,
+          Accept: "application/json"
         },
         credentials: "include" // gửi cookie nếu cần (ví dụ: đăng nhập)
       };

@@ -33,7 +33,7 @@ window.onload = () => {
         }
       } catch (error) {
         console.error("Lỗi khi đăng ký:", error);
-        showInfo("Đăng ký thất bại", "Đã xảy ra lỗi. Vui lòng thử lại sau!", "error");
+        // showInfo("Đăng ký thất bại", "Đã xảy ra lỗi. Vui lòng thử lại sau!", "error");
       } finally {
         registerButton.disabled = false;
       }

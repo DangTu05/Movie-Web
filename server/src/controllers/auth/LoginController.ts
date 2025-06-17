@@ -16,5 +16,8 @@ class LoginController {
     await this.loginService.login(username, password);
     sendResponse(res, 200, null, "Login successful");
   }
+  public async showViewLogin(req: Request, res: Response): Promise<void> {
+    res.render("auth/login");
+  }
 }
 export default LoginController;
