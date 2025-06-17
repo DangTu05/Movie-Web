@@ -15,7 +15,7 @@ export class LoginService {
     const isPasswordValid = await comparePassword(password, account.password);
     if (!isPasswordValid) {
       logger.error("Invalid password", { username });
-      throw new ApiError(StatusCodes.UNAUTHORIZED, "Mật khẩu không chính xác");
+      throw new ApiError(StatusCodes.UNAUTHORIZED, "Mật khẩu không chính xác!");
     }
     // Nếu tài khoản và mật khẩu hợp lệ, trả về thông tin tài khoản
     logger.info("Login successful", { username });

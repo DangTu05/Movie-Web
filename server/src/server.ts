@@ -6,6 +6,7 @@ import path from "path";
 import cors from "cors";
 import connectDB from "./configs/connectDB";
 import router from "./routes/index";
+import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware";
 const app: Express = express();
 const port: number | string = 5000;
 import configViewEngine from "./configs/viewEngine";
@@ -20,6 +21,8 @@ const startServer = (): Server => {
   app.use(express.static(path.join(__dirname, "public")));
   // Kết nối các router
   router(app);
+  //Xử lý lỗi tập trung
+  app.use(errorHandlingMiddleware);
   return app.listen(port, () => {
     logger.info(`Server is running at http://localhost:${port}`);
   });
@@ -31,9 +34,6 @@ const startServer = (): Server => {
     // Kết nối đến cơ sở dữ liệu MongoDB
     await connectDB();
     startServer();
-    app.get("/", (req, res) => {
-      res.render("./auth/login", {});
-    });
   } catch (err) {
     logger.error(err);
     process.exit(1);
