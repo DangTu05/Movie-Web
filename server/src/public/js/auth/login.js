@@ -14,7 +14,6 @@ window.onload = () => {
         username: username.value,
         password: password.value
       };
-
       if (!ValidateAuth.validateLogin(data)) return;
       try {
         const response = await _authServices.loginUser(data);
