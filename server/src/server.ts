@@ -26,9 +26,6 @@ const startServer = (): Server => {
   //* app locals variable
   app.locals.prefixAdmin = systemConfig.prefixAdmin;
   app.use(errorHandlingMiddleware);
-  app.get("/create-movie", (req, res) => {
-    res.render("admin/pages/create-movie");
-  });
   return app.listen(port, () => {
     logger.info(`Server is running at http://localhost:${port}`);
   });

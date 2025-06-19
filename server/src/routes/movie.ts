@@ -1,0 +1,12 @@
+import { uploadCloud } from "./../../../../backend-movie/src/middlewares/upload.middleware";
+import express, { Router } from "express";
+import { MovieService } from "../services/admin/MovieService";
+import MovieController from "../controllers/admin/MovieController";
+import uploadMedia from "../middlewares/uploadCloud";
+import { handleMulterError } from "../middlewares/handleMulterError";
+const router: Router = express.Router();
+const movieService = new MovieService();
+const movieController = new MovieController(movieService);
+router.get("/create-movie", movieController.showViewCreateMovie);
+router.post("/create-movie", handleMulterError(uploadMedia), movieController.createMovie);
+export default router;
