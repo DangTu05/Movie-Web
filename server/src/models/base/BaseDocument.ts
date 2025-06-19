@@ -1,9 +1,11 @@
-import { ObjectId } from "mongodb";
+import { Document, Schema } from "mongoose";
 
-export interface BaseDocument {
-  _id?: ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
+interface BaseDocument extends Document {
   deletedAt?: Date;
   deleted: boolean;
 }
+const baseFields = {
+  deletedAt: { type: Date, default: null },
+  deleted: { type: Boolean, default: false }
+};
+export { baseFields, BaseDocument };

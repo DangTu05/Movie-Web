@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { BaseDocument } from "../base/BaseDocument";
+import { BaseDocument, baseFields } from "../base/BaseDocument";
 interface IUser extends BaseDocument {
   user_name: string;
   gender: string;
@@ -9,8 +9,9 @@ interface IUser extends BaseDocument {
   user_image: string;
   reward_points: number;
 }
-const UserSchema = new mongoose.Schema<IUser>(
+const userSchema = new mongoose.Schema(
   {
+    ...baseFields,
     user_name: { type: String },
     gender: {
       type: String,
@@ -23,12 +24,9 @@ const UserSchema = new mongoose.Schema<IUser>(
     phone: { type: String },
     address: { type: String },
     user_image: { type: String, default: "" },
-    reward_points: { type: Number, default: 0 },
-    createdAt: { type: Date },
-    updatedAt: { type: Date }
+    reward_points: { type: Number, default: 0 }
   },
   { timestamps: true }
 );
-
-export default mongoose.model<IUser>("User", UserSchema);
-export { IUser, UserSchema };
+export default mongoose.model<IUser>("User", userSchema);
+export { IUser, userSchema };

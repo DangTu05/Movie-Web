@@ -1,9 +1,13 @@
 import { showInfo, showConfirm } from "../shared/alert.js";
-import { isValidEmail } from "../shared/validate.js";
+import constants from "../shared/constants.js";
+const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
 class ValidateAuth {
   static validateRegister(data) {
     if (!data.email || !data.username || !data.password) {
-      showInfo("Thiếu thông tin", " Vui lòng nhập đủ thông tin!", "warning");
+      showInfo(constants.WARNING_INFO, constants.WARNING_INPUT, "warning");
       return false;
     }
     if (!isValidEmail(data.email)) {
@@ -22,7 +26,7 @@ class ValidateAuth {
   }
   static validateLogin(data) {
     if (!data.username || !data.password) {
-      showInfo("Thiếu thông tin", " Vui lòng nhập đủ thông tin!", "warning");
+      showInfo(constants.WARNING_INFO, constants.WARNING_INPUT, "warning");
       return false;
     }
     return true;
