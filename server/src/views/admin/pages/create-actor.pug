@@ -1,0 +1,40 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .page-header
+    h2 Add New Actor
+    p.text-muted Create a new actor entry
+
+  .card
+    .card-body
+      form(class="create-actor-form", enctype="multipart/form-data")
+        .form-group
+          label(for="name") Name
+          input#name.form-control(type="text", name="name", required)
+        .form-group
+          label(for="birthDate") Birth Date
+          input#birthDate.form-control(type="date", name="birthDate")
+        .form-group
+          label(for="gender") Gender
+          select#gender.form-control(name="gender")
+            option(value="male") Male
+            option(value="female") Female
+            option(value="other") Other
+        .form-group
+          label(for="biography") Biography
+          textarea#biography.form-control(name="biography", rows="5") Biography
+        .form-group
+          label(for="nationality") Nationality
+          input#nationality.form-control(type="text", name="nationality", required)
+        .form-group
+          label(for="actor_image") Actor Image
+          input#actor_image.form-control(type="file", name="actor_image", accept="image/*")
+        .form-group.text-end
+          button.btn.btn-primary.create-movie-btn(type="submit") Create Movie
+  script(type="module", src="/js/admin/create-movie.js") 
+  //  SweetAlert2 CDN 
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
