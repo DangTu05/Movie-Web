@@ -1,6 +1,10 @@
 import { Router } from "express";
 import ActorController from "../controllers/admin/ActorController";
-const actorController = new ActorController();
+import ActorService from "../services/admin/ActorService";
+import { uploadImage } from "../middlewares/uploadCloud";
+const actorService = new ActorService();
+const actorController = new ActorController(actorService);
 const router: Router = Router();
 router.get("/create-actor", actorController.showViewCreateActor);
+router.post("/create-actor", uploadImage.single("actor_image"), actorController.createActor);
 export default router;
