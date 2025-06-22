@@ -13,8 +13,8 @@ block content
     .card-body
       form(class="create-actor-form", enctype="multipart/form-data")
         .form-group
-          label(for="name") Name
-          input#name.form-control(type="text", name="name", required)
+          label(for="actor_name") Name
+          input#actor_name.form-control(type="text", name="name", required)
         .form-group
           label(for="birthDate") Birth Date
           input#birthDate.form-control(type="date", name="birthDate")
@@ -26,7 +26,7 @@ block content
             option(value="other") Other
         .form-group
           label(for="biography") Biography
-          textarea#biography.form-control(name="biography", rows="5") Biography
+          textarea#biography.form-control(name="biography", rows="5") 
         .form-group
           label(for="nationality") Nationality
           input#nationality.form-control(type="text", name="nationality", required)
@@ -35,6 +35,6 @@ block content
           input#actor_image.form-control(type="file", name="actor_image", accept="image/*")
         .form-group.text-end
           button.btn.btn-primary.create-movie-btn(type="submit") Create Movie
-  script(type="module", src="/js/admin/create-movie.js") 
+  script(type="module", src="/js/admin/create-actor.js") 
   //  SweetAlert2 CDN 
   script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

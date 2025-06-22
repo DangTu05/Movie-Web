@@ -37,5 +37,22 @@ const uploadMedia = multer({
   { name: "poster", maxCount: 1 },
   { name: "trailer", maxCount: 1 }
 ]);
+const Storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+    return {
+      allowed_formats: ["jpg", "png", "jpeg", "webp"],
+      public_id: file.originalname.split(".")[0]
+    };
+  }
+});
+
+const uploadImage = multer({
+  storage: Storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB mỗi ảnh
+  }
+});
 
 export default uploadMedia;
+export { uploadImage };

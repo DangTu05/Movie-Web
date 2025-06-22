@@ -1,4 +1,3 @@
-import { uploadCloud } from "./../../../../backend-movie/src/middlewares/upload.middleware";
 import express, { Router } from "express";
 import { MovieService } from "../services/admin/MovieService";
 import MovieController from "../controllers/admin/MovieController";
