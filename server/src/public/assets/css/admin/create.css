@@ -1,7 +1,5 @@
-.page-header {
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.5rem;
+.main-panel .title {
+  padding-top: 75px;
 }
 
 .card {

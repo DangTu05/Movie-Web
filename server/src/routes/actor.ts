@@ -5,6 +5,6 @@ import { uploadImage } from "../middlewares/uploadCloud";
 const actorService = new ActorService();
 const actorController = new ActorController(actorService);
 const router: Router = Router();
-router.get("/create-actor", actorController.showViewCreateActor);
+router.get("/create-actor", actorController.showView);
 router.post("/create-actor", uploadImage.single("actor_image"), actorController.createActor);
 export default router;
