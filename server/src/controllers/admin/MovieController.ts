@@ -1,19 +1,31 @@
 import { Request, Response, NextFunction } from "express";
-import { MovieService } from "../../services/admin/MovieService";
+import MovieService from "../../services/admin/MovieService";
+import ActorService from "../../services/admin/ActorService";
 import ValidateMovie from "../../validations/ValidateMovie";
 import sendResponse from "../../utils/handler/response";
 import errorHandler from "../../utils/handler/handleAsync";
 import { StatusCodes } from "http-status-codes";
+import logger from "../../configs/logger";
 
 class MovieController {
-  constructor(private readonly movieService: MovieService) {
+  constructor(
+    private readonly movieService: MovieService,
+    private readonly actorService: ActorService
+  ) {
+    this.showViewCreateMovie = this.showViewCreateMovie.bind(this);
+
     this.createMovie = errorHandler.handleAsyncErrors(this.createMovie.bind(this));
   }
   public async showViewCreateMovie(req: Request, res: Response): Promise<void> {
-    res.render("admin/pages/create-movie");
+    logger.info("Fetching all actors for create movie view");
+    const actors = await this.actorService.getAllActor();
+    res.render("admin/pages/create-movie", {
+      actors: actors ?? []
+    });
   }
   public async createMovie(req: Request, res: Response, next: NextFunction): Promise<void> {
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    req.body.actors = Array.isArray(req.body.actor) ? req.body.actor : req.body.actor ? [req.body.actor] : [];
     const posterUrl = files["poster"]?.[0]?.path || "";
     const trailerUrl = files["trailer"]?.[0]?.path || "";
     req.body.poster = posterUrl;

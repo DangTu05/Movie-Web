@@ -31,10 +31,8 @@ window.onload = () => {
         duration: duration.value ? parseInt(duration.value, 10) : 0,
         age_permission: age_permission.value ? parseInt(age_permission.value, 10) : 0,
         status: status.value,
-        actor: selectedActors ? selectedActors : []
+        actors: selectedActors ? selectedActors : []
       };
-      console.log(selectedActors);
-      
       if (!ValidateMovie.validateCreateMovie(data)) {
         return;
       }

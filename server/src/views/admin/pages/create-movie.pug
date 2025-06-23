@@ -33,8 +33,10 @@ block content
         .form-group
           label(for="actor") Actor
           select#actor.form-control(name="actors[]" multiple)
-            option(value="Đặng Quang Tú") Đặng Quang Tú 
-            option(value="Trương Hồng Ánh") Trương Hồng Ánh
+            option(value="") -- Select Status --
+            if actors && actors.length
+              for actor in actors
+                option(value=actor._id)= actor.actor_name
         .form-group
           label(for="status") Status
           select#status.form-control(name="status")

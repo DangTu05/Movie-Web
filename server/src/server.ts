@@ -8,6 +8,7 @@ import connectDB from "./configs/connectDB";
 import router from "./routes/index";
 import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware";
 import systemConfig from "./configs/system";
+import "./jobs/autoUpdateMovie"; // Import cron job to auto update movie status
 const app: Express = express();
 const port: number | string = 5000;
 import configViewEngine from "./configs/viewEngine";
