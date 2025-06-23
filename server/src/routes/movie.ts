@@ -1,11 +1,13 @@
 import express, { Router } from "express";
-import { MovieService } from "../services/admin/MovieService";
+import MovieService from "../services/admin/MovieService";
+import ActorService from "../services/admin/ActorService";
 import MovieController from "../controllers/admin/MovieController";
 import uploadMedia from "../middlewares/uploadCloud";
 import { handleMulterError } from "../middlewares/handleMulterError";
 const router: Router = express.Router();
 const movieService = new MovieService();
-const movieController = new MovieController(movieService);
+const actorService = new ActorService();
+const movieController = new MovieController(movieService, actorService);
 router.get("/create-movie", movieController.showViewCreateMovie);
 router.post("/create-movie", handleMulterError(uploadMedia), movieController.createMovie);
 export default router;

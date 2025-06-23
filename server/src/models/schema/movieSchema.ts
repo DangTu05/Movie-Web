@@ -23,11 +23,11 @@ const movieSchema = new Schema(
     releaseDate: { type: Date, required: true, default: Date.now },
     duration: { type: Number, required: true },
     age_permission: { type: Number, required: true },
-    actors: [{ type: String }],
+    actors: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
     status: {
       type: String,
       required: true,
-      enum: { values: ["Sắp chiếu", "Đang chiếu"], message: "Trạng thái không hợp lệ" },
+      enum: { values: ["Sắp chiếu", "Đang chiếu", "Kết thúc"], message: "Trạng thái không hợp lệ" },
       default: "Sắp chiếu"
     }
   },
