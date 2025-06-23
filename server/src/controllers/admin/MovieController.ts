@@ -6,22 +6,15 @@ import sendResponse from "../../utils/handler/response";
 import errorHandler from "../../utils/handler/handleAsync";
 import { StatusCodes } from "http-status-codes";
 import logger from "../../configs/logger";
+import BaseController from "./BaseController";
 
-class MovieController {
+class MovieController extends BaseController {
   constructor(
     private readonly movieService: MovieService,
     private readonly actorService: ActorService
   ) {
-    this.showViewCreateMovie = this.showViewCreateMovie.bind(this);
-
+    super();
     this.createMovie = errorHandler.handleAsyncErrors(this.createMovie.bind(this));
-  }
-  public async showViewCreateMovie(req: Request, res: Response): Promise<void> {
-    logger.info("Fetching all actors for create movie view");
-    const actors = await this.actorService.getAllActor();
-    res.render("admin/pages/create-movie", {
-      actors: actors ?? []
-    });
   }
   public async createMovie(req: Request, res: Response, next: NextFunction): Promise<void> {
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
@@ -36,6 +29,13 @@ class MovieController {
     }
     await this.movieService.createMovie(req.body);
     sendResponse(res, StatusCodes.CREATED, null, "Đã tạo thành công!", "Tạo thành công!");
+  }
+  public async render(req: Request, res: Response): Promise<void> {
+    logger.info("Fetching all actors for create movie view");
+    const actors = await this.actorService.getAllActor();
+    res.render("admin/pages/create-movie", {
+      actors: actors ?? []
+    });
   }
 }
 export default MovieController;

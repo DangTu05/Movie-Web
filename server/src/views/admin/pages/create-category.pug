@@ -1,0 +1,21 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .title
+    h2 Add New Category
+
+  .card
+    .card-body
+      form(class="create-category-form", enctype="multipart/form-data")
+        .form-group
+          label(for="title") Title
+          input#title.form-control(type="text", name="title", required)
+        .form-group.text-end
+          button.btn.btn-primary.create-category-btn(type="submit") Create Category
+  script(type="module", src="/js/admin/create-category.js") 
+  //  SweetAlert2 CDN 
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

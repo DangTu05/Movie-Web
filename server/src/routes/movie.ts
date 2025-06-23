@@ -8,6 +8,6 @@ const router: Router = express.Router();
 const movieService = new MovieService();
 const actorService = new ActorService();
 const movieController = new MovieController(movieService, actorService);
-router.get("/create-movie", movieController.showViewCreateMovie);
+router.get("/create-movie", movieController.showView);
 router.post("/create-movie", handleMulterError(uploadMedia), movieController.createMovie);
 export default router;

@@ -22,7 +22,6 @@ cron.schedule("0 0 * * *", async () => {
         $set: { status: "Đang chiếu" }
       }
     );
-
     logger.info(
       `[CRON] ✅ Đã cập nhật ${result.modifiedCount} phim sang 'Đang chiếu' (ngày ${now.toLocaleDateString()})`
     );
