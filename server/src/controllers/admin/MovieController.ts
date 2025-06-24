@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import MovieService from "../../services/admin/MovieService";
 import ActorService from "../../services/admin/ActorService";
-import ValidateMovie from "../../validations/ValidateMovie";
+import MovieValidate from "../../validations/MovieValidate";
 import sendResponse from "../../utils/handler/response";
 import errorHandler from "../../utils/handler/handleAsync";
 import { StatusCodes } from "http-status-codes";
 import logger from "../../configs/logger";
 import BaseController from "./BaseController";
-
+const _movieValidate = new MovieValidate();
 class MovieController extends BaseController {
   constructor(
     private readonly movieService: MovieService,
@@ -23,7 +23,7 @@ class MovieController extends BaseController {
     const trailerUrl = files["trailer"]?.[0]?.path || "";
     req.body.poster = posterUrl;
     req.body.trailer = trailerUrl;
-    const { success, errors } = ValidateMovie.validateCreateMovie(req);
+    const { success, errors } = _movieValidate.validate(req);
     if (!success) {
       return sendResponse(res, 400, null, "Validation failed", errors);
     }

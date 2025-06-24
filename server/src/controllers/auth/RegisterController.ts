@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import errorHandler from "../../utils/handler/handleAsync";
 import sendResponse from "../../utils/handler/response";
-import ValidateAuth from "../../validations/ValidateAuth";
+import ValidateAuth from "../../validations/AuthValidate";
 import { RegisterService } from "../../services/auth/RegisterService";
 import { StatusCodes } from "http-status-codes";
 class RegisterController {
