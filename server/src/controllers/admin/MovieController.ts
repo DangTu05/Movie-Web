@@ -1,6 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import MovieService from "../../services/admin/MovieService";
-import ActorService from "../../services/admin/ActorService";
 import MovieValidate from "../../validations/MovieValidate";
 import sendResponse from "../../utils/handler/response";
 import errorHandler from "../../utils/handler/handleAsync";
@@ -9,12 +7,13 @@ import logger from "../../configs/logger";
 import BaseController from "./BaseController";
 const _movieValidate = new MovieValidate();
 class MovieController extends BaseController {
-  constructor(
-    private readonly movieService: MovieService,
-    private readonly actorService: ActorService
-  ) {
+  private revides: any[] = [];
+  constructor() {
     super();
     this.createMovie = errorHandler.handleAsyncErrors(this.createMovie.bind(this));
+  }
+  public addRevide(revide: any) {
+    this.revides.push(revide);
   }
   public async createMovie(req: Request, res: Response, next: NextFunction): Promise<void> {
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
@@ -27,14 +26,16 @@ class MovieController extends BaseController {
     if (!success) {
       return sendResponse(res, 400, null, "Validation failed", errors);
     }
-    await this.movieService.createMovie(req.body);
+    await this.revides[0].createMovie(req.body);
     sendResponse(res, StatusCodes.CREATED, null, "Đã tạo thành công!", "Tạo thành công!");
   }
   public async render(req: Request, res: Response): Promise<void> {
     logger.info("Fetching all actors for create movie view");
-    const actors = await this.actorService.getAllActor();
+    const actors = await this.revides[1].getAllActor();
+    const categories = await this.revides[2].getAllCategories();
     res.render("admin/pages/create-movie", {
-      actors: actors ?? []
+      actors: actors ?? [],
+      categories: categories ?? []
     });
   }
 }

@@ -23,12 +23,8 @@ block content
           label(for="genre") Genre
           select#genre.form-control(name="genre")
             option(value="") -- Select Genre --
-            option(value="action") Hành Động
-            option(value="comedy") Hài
-            option(value="drama") Kịch Tính
-            option(value="fantasy") Khoa Học Viễn Tưởng
-            option(value="horror") Ma
-            option(value="romance") Tình Cảm
+            for category in categories
+              option(value=category._id)= category.category_name
         .form-group
           label(for="actor") Actor
           select#actor.form-control(name="actors[]" multiple)
