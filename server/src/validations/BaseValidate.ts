@@ -13,8 +13,7 @@ abstract class BaseValidate<T> {
       data = this.preprocess(data);
       req.body = data; // gán lại body sau khi xử lý
     }
-
-    const result = this.schema.safeParse(data);
+    const result = this.schema.safeParse(req.body);
     if (!result.success) {
       const errors = formatZodErrors(result.error);
       logger.error("Validation errors:", errors);

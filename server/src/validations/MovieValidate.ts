@@ -25,6 +25,7 @@ class MovieValidate extends BaseValidate<MovieType> {
   protected preprocess(data: any) {
     data.age_permission = parseInt(data.age_permission, 10);
     data.duration = parseInt(data.duration, 10);
+    return data;
   }
 }
 export default MovieValidate;
