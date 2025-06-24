@@ -2,7 +2,7 @@ import { z } from "zod";
 import { formatZodErrors } from "../utils/formatZodError";
 import { Request } from "express";
 import logger from "../configs/logger";
-class ValidateAuth {
+class AuthValidate {
   public static userSchema = z.object({
     username: z.string().min(3, "Tên phải có ít nhất 3 ký tự"),
     email: z.string().email("Email không hợp lệ"),
@@ -23,7 +23,7 @@ class ValidateAuth {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static validateRegister(reqbody: Request): { success: boolean; errors?: any } {
-    const result = ValidateAuth.userSchema.safeParse(reqbody.body);
+    const result = AuthValidate.userSchema.safeParse(reqbody.body);
     if (!result.success) {
       // Format lỗi Zod về dạng dễ xử lý
       const errors = formatZodErrors(result.error);
@@ -33,4 +33,4 @@ class ValidateAuth {
     return { success: true };
   }
 }
-export default ValidateAuth;
+export default AuthValidate;

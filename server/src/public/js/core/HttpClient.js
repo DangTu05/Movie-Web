@@ -16,6 +16,7 @@ class HttpClient {
         requestOptions.body = data; // FormData không cần stringify
         delete requestOptions.headers["Content-Type"]; // Trình duyệt sẽ tự động thiết lập Content-Type cho FormData
       } else {
+        requestOptions.body = JSON.stringify(data); // Chuyển đổi dữ liệu thành chuỗi JSON
         requestOptions.headers["Content-Type"] = "application/json"; // Thiết lập Content-Type nếu không phải FormData
       }
       const fetchData = await fetch(`${baseApiUrl}/${endpoint}`, requestOptions);

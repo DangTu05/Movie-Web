@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import errorHandler from "../../utils/handler/handleAsync";
 import sendResponse from "../../utils/handler/response";
-import ValidateAuth from "../../validations/ValidateAuth";
+import ValidateAuth from "../../validations/AuthValidate";
 import { LoginService } from "../../services/auth/LoginService";
 class LoginController {
   constructor(private readonly loginService: LoginService) {
