@@ -1,0 +1,33 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .title
+    h2 Add New Voucher
+
+  .card
+    .card-body
+      form(class="create-voucher-form", enctype="multipart/form-data")
+        .form-group
+          label(for="title") Voucher Name
+          input#voucher_name.form-control(type="text", name="voucher_name", required)
+        .form-group
+          label(for="voucher_start") Voucher Start
+          input#voucher_start.form-control(type="date", name="voucher_start")
+        .form-group 
+          label(for="voucher_end") Voucher End
+          input#voucher_end.form-control(type="date", name="voucher_end")
+        .form-group
+          label(for="voucher_discount") Voucher Discount 
+          input#voucher_discount.form-control(type="number", name="voucher_discount", min="1",max="100",step="0.01")
+        .form-group
+          label(for="voucher_script") Voucher Script
+          textarea#voucher_script.form-control(name="voucher_script", rows="4")
+        .form-group.text-end
+          button.btn.btn-primary.create-voucher-btn(type="submit") Create Voucher
+  script(type="module", src="/js/admin/create-voucher.js") 
+  //  SweetAlert2 CDN 
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
