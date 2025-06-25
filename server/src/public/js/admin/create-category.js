@@ -1,6 +1,6 @@
 import { showInfo, showConfirm } from "../shared/alert.js";
 import BaseService from "../service/Base.js";
-import ValidateCategory from "../validations/ValidateCategory.js";
+import CategoryValidate from "../validations/CategoryValidate.js";
 const _baseService = new BaseService();
 window.onload = () => {
   const category_name = document.getElementById("category_name");
@@ -12,7 +12,7 @@ window.onload = () => {
       const data = {
         category_name: category_name.value.trim()
       };
-      if (!ValidateCategory.validateCreateCategory(data)) {
+      if (!CategoryValidate.validateCreateCategory(data)) {
         return;
       }
       try {

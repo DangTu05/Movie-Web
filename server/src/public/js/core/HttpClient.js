@@ -12,6 +12,8 @@ class HttpClient {
         credentials: "include" // gửi cookie nếu cần (ví dụ: đăng nhập)
       };
       const isFormData = data instanceof FormData;
+      console.log(data);
+      
       if (isFormData) {
         requestOptions.body = data; // FormData không cần stringify
         delete requestOptions.headers["Content-Type"]; // Trình duyệt sẽ tự động thiết lập Content-Type cho FormData

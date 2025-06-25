@@ -36,6 +36,7 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
     const { success, errors } = this.validate(req);
     if (!success) {
       logger.error("Validation failed", errors);
+      console.log(errors);
       return sendResponse(res, 400, null, "Validation failed", errors);
     }
     await this.service.create(req.body);

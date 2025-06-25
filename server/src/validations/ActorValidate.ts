@@ -1,7 +1,4 @@
 import { z } from "zod";
-import { formatZodErrors } from "../utils/formatZodError";
-import { Request } from "express";
-import logger from "../configs/logger";
 import BaseValidate from "./BaseValidate";
 const actorSchema = z.object({
   actor_name: z.string(),

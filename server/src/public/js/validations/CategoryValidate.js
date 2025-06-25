@@ -1,7 +1,7 @@
 import { showInfo, showConfirm } from "../shared/alert.js";
 import constants from "../shared/constants.js";
 
-class ValidateCategory {
+class CategoryValidate {
   static validateCreateCategory(data) {
     if (!data.category_name) {
       showInfo(constants.WARNING_INFO, constants.WARNING_INPUT, "warning");
@@ -10,4 +10,4 @@ class ValidateCategory {
     return true;
   }
 }
-export default ValidateCategory;
+export default CategoryValidate;
