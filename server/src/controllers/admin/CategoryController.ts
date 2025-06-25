@@ -6,24 +6,22 @@ import { StatusCodes } from "http-status-codes";
 import logger from "../../configs/logger";
 import sendResponse from "../../utils/handler/response";
 import CategoryValidate from "../../validations/CategoryValidate";
+import { ICategory } from "../../models/schema/categorySchema";
+import { ICategoryInput } from "../../interfaces/ICategoryInput";
 const _categoryValidate = new CategoryValidate();
-class CategoryController extends BaseController {
+class CategoryController extends BaseController<CategoryService, ICategoryInput, ICategory> {
   constructor(private readonly categoryService: CategoryService) {
     super();
-    this.createCategory = errorHandler.handleAsyncErrors(this.createCategory.bind(this));
   }
+  // render view cho việc tạo mới category
+  // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-category
   public async render(req: Request, res: Response): Promise<void> {
     res.render("admin/pages/create-category");
   }
-  public async createCategory(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const { success, errors } = _categoryValidate.validate(req);
-    if (!success) {
-      logger.error("Validation failed", errors);
-      return sendResponse(res, StatusCodes.BAD_REQUEST, null, "Validation failed", errors);
-    }
-    await this.categoryService.createCategory(req.body);
-    logger.info("Category created successfully", req.body);
-    sendResponse(res, StatusCodes.CREATED, null, "Category created successfully", "Category created successfully");
+  protected service: CategoryService = this.categoryService;
+  // Xử lý dữ liệu từ request để tạo category
+  protected validate(req: Request): { success: boolean; errors?: any } {
+    return _categoryValidate.validate(req);
   }
 }
 export default CategoryController;
