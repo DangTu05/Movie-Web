@@ -1,29 +1,31 @@
 import mongoose, { Schema } from "mongoose";
 import { BaseDocument, baseFields } from "../base/BaseDocument";
+type ObjectId = mongoose.Types.ObjectId;
 interface IMovie extends BaseDocument {
   title: string;
-  description: string;
-  genre: string;
+  description?: string;
+  genre: ObjectId; // Reference to Category
   poster: string;
   trailer: string;
   releaseDate: Date;
   duration: number;
   age_permission: number;
-  actors: string[];
-  status: string;
+  actors?: ObjectId[]; // Array of references to Actor
+  status: "Sắp chiếu" | "Đang chiếu" | "Kết thúc"; // Enum for movie status
 }
+
 const movieSchema = new Schema(
   {
     ...baseFields,
     title: { type: String, required: true },
     description: { type: String },
-    genre: { type: String, required: true },
+    genre: { type: mongoose.Types.ObjectId, ref: "Category", required: true },
     poster: { type: String, required: true },
     trailer: { type: String, required: true },
     releaseDate: { type: Date, required: true, default: Date.now },
     duration: { type: Number, required: true },
     age_permission: { type: Number, required: true },
-    actors: [{ type: Schema.Types.ObjectId, ref: "Actor" }],
+    actors: [{ type: mongoose.Types.ObjectId, ref: "Actor" }],
     status: {
       type: String,
       required: true,

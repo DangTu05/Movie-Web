@@ -1,10 +1,10 @@
 import categoryModel from "../../models/schema/categorySchema";
 import { ICategory } from "../../models/schema/categorySchema";
-class CategoryService {
-  public async createCategory(categoryData: any): Promise<void> {
-    const newCategory = new categoryModel(categoryData);
-    await newCategory.save();
-  }
+import { IBaseService } from "../../interfaces/IBaseService";
+import { ICategoryInput } from "../../interfaces/ICategoryInput";
+import BaseService from "./BaseService";
+class CategoryService extends BaseService<ICategory, ICategoryInput> {
+  protected model = categoryModel;
   public async getAllCategories(): Promise<ICategory[]> {
     return await categoryModel.find({ deleted: false }).sort({ createdAt: -1 });
   }

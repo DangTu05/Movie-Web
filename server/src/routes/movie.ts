@@ -10,9 +10,11 @@ const movieService = new MovieService();
 const actorService = new ActorService();
 const categoryService = new CategoryService();
 const movieController = new MovieController();
-movieController.addRevide(movieService);
-movieController.addRevide(actorService);
-movieController.addRevide(categoryService);
+// Thêm các dịch vụ vào controller
+movieController.addRevide("movieService", movieService);
+movieController.addRevide("actorService", actorService);
+movieController.addRevide("categoryService", categoryService);
+// Các route
 router.get("/create-movie", movieController.showView);
-router.post("/create-movie", handleMulterError(uploadMedia), movieController.createMovie);
+router.post("/create-movie", handleMulterError(uploadMedia), movieController.create);
 export default router;

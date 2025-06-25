@@ -3,7 +3,6 @@ import { formatZodErrors } from "../utils/formatZodError";
 import { Request } from "express";
 import logger from "../configs/logger";
 import BaseValidate from "./BaseValidate";
-import { IActor } from "../models/schema/actorSchema";
 const actorSchema = z.object({
   actor_name: z.string(),
   birthDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
