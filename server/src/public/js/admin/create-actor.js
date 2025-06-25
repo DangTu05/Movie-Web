@@ -1,5 +1,5 @@
 import { showInfo, showConfirm } from "../shared/alert.js";
-import ValidateActor from "../validations/ValidateActor.js";
+import ActorValidate from "../validations/ActorValidate.js";
 import BaseService from "../service/Base.js";
 const _baseService = new BaseService();
 window.onload = () => {
@@ -23,7 +23,7 @@ window.onload = () => {
         nationality: nationality.value,
         actor_image: actor_image.files[0]
       };
-      if (!ValidateActor.validateCreateActor(data)) {
+      if (!ActorValidate.validateCreateActor(data)) {
         return;
       }
       formData.append("actor_name", actor_name.value);

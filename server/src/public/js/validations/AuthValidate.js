@@ -4,7 +4,7 @@ const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
-class ValidateAuth {
+class AuthValidate {
   static validateRegister(data) {
     if (!data.email || !data.username || !data.password) {
       showInfo(constants.WARNING_INFO, constants.WARNING_INPUT, "warning");
@@ -32,4 +32,4 @@ class ValidateAuth {
     return true;
   }
 }
-export default ValidateAuth;
+export default AuthValidate;

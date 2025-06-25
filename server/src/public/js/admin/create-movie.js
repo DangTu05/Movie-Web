@@ -1,6 +1,6 @@
 import { showInfo, showConfirm } from "../shared/alert.js";
 import BaseService from "../service/Base.js";
-import ValidateMovie from "../validations/ValidateMovie.js";
+import MovieValidate from "../validations/MovieValidate.js";
 const _baseService = new BaseService();
 
 window.onload = () => {
@@ -33,7 +33,7 @@ window.onload = () => {
         status: status.value,
         actors: selectedActors ? selectedActors : []
       };
-      if (!ValidateMovie.validateCreateMovie(data)) {
+      if (!MovieValidate.validateCreateMovie(data)) {
         return;
       }
       formData.append("title", title.value);
