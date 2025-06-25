@@ -6,7 +6,6 @@ import { IMovieInput } from "../../interfaces/IMovieInput";
 import existActor from "../../helpers/existActor";
 import existCategory from "../../helpers/existCategory";
 import BaseService from "./BaseService";
-import { stat } from "fs";
 
 class MovieService extends BaseService<IMovie, IMovieInput> {
   protected model = movieModel;
@@ -50,6 +49,11 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
     }
 
     return converted as IMovie;
+  }
+  public getMovieStatus(releaseDate: Date) {
+    const now = new Date();
+    if (now > new Date(releaseDate)) return "Đang chiếu";
+    return "Sắp chiếu";
   }
 }
 

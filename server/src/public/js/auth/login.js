@@ -1,6 +1,6 @@
 import { showInfo, showConfirm } from "../shared/alert.js";
 import AuthServices from "../service/auth.js";
-import ValidateAuth from "../validations/ValidateAuth.js";
+import AuthValidate from "../validations/AuthValidate.js";
 const _authServices = new AuthServices();
 window.onload = () => {
   const username = document.getElementById("username");
@@ -14,7 +14,7 @@ window.onload = () => {
         username: username.value,
         password: password.value
       };
-      if (!ValidateAuth.validateLogin(data)) return;
+      if (!AuthValidate.validateLogin(data)) return;
       try {
         const response = await _authServices.loginUser(data);
         if (response.status === 200) {

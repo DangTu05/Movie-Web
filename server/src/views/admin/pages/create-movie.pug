@@ -33,12 +33,6 @@ block content
               for actor in actors
                 option(value=actor._id)= actor.actor_name
         .form-group
-          label(for="status") Status
-          select#status.form-control(name="status")
-            option(value="") -- Select Status --
-            option(value="Sắp chiếu") Sắp Chiếu
-            option(value="Đang chiếu") Đang Chiếu 
-        .form-group
           label(for="releaseDate") Release Date
           input#releaseDate.form-control(type="date", name="releaseDate")
 

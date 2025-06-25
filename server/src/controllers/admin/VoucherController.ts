@@ -1,8 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import BaseController from "./BaseController";
 import logger from "../../configs/logger";
-class VoucherController extends BaseController<any, any, any> {
-  constructor() {
+import VoucherService from "../../services/admin/VoucherService";
+import { IVoucherInput } from "../../interfaces/IVoucherInput";
+import { IVoucher } from "../../models/schema/voucherSchema";
+import VoucherValidate from "../../validations/VoucherValidate";
+const _voucherValidate = new VoucherValidate();
+class VoucherController extends BaseController<VoucherService, IVoucherInput, IVoucher> {
+  constructor(private readonly voucherService: VoucherService) {
     super();
   }
 
@@ -13,15 +18,16 @@ class VoucherController extends BaseController<any, any, any> {
     res.render("admin/pages/create-voucher");
   }
 
-  protected service: any; // Chưa có service cụ thể, cần implement sau
-
+  protected service: VoucherService = this.voucherService; // Chưa có service cụ thể, cần implement sau
   // Xử lý dữ liệu từ request để tạo voucher
-  protected extractDataFromRequest(req: Request): any {
-    return req.body; // Cần implement logic xử lý dữ liệu voucher
+  protected extractDataFromRequest(req: Request): IVoucher {
+    // Tự động khởi tạo trạng thái theo ngày
+    const status = this.service.getVoucherStatus(req.body.voucher_start, req.body.voucher_end);
+    req.body.status = status;
+    return req.body as IVoucher;
   }
-
   protected validate(req: Request): { success: boolean; errors?: any } {
-    return { success: true }; // Cần implement logic xác thực voucher
+    return _voucherValidate.validate(req);
   }
 }
 export default VoucherController;

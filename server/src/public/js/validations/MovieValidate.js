@@ -1,6 +1,6 @@
 import { showInfo } from "../shared/alert.js";
 import constants from "../shared/constants.js";
-class ValidateMovie {
+class MovieValidate {
   static validateCreateMovie(data) {
     if (
       !data.title ||
@@ -23,4 +23,4 @@ class ValidateMovie {
     return true;
   }
 }
-export default ValidateMovie;
+export default MovieValidate;

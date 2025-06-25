@@ -1,7 +1,7 @@
 import { showInfo, showConfirm } from "../shared/alert.js";
 import { isValidEmail } from "../shared/validate.js";
 import AuthServices from "../service/auth.js";
-import ValidateAuth from "../validations/ValidateAuth.js";
+import AuthValidate from "../validations/AuthValidate.js";
 const _authServices = new AuthServices();
 window.onload = () => {
   const email = document.getElementById("email");
@@ -17,7 +17,7 @@ window.onload = () => {
         username: username.value,
         password: password.value
       };
-      if (!ValidateAuth.validateRegister(data)) return;
+      if (!AuthValidate.validateRegister(data)) return;
       try {
         registerButton.disabled = true;
         const response = await _authServices.registerUser(data);

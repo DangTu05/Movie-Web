@@ -9,7 +9,7 @@ cron.schedule("0 0 * * *", async () => {
     const now = new Date();
     const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const endOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-
+    // cập nhật trạng thái phim
     const result = await movieModel.updateMany(
       {
         status: "Sắp chiếu",

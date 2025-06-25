@@ -35,6 +35,7 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
     const trailerUrl = files["trailer"]?.[0]?.path || "";
     req.body.poster = posterUrl;
     req.body.trailer = trailerUrl;
+    req.body.status = this.service.getMovieStatus(req.body.releaseDate);
     return req.body as IMovieInput;
   }
   // Xác thực dữ liệu từ request bằng zod
