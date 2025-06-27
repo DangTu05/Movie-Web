@@ -23,6 +23,9 @@ block content
         .form-group
           label(for="adress") Address 
           select#address.form-control(name="address")
+            option(value="") -- Select Address --
+            for province in provinces
+              option(value=province.code)= province.name
         .form-group
           label(for="map") Map 
           input#map.form-control(name="map")
