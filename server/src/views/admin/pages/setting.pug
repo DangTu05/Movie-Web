@@ -13,21 +13,21 @@ block content
       form(class="setting-form", enctype="multipart/form-data")
         .form-group
           label(for="website-name") Website Name
-          input#website_name.form-control(type="text", name="website_name", required)
+          input#website_name.form-control(type="text", name="website_name", required, value=(setting && setting.website_name) || "") 
         .form-group 
           label(for="email") Email
-          input#email.form-control(name="email")       
+          input#email.form-control(name="email", value=(setting && setting.email) || "")       
         .form-group
           label(for="hotline") Hotline
-          input#hotline.form-control(name="hotline", pattern="0[0-9]{9}", placeholder="Nhập số điện thoại")
+          input#hotline.form-control(name="hotline", pattern="0[0-9]{9}", placeholder="Nhập số điện thoại", value=(setting && setting.hotline) || "")
         .form-group
           label(for="adress") Address 
-          select#address.form-control(name="address")
+          select#address.form-control(name="address",)
             option(value="") -- Select Address --
             for province in provinces
-              option(value=province.name)= province.name
+              option(value=province.name, selected=(setting && province.name === setting.address))= province.name
         .form-group
-          label(for="map") Map 
+          label(for="map", value=(setting && setting.map) || "") Map 
           input#map.form-control(name="map")
         .form-group
           label(for="logo") Logo
