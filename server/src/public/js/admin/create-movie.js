@@ -13,7 +13,6 @@ window.onload = () => {
   const releaseDate = document.getElementById("releaseDate");
   const duration = document.getElementById("duration");
   const age_permission = document.getElementById("age_permission");
-  const status = document.getElementById("status");
   const createMovieForm = document.querySelector(".create-movie-form");
   const createMovieButton = document.querySelector(".create-movie-btn");
   if (createMovieForm) {
@@ -30,7 +29,6 @@ window.onload = () => {
         releaseDate: releaseDate.value,
         duration: duration.value ? parseInt(duration.value, 10) : 0,
         age_permission: age_permission.value ? parseInt(age_permission.value, 10) : 0,
-        status: status.value,
         actors: selectedActors ? selectedActors : []
       };
       if (!MovieValidate.validateCreateMovie(data)) {
@@ -47,7 +45,6 @@ window.onload = () => {
       formData.append("releaseDate", releaseDate.value);
       formData.append("duration", data.duration);
       formData.append("age_permission", data.age_permission);
-      formData.append("status", status.value);
       try {
         const response = await _baseService.create(formData, "admin/movie/create-movie");
         if (response.status === 201) {

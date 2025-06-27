@@ -1,4 +1,4 @@
-import { update } from "./../../../../CodeClone/backend-we-connect/react-we-connect/backend-we-connect/src/controllers/user.controller";
+
 import cron from "node-cron";
 import voucherModel from "../models/schema/voucherSchema";
 import logger from "../configs/logger";
