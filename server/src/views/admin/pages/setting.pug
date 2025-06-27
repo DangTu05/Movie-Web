@@ -10,7 +10,7 @@ block content
 
   .card
     .card-body
-      form(class="setting-form")
+      form(class="setting-form", enctype="multipart/form-data")
         .form-group
           label(for="website-name") Website Name
           input#website_name.form-control(type="text", name="website_name", required)
@@ -25,7 +25,7 @@ block content
           select#address.form-control(name="address")
             option(value="") -- Select Address --
             for province in provinces
-              option(value=province.code)= province.name
+              option(value=province.name)= province.name
         .form-group
           label(for="map") Map 
           input#map.form-control(name="map")

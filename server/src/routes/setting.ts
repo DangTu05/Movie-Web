@@ -1,6 +1,10 @@
 import { Router } from "express";
 import SettingController from "../controllers/admin/SettingController";
+import SettingService from "../services/admin/SettingService";
+import { uploadImage } from "../middlewares/uploadCloud";
 const router: Router = Router();
-const settingController = new SettingController();
-router.get("/", settingController.render);
+const settingService = new SettingService();
+const settingController = new SettingController(settingService);
+router.get("/", settingController.showView);
+router.post("/update-setting", uploadImage.single("logo"), settingController.create);
 export default router;
