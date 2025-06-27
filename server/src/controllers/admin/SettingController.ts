@@ -12,10 +12,12 @@ class SettingController extends BaseController<SettingService, ISettingInput, IS
     super();
   }
   public async render(req: Request, res: Response): Promise<void> {
+    const setting = await this.service.getSetting();
     const provinces = await getProvinces();
     logger.info("Rendering setting view");
     res.render("admin/pages/setting", {
-      provinces: provinces
+      provinces: provinces,
+      setting: setting
     });
   }
   protected service: SettingService = this.settingService;
