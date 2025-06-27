@@ -1,0 +1,36 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .title
+    h2 Setting
+
+  .card
+    .card-body
+      form(class="setting-form")
+        .form-group
+          label(for="website-name") Website Name
+          input#website_name.form-control(type="text", name="website_name", required)
+        .form-group 
+          label(for="email") Email
+          input#email.form-control(name="email")       
+        .form-group
+          label(for="hotline") Hotline
+          input#hotline.form-control(name="hotline", pattern="0[0-9]{9}", placeholder="Nhập số điện thoại")
+        .form-group
+          label(for="adress") Address 
+          select#address.form-control(name="address")
+        .form-group
+          label(for="map") Map 
+          input#map.form-control(name="map")
+        .form-group
+          label(for="logo") Logo
+          input#logo.form-control(type="file", name="logo", accept="image/*")
+        .form-group.text-end
+          button.btn.btn-primary.create-voucher-btn(type="submit") Update
+  script(type="module", src="/js/admin/setting.js") 
+  //  SweetAlert2 CDN 
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
