@@ -1,4 +1,3 @@
-import { Role } from "./../../../../../CodeClone/nodejs-boilerplate/src/models/User";
 import BaseService from "./BaseService";
 import roleModel, { IRole } from "../../models/schema/roleSchema";
 import { IRoleInput } from "../../interfaces/IRoleInput";
