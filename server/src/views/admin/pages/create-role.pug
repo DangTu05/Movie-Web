@@ -1,0 +1,24 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .title
+    h2 Add New Role
+
+  .card
+    .card-body
+      form(class="create-role-form")
+        .form-group
+          label(for="role_name") Role Name:
+          input#role_name.form-control(type="text", name="role_name", required)
+        .form-group
+          label(for="description") Description:
+          textarea#description.form-control(name="description", rows="4", cols="50", placeholder="Nhập mô tả ở đây...") 
+        .form-group.text-end
+          button.btn.btn-primary.create-role-btn(type="submit") Create Role
+  script(type="module", src="/js/admin/create-role.js") 
+  //  SweetAlert2 CDN 
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
