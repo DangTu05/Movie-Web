@@ -10,7 +10,7 @@ window.onload = () => {
   const map = document.getElementById("map");
   const logo = document.getElementById("logo");
   const settingForm = document.querySelector(".setting-form");
-
+  const preview = document.querySelector(".preview");
   if (settingForm) {
     settingForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -44,4 +44,12 @@ window.onload = () => {
       }
     });
   }
+  /// xử lý preview img
+  logo.addEventListener("change", () => { 
+    if (logo.type === "file") {
+      const [file] = logo.files;
+      preview.src = URL.createObjectURL(file);
+    }
+  });
+  ///end preview img
 };

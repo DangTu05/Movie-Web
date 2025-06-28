@@ -32,6 +32,7 @@ block content
         .form-group
           label(for="logo") Logo
           input#logo.form-control(type="file", name="logo", accept="image/*")
+        img.preview(src=(setting && setting.logo) || "")
         .form-group.text-end
           button.btn.btn-primary.create-voucher-btn(type="submit") Update
   script(type="module", src="/js/admin/setting.js") 
