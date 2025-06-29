@@ -11,7 +11,7 @@ block content
       .permissions-header
         h1 Phân quyền
         //- if(role.permissions.includes('role_permissions'))
-          button.update-btn Cập nhật
+        button.update-btn Cập nhật
         //- else 
         //-   span.update-btn(disabled) Cập nhật
       table(class="table-hover table",table-permissions)
@@ -28,7 +28,33 @@ block content
                 td(class="text-center")
                   input(type="text",value=item._id)
           tr.permission-header
-            td(colspan=(count ? count + 1 : 1)) Danh mục sản phẩm
+            td(colspan=(count ? count + 1 : 1)) Phim
+          tr(data-name="movie_view")
+            td Xem
+            if data && data.roles.length
+              each item in data.roles
+                td
+                  input(type="checkbox")
+          tr(data-name="movie_create") 
+            td Thêm mới
+            if data && data.roles.length
+              each item in data.roles
+                td
+                  input(type="checkbox")
+          tr(data-name="movie_edit")
+            td Chỉnh sửa
+            if data && data.roles.length
+              each item in data.roles
+                td
+                  input(type="checkbox")
+          tr(data-name="movie_delete")
+            td Xóa
+            if data && data.roles.length
+              each item in data.roles
+                td
+                  input(type="checkbox")
+          tr.permission-header
+            td(colspan=(count ? count + 1 : 1)) Thể loại
           tr(data-name="category_view")
             td Xem
             if data && data.roles.length
@@ -53,29 +79,4 @@ block content
               each item in data.roles
                 td
                   input(type="checkbox")
-          tr.permission-header
-            td(colspan=(count ? count + 1 : 1)) Sản phẩm
-          tr(data-name="product_view")
-            td Xem
-            if data && data.roles.length
-              each item in data.roles
-                td
-                  input(type="checkbox")
-          tr(data-name="product_create") 
-            td Thêm mới
-            if data && data.roles.length
-              each item in data.roles
-                td
-                  input(type="checkbox")
-          tr(data-name="product_edit")
-            td Chỉnh sửa
-            if data && data.roles.length
-              each item in data.roles
-                td
-                  input(type="checkbox")
-          tr(data-name="product_delete")
-            td Xóa
-            if data && data.roles.length
-              each item in data.roles
-                td
-                  input(type="checkbox")
+  script(type="module", src="/js/admin/permission.js") 
