@@ -12,5 +12,13 @@ class BaseService {
       throw error;
     }
   }
+  async update(data, enpoint) {
+    try {
+      const response = await this.httpClient.request(enpoint, httpMethods.PATCH, httpHeaders.content.json, data);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 export default BaseService;
