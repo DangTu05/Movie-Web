@@ -4,6 +4,6 @@ import RoleService from "../services/admin/RoleService";
 const router: Router = Router();
 const roleService = new RoleService();
 const roleController = new RoleController(roleService);
-router.get("/create-role", roleController.render);
+router.get("/:view", roleController.showView);
 router.post("/create-role", roleController.create);
 export default router;

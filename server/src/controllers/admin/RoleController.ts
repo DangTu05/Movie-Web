@@ -14,9 +14,19 @@ class RoleController extends BaseController<RoleService, IRoleInput, IRole> {
   protected validate(req: Request): { success: boolean; errors?: any } {
     return _roleValidate.validate(req);
   }
+  /// Show giao diện
   async render(req: Request, res: Response) {
-    logger.info("Rendering create role view");
-    res.render("admin/pages/create-role");
+    const viewName = req.params.view || "create-role"; // hoặc lấy từ query/view logic
+    let data: any = {};
+    if (viewName === "permission") {
+      const roles = await this.roleService.getRole();
+      const count = await this.roleService.getCountRole();
+      data.roles = roles;
+      data.count = count;
+    }
+    logger.info(`Rendering view: ${viewName}`);
+    res.render(`admin/pages/${viewName}`, { data: data });
   }
+  /// End show giao diện
 }
 export default RoleController;
