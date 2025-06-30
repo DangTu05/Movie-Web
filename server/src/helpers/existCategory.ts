@@ -7,4 +7,4 @@ const existCategory = async (categoryId: string): Promise<boolean> => {
   return true;
 };
 
-export default existCategory;
+export { existCategory };

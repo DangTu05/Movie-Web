@@ -1,0 +1,34 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .title
+    h2 Add New Account
+
+  .card
+    .card-body
+      form(class="create-account-form")
+        .form-group
+          label(for="email") Email 
+          input#email.form-control(type="text", name="email", required)
+        .form-group
+          label(for="username") User Name
+          input#username.form-control(type="text", name="username",required)
+        .form-group 
+          label(for="password") PassWord
+          input#password.form-control(type="text", name="password", required)
+        .form-group
+          label(for="role") Role 
+          select#role.form-control(name="role")
+            option(value="") -- Select Role --
+            if(roles.length>0)
+              for role in roles
+                option(value=role._id)= role.role_name
+        .form-group.text-end
+          button.btn.btn-primary.create-account-btn(type="submit") Create Account
+  script(type="module", src="/js/admin/create-account.js") 
+  //  SweetAlert2 CDN 
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

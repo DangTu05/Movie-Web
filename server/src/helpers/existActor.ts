@@ -6,4 +6,4 @@ const existActor = async (actorId: string): Promise<boolean> => {
   }
   return true;
 };
-export default existActor;
+export { existActor };

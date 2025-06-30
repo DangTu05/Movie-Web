@@ -3,14 +3,14 @@ import { StatusCodes } from "http-status-codes";
 import ApiError from "../../utils/ApiError";
 import movieModel, { IMovie } from "../../models/schema/movieSchema";
 import { IMovieInput } from "../../interfaces/IMovieInput";
-import existActor from "../../helpers/existActor";
-import existCategory from "../../helpers/existCategory";
+import { existActor } from "../../helpers/existActor";
+import { existCategory } from "../../helpers/existCategory";
 import BaseService from "./BaseService";
 
 class MovieService extends BaseService<IMovie, IMovieInput> {
   protected model = movieModel;
 
-  protected async checkExists(movieData: IMovieInput): Promise<IMovie> {
+  protected async convertData(movieData: IMovieInput): Promise<IMovie> {
     const status = ["Sắp chiếu", "Đang chiếu", "Kết thúc"].includes(movieData.status)
       ? (movieData.status as "Sắp chiếu" | "Đang chiếu" | "Kết thúc")
       : "Sắp chiếu";
