@@ -19,7 +19,6 @@ abstract class BaseValidate<T> {
       logger.error("Validation errors:", errors);
       return { success: false, errors };
     }
-
     return { success: true };
   }
 }
