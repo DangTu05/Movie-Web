@@ -1,3 +1,2 @@
-class Constants {
-}
+class Constants {}
 export default Constants;

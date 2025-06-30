@@ -10,10 +10,14 @@ import ApiError from "../../utils/ApiError";
 import { StatusCodes } from "http-status-codes";
 class AccountService extends BaseService<IAccount, IAccountInput> {
   protected model = accountModel;
-  public async create(data: IAccountInput): Promise<void> {
+  public async create(data: IAccountInput) {
     const session = await mongoose.startSession();
     session.startTransaction();
     try {
+      // Kiểm tra email
+      const emailExists = await existEmail(data.email);
+      if (emailExists) throw new ApiError(StatusCodes.BAD_REQUEST, "Email đã tồn tại");
+
       // Tạo user
       const user = await userModel.create([{}], { session });
 
@@ -34,12 +38,15 @@ class AccountService extends BaseService<IAccount, IAccountInput> {
         ],
         { session }
       );
+      // Commit transaction
       await session.commitTransaction();
     } catch (err) {
+      // Rollback transaction
       await session.abortTransaction();
       throw err;
     } finally {
-      session.endSession();
+      // Kết thúc phiên
+      await session.endSession();
     }
   }
 }

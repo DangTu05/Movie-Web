@@ -5,20 +5,10 @@ class BaseService {
     this.httpClient = new HttpClient();
   }
   async create(data, enpoint) {
-    try {
-      const response = await this.httpClient.request(enpoint, httpMethods.POST, httpHeaders.content.json, data);
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    return await this.httpClient.request(enpoint, httpMethods.POST, httpHeaders.content.json, data);
   }
   async update(data, enpoint) {
-    try {
-      const response = await this.httpClient.request(enpoint, httpMethods.PATCH, httpHeaders.content.json, data);
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    return await this.httpClient.request(enpoint, httpMethods.PATCH, httpHeaders.content.json, data);
   }
 }
 export default BaseService;

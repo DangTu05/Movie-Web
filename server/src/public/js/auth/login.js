@@ -1,4 +1,4 @@
-import { showInfo, showConfirm } from "../shared/alert.js";
+import { showInfo } from "../shared/alert.js";
 import AuthServices from "../service/auth.js";
 import AuthValidate from "../validations/AuthValidate.js";
 const _authServices = new AuthServices();
@@ -18,7 +18,7 @@ window.onload = () => {
       try {
         const response = await _authServices.loginUser(data);
         if (response.status === 200) {
-          showInfo("Thành Công", "Đăng nhập thành công!", "success").then((result) => {
+          showInfo("Thành Công", "Đăng nhập thành công!", "success").then(() => {
             window.location.href = "/";
             return;
           });

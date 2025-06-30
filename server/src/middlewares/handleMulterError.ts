@@ -1,4 +1,5 @@
-import multer, { MulterError } from "multer";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { MulterError } from "multer";
 import { Request, Response, NextFunction } from "express";
 
 // Gói middleware multer và xử lý lỗi

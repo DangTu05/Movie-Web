@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 export const showConfirm = (title, text, icon = "warning", confirmText = "Yes") => {
   return Swal.fire({
     title,

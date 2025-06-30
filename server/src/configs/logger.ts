@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 // eslint-disable-next-file indent
 import fs from "fs";
 import path from "path";
@@ -17,8 +18,10 @@ const logger = winston.createLogger({
     winston.format.errors({ stack: true }),
     winston.format.splat(),
     winston.format.simple(),
-    winston.format.printf(({ level, message, timestamp }) => {
-      return `[${timestamp}] ${level.toUpperCase()}: ${typeof message === "object" ? JSON.stringify(message) : message}`;
+    winston.format.printf(({ level, message, timestamp, stack }) => {
+      return `[${timestamp}] ${level.toUpperCase()}: ${
+        stack || (typeof message === "object" ? JSON.stringify(message) : message)
+      }`;
     })
   ),
   transports: [

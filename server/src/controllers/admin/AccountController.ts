@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Request, Response } from "express";
 import BaseController from "./BaseController";
 import { IAccountInput } from "../../interfaces/IAccountInput";
 import { IAccount } from "../../models/schema/accountSchema";

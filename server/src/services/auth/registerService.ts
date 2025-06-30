@@ -5,7 +5,7 @@ import userModel from "../../models/schema/userSchema";
 import ApiError from "../../utils/ApiError";
 import { hashPassword } from "../../utils/passwordUtil";
 export class RegisterService {
-  public async register(account: { username: string; email: string; password: string }): Promise<void> {
+  public async register(account: { username: string; email: string; password: string }) {
     // Kiểm tra email có tồn tại hay chưa
     const existingAccount = await accountModel.findOne({ email: account.email });
     if (existingAccount) {
