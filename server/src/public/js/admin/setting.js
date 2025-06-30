@@ -1,4 +1,4 @@
-import { showInfo, showConfirm } from "../shared/alert.js";
+import { showInfo } from "../shared/alert.js";
 import BaseService from "../service/Base.js";
 import SettingValidate from "../validations/SettingValidate.js";
 const _baseService = new BaseService();
@@ -45,7 +45,7 @@ window.onload = () => {
     });
   }
   /// xử lý preview img
-  logo.addEventListener("change", () => { 
+  logo.addEventListener("change", () => {
     if (logo.type === "file") {
       const [file] = logo.files;
       preview.src = URL.createObjectURL(file);

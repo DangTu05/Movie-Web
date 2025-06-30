@@ -1,10 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
+import { Request, Response } from "express";
 import BaseController from "./BaseController";
 import CategoryService from "../../services/admin/CategoryService";
-import errorHandler from "../../utils/handler/handleAsync";
-import { StatusCodes } from "http-status-codes";
-import logger from "../../configs/logger";
-import sendResponse from "../../utils/handler/response";
 import CategoryValidate from "../../validations/CategoryValidate";
 import { ICategory } from "../../models/schema/categorySchema";
 import { ICategoryInput } from "../../interfaces/ICategoryInput";
@@ -15,8 +13,9 @@ class CategoryController extends BaseController<CategoryService, ICategoryInput,
   }
   // render view cho việc tạo mới category
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-category
-  public async render(req: Request, res: Response): Promise<void> {
-    res.render("admin/pages/create-category");
+  public async render(req: Request, res: Response) {
+    const viewName = req.params.view;
+    res.render(`admin/pages/${viewName}`);
   }
   protected service: CategoryService = this.categoryService;
   // Xử lý dữ liệu từ request để tạo category

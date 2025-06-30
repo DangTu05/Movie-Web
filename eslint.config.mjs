@@ -5,7 +5,14 @@ import eslintPluginPrettier from "eslint-plugin-prettier";
 
 export default [
   { files: ["**/*.{js,mjs,cjs,ts}"] },
-  { languageOptions: { globals: globals.node } },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser
+      }
+    }
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -45,10 +52,7 @@ export default [
           singleQuote: false,
           semi: true
         }
-      ],
-      env: {
-        browser: true
-      }
+      ]
     },
     ignores: ["**/node_modules/", "**/dist/"]
   }

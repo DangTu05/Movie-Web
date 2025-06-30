@@ -1,6 +1,5 @@
 import categoryModel from "../../models/schema/categorySchema";
 import { ICategory } from "../../models/schema/categorySchema";
-import { IBaseService } from "../../interfaces/IBaseService";
 import { ICategoryInput } from "../../interfaces/ICategoryInput";
 import BaseService from "./BaseService";
 class CategoryService extends BaseService<ICategory, ICategoryInput> {

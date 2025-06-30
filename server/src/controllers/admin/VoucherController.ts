@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable no-unused-vars */
+import { Request, Response } from "express";
 import BaseController from "./BaseController";
 import logger from "../../configs/logger";
 import VoucherService from "../../services/admin/VoucherService";
@@ -15,7 +16,8 @@ class VoucherController extends BaseController<VoucherService, IVoucherInput, IV
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-voucher
   public async render(req: Request, res: Response) {
     logger.info("Rendering create voucher view");
-    res.render("admin/pages/create-voucher");
+    const viewName = req.params.view;
+    res.render(`admin/pages/${viewName}`);
   }
 
   protected service: VoucherService = this.voucherService; // Chưa có service cụ thể, cần implement sau

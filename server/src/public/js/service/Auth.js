@@ -5,20 +5,10 @@ class AuthServices {
     this.httpClient = new HttpClient();
   }
   async registerUser(data) {
-    try {
-      const response = await this.httpClient.request("auth/register", httpMethods.POST, httpHeaders.content.json, data);
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    return await this.httpClient.request("auth/register", httpMethods.POST, httpHeaders.content.json, data);
   }
   async loginUser(data) {
-    try {
-      const response = await this.httpClient.request("auth/login", httpMethods.POST, httpHeaders.content.json, data);
-      return response;
-    } catch (error) {
-      throw error;
-    }
+    return await this.httpClient.request("auth/login", httpMethods.POST, httpHeaders.content.json, data);
   }
 }
 export default AuthServices;

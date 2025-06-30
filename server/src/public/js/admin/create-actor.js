@@ -1,4 +1,4 @@
-import { showInfo, showConfirm } from "../shared/alert.js";
+import { showInfo } from "../shared/alert.js";
 import ActorValidate from "../validations/ActorValidate.js";
 import BaseService from "../service/Base.js";
 const _baseService = new BaseService();
@@ -10,7 +10,6 @@ window.onload = () => {
   const nationality = document.getElementById("nationality");
   const actor_image = document.getElementById("actor_image");
   const createActorForm = document.querySelector(".create-actor-form");
-  const createActorButton = document.querySelector(".create-actor-btn");
   if (createActorForm) {
     createActorForm.addEventListener("submit", async (e) => {
       e.preventDefault();
