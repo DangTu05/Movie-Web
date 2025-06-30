@@ -1,8 +1,6 @@
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Request, Response } from "express";
 import MovieValidate from "../../validations/MovieValidate";
-import sendResponse from "../../utils/handler/response";
-import errorHandler from "../../utils/handler/handleAsync";
-import { StatusCodes } from "http-status-codes";
 import logger from "../../configs/logger";
 import BaseController from "./BaseController";
 import MovieService from "../../services/admin/MovieService";
@@ -28,7 +26,7 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
     }
   }
   // Xử lý dữ liệu từ request để tạo movie
-  protected extractDataFromRequest(req: Request): IMovieInput {
+  protected extractDataFromRequest(req: Request) {
     const files = req.files as { [fieldname: string]: Express.Multer.File[] };
     req.body.actors = Array.isArray(req.body.actor) ? req.body.actor : req.body.actor ? [req.body.actor] : [];
     const posterUrl = files["poster"]?.[0]?.path || "";
@@ -40,15 +38,16 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
   }
   // Xác thực dữ liệu từ request bằng zod
   // Trả về { success: boolean, errors?: any } để thông báo kết quả
-  protected validate(req: Request): { success: boolean; errors?: any } {
+  protected validate(req: Request) {
     return _movieValidate.validate(req);
   }
   // Phương thức này sẽ hiển thị view tương ứng với controller
-  public async render(req: Request, res: Response): Promise<void> {
+  public async render(req: Request, res: Response) {
     logger.info("Fetching all actors for create movie view");
+    const viewName = req.params.view;
     const actors = await this.revides["actorService"].getAllActor();
     const categories = await this.revides["categoryService"].getAllCategories();
-    res.render("admin/pages/create-movie", {
+    res.render(`admin/pages/${viewName}`, {
       actors: actors ?? [],
       categories: categories ?? []
     });

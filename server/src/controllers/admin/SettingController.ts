@@ -1,4 +1,5 @@
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable no-unused-vars */
+import { Request, Response } from "express";
 import getProvinces from "../../helpers/api/getProvinces";
 import BaseController from "./BaseController";
 import SettingService from "../../services/admin/SettingService";
@@ -12,20 +13,20 @@ class SettingController extends BaseController<SettingService, ISettingInput, IS
     super();
   }
   public async render(req: Request, res: Response): Promise<void> {
+    const viewName = req.params.view;
     const setting = await this.service.getSetting();
     const provinces = await getProvinces();
     logger.info("Rendering setting view");
-    res.render("admin/pages/setting", {
+    res.render(`admin/pages/${viewName}`, {
       provinces: provinces,
       setting: setting
     });
   }
   protected service: SettingService = this.settingService;
-  protected validate(req: Request): { success: boolean; errors?: any } {
+  protected validate(req: Request) {
     return _settingValidate.validate(req);
   }
-  protected extractDataFromRequest(req: Request): ISetting {
-    const files = (req.file as Express.Multer.File)?.path || "";
+  protected extractDataFromRequest(req: Request) {
     const logo = (req.file as Express.Multer.File)?.path || "";
     req.body.logo = logo;
     return req.body as ISetting;

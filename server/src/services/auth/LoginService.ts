@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import ApiError from "../../utils/ApiError";
 import { comparePassword } from "../../utils/passwordUtil";
 export class LoginService {
-  public async login(username: string, password: string): Promise<void> {
+  public async login(username: string, password: string) {
     // Kiểm tra tài khoản có tồn tại hay không
     const account = await accountModel.findOne({ username });
     if (!account) {

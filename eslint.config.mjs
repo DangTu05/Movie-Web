@@ -4,11 +4,22 @@ import tseslint from "typescript-eslint";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 
 export default [
-  { files: ["**/*.{js,mjs,cjs,ts}"] },
-  { languageOptions: { globals: globals.node } },
+  // ✅ BỎ QUA folder trước tiên
+  {
+    ignores: ["**/node_modules/**", "**/dist/**", "src/public/**"]
+  },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser
+      }
+    }
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    files: ["**/*.{js,mjs,cjs,ts}"],
     plugins: {
       prettier: eslintPluginPrettier
     },
@@ -45,11 +56,7 @@ export default [
           singleQuote: false,
           semi: true
         }
-      ],
-      env: {
-        browser: true
-      }
-    },
-    ignores: ["**/node_modules/", "**/dist/"]
+      ]
+    }
   }
 ];

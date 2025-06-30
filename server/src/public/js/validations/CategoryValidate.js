@@ -1,4 +1,4 @@
-import { showInfo, showConfirm } from "../shared/alert.js";
+import { showInfo } from "../shared/alert.js";
 import constants from "../shared/constants.js";
 
 class CategoryValidate {

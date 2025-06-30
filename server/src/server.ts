@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import { Server } from "http";
-import exitHook from "async-exit-hook";
+// import exitHook from "async-exit-hook";
 import logger from "./configs/logger";
 import path from "path";
 import cors from "cors";

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { IBaseService } from "../../interfaces/IBaseService";
 import { Model } from "mongoose";
 abstract class BaseService<TModel, TInput> implements IBaseService<TInput, TModel> {
@@ -6,7 +7,7 @@ abstract class BaseService<TModel, TInput> implements IBaseService<TInput, TMode
   protected checkExist?(data: TInput): Promise<void>;
   // Phương thức này sẽ được triển khai trong các service con
   // Ví dụ: ActorService, MovieService, CategoryService
-  public async create(data: TInput): Promise<void> {
+  public async create(data: TInput) {
     // Kiểm tra xem dữ liệu có hợp lệ hay không
     if (this.checkExist) {
       await this.checkExist(data);

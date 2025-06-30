@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
 import { Request, Response, NextFunction } from "express";
 import sendResponse from "../../utils/handler/response";
 import { StatusCodes } from "http-status-codes";
@@ -23,11 +26,11 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
   protected abstract validate(req: Request): { success: boolean; errors?: any };
   // Phương thức này sẽ hiển thị view tương ứng với controller
   // Ví dụ: create-movie, create-actor, create-category...
-  public async showView(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public async showView(req: Request, res: Response, next: NextFunction) {
     await this.render(req, res);
   }
   // Phương thức này sẽ xử lý việc tạo mới một đối tượng
-  public async create(req: Request, res: Response, next: NextFunction): Promise<void> {
+  public async create(req: Request, res: Response, next: NextFunction) {
     let data = req.body;
     if (this.extractDataFromRequest) {
       data = this.extractDataFromRequest(req);
@@ -36,7 +39,6 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
     const { success, errors } = this.validate(req);
     if (!success) {
       logger.error("Validation failed", errors);
-      console.log(errors);
       return sendResponse(res, 400, null, "Validation failed", errors);
     }
     await this.service.create(req.body);

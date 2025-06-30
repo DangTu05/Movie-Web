@@ -1,4 +1,7 @@
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-unused-vars */
+import { NextFunction, Request, Response } from "express";
 import RoleService from "../../services/admin/RoleService";
 import BaseController from "./BaseController";
 import { IRoleInput } from "../../interfaces/IRoleInput";
@@ -21,7 +24,7 @@ class RoleController extends BaseController<RoleService, IRoleInput, IRole> {
   /// Show giao diện
   async render(req: Request, res: Response) {
     const viewName = req.params.view || "create-role"; // hoặc lấy từ query/view logic
-    let data: any = {};
+    const data: any = {};
     if (viewName === "permission") {
       const roles = await this.roleService.getRole();
       const count = await this.roleService.getCountRole();

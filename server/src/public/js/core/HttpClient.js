@@ -28,7 +28,6 @@ class HttpClient {
       responseData.status = fetchData.status;
       return responseData;
     } catch (error) {
-      console.log(error);
       throw new AppError(`Error: ${error.message}`, statusCode.internalServerError);
     }
   }

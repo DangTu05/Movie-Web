@@ -1,4 +1,4 @@
-import { Document, Schema } from "mongoose";
+import { Document } from "mongoose";
 
 interface BaseDocument extends Document {
   deletedAt?: Date;

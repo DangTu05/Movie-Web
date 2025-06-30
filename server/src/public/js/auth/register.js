@@ -1,5 +1,4 @@
-import { showInfo, showConfirm } from "../shared/alert.js";
-import { isValidEmail } from "../shared/validate.js";
+import { showInfo } from "../shared/alert.js";
 import AuthServices from "../service/auth.js";
 import AuthValidate from "../validations/AuthValidate.js";
 const _authServices = new AuthServices();
@@ -22,18 +21,13 @@ window.onload = () => {
         registerButton.disabled = true;
         const response = await _authServices.registerUser(data);
         if (response.status === 201) {
-          showInfo("Đăng ký thành công", " Vui lòng đăng nhập!", "success")
-            .then((result) => {
-              window.location.href = "/login";
-              return;
-            })
-            .catch((err) => {});
+          await showInfo("Đăng ký thành công", " Vui lòng đăng nhập!", "success");
+          window.location.href = "/login";
         } else {
           showInfo("Đăng ký thất bại", " Vui lòng thử lại!", "error");
         }
       } catch (error) {
-        console.error("Lỗi khi đăng ký:", error);
-        // showInfo("Đăng ký thất bại", "Đã xảy ra lỗi. Vui lòng thử lại sau!", "error");
+        showInfo("Đăng ký thất bại", "Đã xảy ra lỗi. Vui lòng thử lại sau!", "error");
       } finally {
         registerButton.disabled = false;
       }

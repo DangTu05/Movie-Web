@@ -1,4 +1,4 @@
-import { showInfo, showConfirm } from "../shared/alert.js";
+import { showInfo } from "../shared/alert.js";
 import BaseService from "../service/Base.js";
 import RoleValidate from "../validations/RoleValidate.js";
 const _baseService = new BaseService();

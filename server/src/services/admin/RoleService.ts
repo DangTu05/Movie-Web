@@ -13,7 +13,7 @@ class RoleService extends BaseService<IRole, IRoleInput> {
   public async getCountRole() {
     return await this.model.countDocuments({ deleted: false });
   }
-  public async updatePermission(permissions: PermissionUpdate[]): Promise<void> {
+  public async updatePermission(permissions: PermissionUpdate[]) {
     for (const item of permissions) {
       await roleModel.updateOne(
         { _id: item._id },

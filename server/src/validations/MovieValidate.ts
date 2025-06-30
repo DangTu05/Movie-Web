@@ -1,7 +1,4 @@
 import { z } from "zod";
-import { formatZodErrors } from "../utils/formatZodError";
-import { Request } from "express";
-import logger from "../configs/logger";
 import BaseValidate from "./BaseValidate";
 const movieSchema = z.object({
   title: z.string().min(1, "Tiêu đề không được để trống"),
