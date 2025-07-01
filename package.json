@@ -11,7 +11,6 @@
     "check:prettier": "prettier --check \"**/*.{ts,json,md}\"",
     "format": "prettier --write \"**/*.{ts,json,md}\"",
     "check": "npm run lint && npm run check:eslint && npm run check:prettier",
-    "build:eslint": "eslint . --config eslint.config.mjs --ext .ts,.js --fix",
     "copy-views": "cp -r server/src/views server/dist/views",
     "build:prettier": "prettier --write \"**/*.{ts,json,md}\"",
     "build:lint": "npm run build:eslint && npm run build:prettier",

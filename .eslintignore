@@ -1,3 +1,4 @@
+# .eslintignore
 *.ejs
 *.mjs
 node_modules/
