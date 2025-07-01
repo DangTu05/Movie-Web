@@ -4,6 +4,7 @@ import userModel from "../../models/schema/userSchema";
 import roleModel from "../../models/schema/roleSchema";
 import { IAccountInput } from "../../interfaces/IAccountInput";
 import { existEmail } from "../../helpers/existEmail";
+import { existUsername } from "../../helpers/existUsername";
 import { hashPassword } from "../../utils/passwordUtil";
 import BaseService from "./BaseService";
 import ApiError from "../../utils/ApiError";
@@ -17,7 +18,9 @@ class AccountService extends BaseService<IAccount, IAccountInput> {
       // Kiểm tra email
       const emailExists = await existEmail(data.email);
       if (emailExists) throw new ApiError(StatusCodes.BAD_REQUEST, "Email đã tồn tại");
-
+      // Kiểm tra username
+      const usernameExists = await existUsername(data.username);
+      if (usernameExists) throw new ApiError(StatusCodes.BAD_REQUEST, "Username đã tồn tại");
       // Tạo user
       const user = await userModel.create([{}], { session });
 

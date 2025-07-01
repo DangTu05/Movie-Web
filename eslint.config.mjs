@@ -4,10 +4,6 @@ import tseslint from "typescript-eslint";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 
 export default [
-  // ✅ BỎ QUA folder trước tiên
-  {
-    ignores: ["**/node_modules/**", "**/dist/**", "src/public/**"]
-  },
   {
     languageOptions: {
       globals: {
@@ -19,7 +15,7 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    files: ["**/*.{js,mjs,cjs,ts}"],
+    files: ["**/*.{js,ts}"],
     plugins: {
       prettier: eslintPluginPrettier
     },

@@ -1,5 +1,6 @@
 import { showInfo } from "../shared/alert.js";
 import constants from "../shared/constants.js";
+import { hasWhitespace } from "./hasWhitespace.js";
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
@@ -22,7 +23,7 @@ class AuthValidate {
       showInfo("Mật khẩu phải có ít nhất 6 ký tự", " Vui lòng nhập mật khẩu có ít nhất 6 ký tự!", "warning");
       return false;
     }
-    return true;
+    if (!hasWhitespace(data.username)) return false;
   }
   static validateLogin(data) {
     if (!data.username || !data.password) {
