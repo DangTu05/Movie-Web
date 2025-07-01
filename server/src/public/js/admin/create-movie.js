@@ -1,6 +1,7 @@
 import { showInfo } from "../shared/alert.js";
 import BaseService from "../service/Base.js";
 import MovieValidate from "../validations/MovieValidate.js";
+import { handleImagePreview, handleVideoPreview } from "../shared/previewMediaFile.js";
 const _baseService = new BaseService();
 
 window.onload = () => {
@@ -14,6 +15,9 @@ window.onload = () => {
   const duration = document.getElementById("duration");
   const age_permission = document.getElementById("age_permission");
   const createMovieForm = document.querySelector(".create-movie-form");
+  const previewImage = document.querySelector(".preview_image");
+  const previewVideo = document.querySelector(".preview_video");
+
   if (createMovieForm) {
     createMovieForm.addEventListener("submit", async (e) => {
       const selectedActors = Array.from(actors.selectedOptions).map((option) => option.value);
@@ -56,4 +60,8 @@ window.onload = () => {
       }
     });
   }
+  /// xử lý preview img và video
+  handleImagePreview(poster, previewImage);
+  handleVideoPreview(trailer, previewVideo);
+  ///end preview img và video
 };

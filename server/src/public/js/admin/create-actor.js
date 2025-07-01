@@ -1,4 +1,5 @@
 import { showInfo } from "../shared/alert.js";
+import { handleImagePreview } from "../shared/previewMediaFile.js";
 import ActorValidate from "../validations/ActorValidate.js";
 import BaseService from "../service/Base.js";
 const _baseService = new BaseService();
@@ -9,6 +10,7 @@ window.onload = () => {
   const gender = document.getElementById("gender");
   const nationality = document.getElementById("nationality");
   const actor_image = document.getElementById("actor_image");
+  const preview = document.querySelector(".preview");
   const createActorForm = document.querySelector(".create-actor-form");
   if (createActorForm) {
     createActorForm.addEventListener("submit", async (e) => {
@@ -44,4 +46,7 @@ window.onload = () => {
       }
     });
   }
+  /// xử lý preview image
+  handleImagePreview(actor_image, preview);
+  ///end preview img
 };
