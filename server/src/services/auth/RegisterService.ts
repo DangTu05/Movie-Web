@@ -12,7 +12,7 @@ export class RegisterService {
       logger.error("Email already exists", { email: account.email });
       throw new ApiError(StatusCodes.CONFLICT, "Email đã được sử dụng");
     }
-    /// Mã hóa mật khẩu trước khi lưu vào DB
+    /// Mã hóa mật khẩu trước khi lưu vào DataBase
     const passwordHashed = await hashPassword(account.password);
     // Tạo user mới
     const newUser = new userModel();
