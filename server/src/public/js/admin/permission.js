@@ -21,6 +21,7 @@ window.onload = () => {
             const checked = item.checked;
             if (checked) {
               // Lấy id từ hàng "id" tương ứng theo chỉ số
+              // eslint-disable-next-line quotes
               const idRow = tablePermission.querySelector('[data-name="id"]');
               const idInput = idRow.querySelectorAll("input")[index];
               const id = idInput.value;

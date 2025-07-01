@@ -44,6 +44,8 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
   // Phương thức này sẽ hiển thị view tương ứng với controller
   public async render(req: Request, res: Response) {
     logger.info("Fetching all actors for create movie view");
+    // eslint-disable-next-line no-unused-vars
+    const data: any = {};
     const viewName = req.params.view;
     const actors = await this.revides["actorService"].getAllActor();
     const categories = await this.revides["categoryService"].getAllCategories();
