@@ -45,9 +45,11 @@ block content
         .form-group
           label(for="poster") Poster Image
           input#poster.form-control(type="file", name="poster", accept="image/*")
+        img.preview.preview_image(src="")
         .form-group 
           label(for="trailer") Trailer Video
           input#trailer.form-control(type="file", name="trailer", accept="video/*")
+        video.preview.preview_video(src="")
         .form-group.text-end
           button.btn.btn-primary.create-movie-btn(type="submit") Create Movie
   script(type="module", src="/js/admin/create-movie.js") 

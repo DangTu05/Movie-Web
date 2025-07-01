@@ -35,7 +35,7 @@ class AccountController extends BaseController<AccountService, IAccountInput, IA
   }
   async render(req: Request, res: Response) {
     const roles = await this.revides["roleService"].getRole();
-    const viewName = req.params.view || "create-account";
+    const viewName = req.params.view;
     res.render(`admin/pages/${viewName}`, {
       roles: roles || []
     });

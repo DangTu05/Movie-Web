@@ -32,6 +32,7 @@ block content
         .form-group
           label(for="actor_image") Actor Image
           input#actor_image.form-control(type="file", name="actor_image", accept="image/*")
+        img.preview(src="")
         .form-group.text-end
           button.btn.btn-primary.create-actor-btn(type="submit") Create Actor
   script(type="module", src="/js/admin/create-actor.js") 
