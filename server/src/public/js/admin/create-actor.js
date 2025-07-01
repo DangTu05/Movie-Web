@@ -46,4 +46,7 @@ window.onload = () => {
       }
     });
   }
+  /// xử lý preview img
+  handleImagePreview(actor_image, preview);
+  ///end preview img
 };
