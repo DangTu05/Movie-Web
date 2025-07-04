@@ -6,6 +6,7 @@ import BaseController from "./BaseController";
 import MovieService from "../../services/admin/MovieService";
 import { IMovieInput } from "../../interfaces/IMovieInput";
 import { IMovie } from "../../models/schema/movieSchema";
+import { formatDate } from "../../utils/formatDate";
 const _movieValidate = new MovieValidate();
 class MovieController extends BaseController<MovieService, IMovieInput, IMovie> {
   // revide là các dịch vụ sẽ được inject vào MovieController
@@ -27,10 +28,10 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
   }
   // Xử lý dữ liệu từ request để tạo movie
   protected extractDataFromRequest(req: Request) {
-    const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+    const files = (req.files as { [fieldname: string]: Express.Multer.File[] }) || {};
     req.body.actors = Array.isArray(req.body.actor) ? req.body.actor : req.body.actor ? [req.body.actor] : [];
-    const posterUrl = files["poster"]?.[0]?.path || "";
-    const trailerUrl = files["trailer"]?.[0]?.path || "";
+    const posterUrl = files["poster"]?.[0]?.path || req.body.poster;
+    const trailerUrl = files["trailer"]?.[0]?.path || req.body.trailer;
     req.body.poster = posterUrl;
     req.body.trailer = trailerUrl;
     req.body.status = this.service.getMovieStatus(req.body.releaseDate);
@@ -44,14 +45,27 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
   // Phương thức này sẽ hiển thị view tương ứng với controller
   public async render(req: Request, res: Response) {
     logger.info("Fetching all actors for create movie view");
-    // eslint-disable-next-line no-unused-vars
+
     const data: any = {};
+    const viewNames = ["create-movie", "update-movie"];
     const viewName = req.params.view;
-    const actors = await this.revides["actorService"].getAllActor();
-    const categories = await this.revides["categoryService"].getAllCategories();
-    res.render(`admin/pages/${viewName}`, {
-      actors: actors ?? [],
-      categories: categories ?? []
+    if (viewNames.includes(viewName)) {
+      data.actors = await this.revides["actorService"].getAllActor();
+      data.categories = await this.revides["categoryService"].getAllCategories();
+      data.title = viewName === "create-movie" ? "Create Movie" : "Update Movie";
+    }
+    if (viewName === "update-movie") {
+      const movieId = req.params.id;
+      data.movie = await this.service.findMovieById(movieId);
+      if (!data.movie) {
+        return res.redirect("/admin/movies");
+      }
+      data.movie.releaseDate = formatDate(data.movie.releaseDate);
+    }
+    // Xác định view thực tế cần render
+    const actualView = viewNames.includes(viewName) ? "create-movie" : viewName;
+    res.render(`admin/pages/${actualView}`, {
+      data: data
     });
   }
 }

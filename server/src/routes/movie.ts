@@ -16,5 +16,7 @@ movieController.addRevide("actorService", actorService);
 movieController.addRevide("categoryService", categoryService);
 // Các route
 router.get("/:view", movieController.showView);
+router.get("/:view/:id", movieController.showView);
 router.post("/create-movie", handleMulterError(uploadMedia), movieController.create);
+router.patch("/update-movie/:id", handleMulterError(uploadMedia), movieController.update);
 export default router;
