@@ -19,7 +19,7 @@ window.onload = () => {
       }
       try {
         if (mode === "Create Category") {
-          btnSubmit.disabled = true;
+          // btnSubmit.disabled = true;
           const response = await _baseService.create(data, "admin/category/create-category");
           if (response.status === 201) {
             showInfo("Tạo thể loại thành công", "", "success");
@@ -33,8 +33,8 @@ window.onload = () => {
             "Bạn có chắc chắn muốn cập nhật thể loại này không?",
             "question"
           );
-          if (!isConfirmed) return;
-          btnSubmit.disabled = true;
+          if (!isConfirmed.isConfirmed) return;
+          // btnSubmit.disabled = true;
           const category_id = createCategoryForm.getAttribute("category_id");
           const response = await _baseService.update(data, `admin/category/update-category/${category_id}`);
           if (response.status === 200) {

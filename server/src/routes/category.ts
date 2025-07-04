@@ -7,4 +7,5 @@ const router: Router = Router();
 router.get("/:view", categoryController.showView);
 router.get("/:view/:id", categoryController.showView);
 router.post("/create-category", categoryController.create);
+router.patch("/update-category/:id", categoryController.update);
 export default router;
