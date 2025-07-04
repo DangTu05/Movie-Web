@@ -6,52 +6,56 @@ include ../partials/header
 
 block content
   .title
-    h2 Add New Movie
+    h2= data.title || ""
 
   .card
     .card-body
-      form(class="create-movie-form", enctype="multipart/form-data")
+      form(class="create-movie-form",data-mode=data.title,movie_id=(data.movie && data.movie._id) enctype="multipart/form-data")
         .form-group
           label(for="title") Title
-          input#title.form-control(type="text", name="title", required)
-
+          input#title.form-control(type="text", name="title", required, value=(data.movie ? data.movie.title : ''))
         .form-group
           label(for="description") Description
-          textarea#description.form-control(name="description", rows="4")
+          textarea#description.form-control(name="description", rows="4")=(data.movie ? data.movie.description : '')
 
         .form-group
           label(for="genre") Genre
           select#genre.form-control(name="genre")
             option(value="") -- Select Genre --
-            for category in categories
-              option(value=category._id)= category.category_name
+            if data.categories && data.categories.length
+              for category in data.categories
+                option(value=category._id
+                  selected=(data.movie && category._id.toString() === data.movie.genre.toString())
+                )= category.category_name
         .form-group
           label(for="actor") Actor
           select#actor.form-control(name="actors[]" multiple)
             option(value="") -- Select Status --
-            if actors && actors.length
-              for actor in actors
-                option(value=actor._id)= actor.actor_name
+            if data.actors && data.actors.length
+              for actor in data.actors
+                option(value=actor._id
+                  selected=(data.movie && data.movie.actors.includes(actor._id))
+                )= actor.actor_name
         .form-group
           label(for="releaseDate") Release Date
-          input#releaseDate.form-control(type="date", name="releaseDate")
+          input#releaseDate.form-control(type="date", name="releaseDate", value=(data.movie ? data.movie.releaseDate : ''))
 
         .form-group
           label(for="duration") Duration (minutes)
-          input#duration.form-control(type="number", name="duration", min="1")
+          input#duration.form-control(type="number", name="duration", min="1", value=(data.movie ? data.movie.duration : ''))
         .form-group
           label(for="age_permission") Age Permission 
-          input#age_permission.form-control(type="number", name="age_permission", min="1",max="18")
+          input#age_permission.form-control(type="number", name="age_permission", min="1",max="18", value=(data.movie ? data.movie.age_permission : ''))
         .form-group
           label(for="poster") Poster Image
           input#poster.form-control(type="file", name="poster", accept="image/*")
-        img.preview.preview_image(src="")
+        img.preview.preview_image(src=(data.movie && data.movie.poster))
         .form-group 
           label(for="trailer") Trailer Video
           input#trailer.form-control(type="file", name="trailer", accept="video/*")
-        video.preview.preview_video(src="")
+        video.preview.preview_video(src=(data.movie && data.movie.trailer))
         .form-group.text-end
-          button.btn.btn-primary.create-movie-btn(type="submit") Create Movie
+          button.btn.btn-primary.create-movie-btn(type="submit")= data.title||""
   script(type="module", src="/js/admin/create-movie.js") 
   //  SweetAlert2 CDN 
   script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

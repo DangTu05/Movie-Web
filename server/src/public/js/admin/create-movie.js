@@ -1,4 +1,4 @@
-import { showInfo } from "../shared/alert.js";
+import { showConfirm, showInfo } from "../shared/alert.js";
 import BaseService from "../service/Base.js";
 import MovieValidate from "../validations/MovieValidate.js";
 import { handleImagePreview, handleVideoPreview } from "../shared/previewMediaFile.js";
@@ -17,18 +17,20 @@ window.onload = () => {
   const createMovieForm = document.querySelector(".create-movie-form");
   const previewImage = document.querySelector(".preview_image");
   const previewVideo = document.querySelector(".preview_video");
-
+  const mode = createMovieForm.getAttribute("data-mode");
   if (createMovieForm) {
     createMovieForm.addEventListener("submit", async (e) => {
       const selectedActors = Array.from(actors.selectedOptions).map((option) => option.value);
       e.preventDefault();
+      // const formData = new FormData(createMovieForm);
+      // const data = Object.fromEntries(formData.entries());
       const formData = new FormData();
       const data = {
         title: title.value,
         description: description.value,
         genre: genre.value,
-        poster: poster.files[0],
-        trailer: trailer.files[0],
+        poster: poster.files?.[0] ?? previewImage.src,
+        trailer: trailer.files?.[0] ?? previewVideo.src,
         releaseDate: releaseDate.value,
         duration: duration.value ? parseInt(duration.value, 10) : 0,
         age_permission: age_permission.value ? parseInt(age_permission.value, 10) : 0,
@@ -43,17 +45,34 @@ window.onload = () => {
       selectedActors.forEach((actor) => {
         formData.append("actor", actor); // giống cách gửi nhiều checkbox
       });
-      formData.append("poster", poster.files[0]);
-      formData.append("trailer", trailer.files[0]);
+      formData.append("poster", data.poster);
+      formData.append("trailer", data.trailer);
       formData.append("releaseDate", releaseDate.value);
       formData.append("duration", data.duration);
       formData.append("age_permission", data.age_permission);
       try {
-        const response = await _baseService.create(formData, "admin/movie/create-movie");
-        if (response.status === 201) {
-          showInfo("Tạo phim thành công", "", "success");
+        if (mode === "Create Movie") {
+          const response = await _baseService.create(formData, "admin/movie/create-movie");
+          if (response.status === 201) {
+            showInfo("Tạo phim thành công", "", "success");
+          } else {
+            showInfo("Tạo phim thất bại", response.error, "error");
+          }
         } else {
-          showInfo("Tạo phim thất bại", response.error, "error");
+          const isConfirmed = await showConfirm(
+            "Cập nhật",
+            "Bạn có chắc chắn muốn cập nhật phim này không?",
+            "question"
+          );
+          if (!isConfirmed) return;
+          const movie_id = createMovieForm.getAttribute("movie_id");
+          const response = await _baseService.update(formData, `admin/movie/update-movie/${movie_id}`);
+          if (response.status === 200) {
+            await showInfo("Cập nhật phim thành công", "", "success");
+            location.reload();
+          } else {
+            showInfo("Tạo phim thất bại", response.error, "error");
+          }
         }
       } catch (error) {
         showInfo("Lỗi khi tạo phim", " Vui lòng thử lại!", "error");
