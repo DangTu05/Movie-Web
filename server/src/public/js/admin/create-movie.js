@@ -64,7 +64,7 @@ window.onload = () => {
             "Bạn có chắc chắn muốn cập nhật phim này không?",
             "question"
           );
-          if (!isConfirmed) return;
+          if (!isConfirmed.isConfirmed) return;
           const movie_id = createMovieForm.getAttribute("movie_id");
           const response = await _baseService.update(formData, `admin/movie/update-movie/${movie_id}`);
           if (response.status === 200) {
