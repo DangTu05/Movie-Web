@@ -1,9 +1,8 @@
 import actorModel from "../models/schema/actorSchema";
-const existActor = async (actorId: string): Promise<boolean> => {
-  const actor = await actorModel.findById(actorId).select("_id").lean(); //Chuyển kết quả từ Mongoose Document thành Plain JavaScript Object, object (thường nhẹ hơn document)
-  if (!actor) {
-    return false;
-  }
-  return true;
+import ApiError from "../utils/ApiError";
+import { StatusCodes } from "http-status-codes";
+const existActor = async (actorId: string): Promise<void> => {
+  const exists = await actorModel.exists({ _id: actorId, deleted: false });
+  if (!exists) throw new ApiError(StatusCodes.NOT_FOUND, "Actor không tồn tại");
 };
 export { existActor };

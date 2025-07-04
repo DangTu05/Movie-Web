@@ -1,6 +1,7 @@
 import BaseService from "./BaseService";
 import roleModel, { IRole } from "../../models/schema/roleSchema";
 import { IRoleInput } from "../../interfaces/IRoleInput";
+import { existRole } from "../../helpers/existRole";
 interface PermissionUpdate {
   _id: string;
   permissions: string[]; // hoặc: mongoose.Types.ObjectId[] nếu là ref
@@ -8,10 +9,10 @@ interface PermissionUpdate {
 class RoleService extends BaseService<IRole, IRoleInput> {
   protected model = roleModel;
   public async getRole() {
-    return await this.model.find({ deleted: false }).select("-deleted -createdBy -updatedBy -__v");
+    return await this.model.find({ deleted: false }).select("-deleted -createdBy -updatedBy -__v").lean();
   }
   public async getCountRole() {
-    return await this.model.countDocuments({ deleted: false });
+    return await this.model.countDocuments({ deleted: false }).lean();
   }
   public async updatePermission(permissions: PermissionUpdate[]) {
     for (const item of permissions) {
@@ -28,6 +29,10 @@ class RoleService extends BaseService<IRole, IRoleInput> {
         }
       );
     }
+  }
+
+  protected async checkId(id: string): Promise<void> {
+    return await existRole(id);
   }
 }
 export default RoleService;

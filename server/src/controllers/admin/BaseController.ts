@@ -52,8 +52,6 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
     let data = req.body;
     if (this.extractDataFromRequest) {
       data = this.extractDataFromRequest(req);
-      console.log(data);
-
       req.body = data; // gán lại body sau khi xử lý
     }
     const { success, errors } = this.validate(req);
