@@ -52,5 +52,8 @@ class AccountService extends BaseService<IAccount, IAccountInput> {
       await session.endSession();
     }
   }
+  protected async checkId(id: string): Promise<void> {
+    return;
+  }
 }
 export default AccountService;

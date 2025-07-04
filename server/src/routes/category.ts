@@ -5,5 +5,6 @@ const categoryService = new CategoryService();
 const categoryController = new CategoryController(categoryService);
 const router: Router = Router();
 router.get("/:view", categoryController.showView);
+router.get("/:view/:id", categoryController.showView);
 router.post("/create-category", categoryController.create);
 export default router;

@@ -5,7 +5,7 @@ import { IAccountInput } from "../../interfaces/IAccountInput";
 import { IAccount } from "../../models/schema/accountSchema";
 import AccountService from "../../services/admin/AccountService";
 import AccountValidate from "../../validations/AccountValidate";
-import { removeSpcae } from "../../utils/removeSpace";
+import { removeSpace } from "../../utils/removeSpace";
 const _accountValidate = new AccountValidate();
 class AccountController extends BaseController<AccountService, IAccountInput, IAccount> {
   private revides: any = {};
@@ -30,7 +30,7 @@ class AccountController extends BaseController<AccountService, IAccountInput, IA
   }
   // Xử lý dữ liệu từ request để tạo account
   protected extractDataFromRequest(req: Request) {
-    req.body.username = removeSpcae(req.body.username);
+    req.body.username = removeSpace(req.body.username);
     return req.body as IAccountInput;
   }
   async render(req: Request, res: Response) {

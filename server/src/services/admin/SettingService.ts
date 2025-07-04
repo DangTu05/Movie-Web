@@ -11,8 +11,14 @@ class SettingService extends BaseService<ISetting, ISettingInput> {
     }
     return super.create(data);
   }
+  protected async checkId(id: string): Promise<void> {
+    return;
+  }
   public async getSetting(): Promise<ISetting | null> {
-    const setting = await settingModel.findOne({ deleted: false }).select("-deletedAt -updatedAt -createdAt -__v");
+    const setting = await settingModel
+      .findOne({ deleted: false })
+      .select("-deletedAt -updatedAt -createdAt -__v")
+      .lean();
     return setting;
   }
 }

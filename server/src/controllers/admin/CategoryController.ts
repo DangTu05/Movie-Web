@@ -14,8 +14,23 @@ class CategoryController extends BaseController<CategoryService, ICategoryInput,
   // render view cho việc tạo mới category
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-category
   public async render(req: Request, res: Response) {
+    const data: any = {};
+    const viewNames = ["create-category", "update-category"];
     const viewName = req.params.view;
-    res.render(`admin/pages/${viewName}`);
+    data.title = viewName === "create-category" ? "Create Category" : "Update Category";
+    // Xác định view thực tế cần render
+    if (viewName === "update-category") {
+      const categoryId = req.params.id;
+      data.category = await this.service.findCategoryById(categoryId);
+      if (!data.category) {
+        return res.redirect("/admin/categories");
+      }
+    }
+    // Xác định view thực tế cần render
+    const actualView = viewNames.includes(viewName) ? "create-category" : viewName;
+    res.render(`admin/pages/${actualView}`, {
+      data: data
+    });
   }
   protected service: CategoryService = this.categoryService;
   // Xử lý dữ liệu từ request để tạo category

@@ -6,16 +6,16 @@ include ../partials/header
 
 block content
   .title
-    h2 Add New Category
+    h2= data.title||""
 
   .card
     .card-body
-      form(class="create-category-form")
+      form(class="create-category-form", data-mode=data.title, category_id=(data.category && data.category._id))
         .form-group
           label(for="category_name") Title
-          input#category_name.form-control(type="text", name="category_name", required)
+          input#category_name.form-control(type="text", name="category_name",value=(data.category ? data.category.category_name : ''), required)
         .form-group.text-end
-          button.btn.btn-primary.create-category-btn(type="submit") Create Category
+          button.btn.btn-primary.create-category-btn(type="submit")= data.title||""
   script(type="module", src="/js/admin/create-category.js") 
   //  SweetAlert2 CDN 
   script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

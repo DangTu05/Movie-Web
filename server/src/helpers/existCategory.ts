@@ -1,10 +1,11 @@
 import categoryModel from "../models/schema/categorySchema";
-const existCategory = async (categoryId: string): Promise<boolean> => {
-  const category = await categoryModel.findById(categoryId).select("_id").lean(); // Convert Mongoose Document to Plain JavaScript Object
-  if (!category) {
-    return false;
+import ApiError from "../utils/ApiError";
+import { StatusCodes } from "http-status-codes";
+const existCategory = async (categoryId: string): Promise<void> => {
+  const exists = await categoryModel.exists({ _id: categoryId, deleted: false });
+  if (!exists) {
+    throw new ApiError(StatusCodes.NOT_FOUND, "Category not found");
   }
-  return true;
 };
 
 export { existCategory };

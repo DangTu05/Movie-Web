@@ -74,7 +74,7 @@ window.onload = () => {
             showInfo("Tạo phim thất bại", response.error, "error");
           }
         }
-      } catch (error) {
+      } catch {
         showInfo("Lỗi khi tạo phim", " Vui lòng thử lại!", "error");
       }
     });

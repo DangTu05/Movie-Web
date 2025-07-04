@@ -1,4 +1,4 @@
-const removeSpcae = (input: string) => {
+const removeSpace = (input: string) => {
   return input.replace(/\s+/g, "");
 };
-export { removeSpcae };
+export { removeSpace };
