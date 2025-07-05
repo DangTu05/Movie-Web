@@ -12,6 +12,7 @@ import { Request, Response, NextFunction } from "express";
 import sendResponse from "../utils/handler/response";
 import logger from "../configs/logger";
 import env from "../configs/environment";
+
 // Middleware xử lý lỗi tập trung trong ứng dụng Back-end NodeJS (ExpressJS)
 export const errorHandlingMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
   // Nếu dev không cẩn thận thiếu statusCode thì mặc định sẽ để code 500 INTERNAL_SERVER_ERROR
