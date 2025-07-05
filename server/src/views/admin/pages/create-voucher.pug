@@ -6,28 +6,28 @@ include ../partials/header
 
 block content
   .title
-    h2 Add New Voucher
+    h2= data.title || ""
 
   .card
     .card-body
-      form(class="create-voucher-form")
+      form(class="create-voucher-form", data-mode=data.title,voucher_id=(data.voucher && data.voucher._id) )
         .form-group
           label(for="voucher_name") Voucher Name
-          input#voucher_name.form-control(type="text", name="voucher_name", required)
+          input#voucher_name.form-control(type="text", name="voucher_name", value=(data.voucher ? data.voucher.voucher_name : '')  ,required)
         .form-group
           label(for="voucher_start") Voucher Start
-          input#voucher_start.form-control(type="date", name="voucher_start")
+          input#voucher_start.form-control(type="date", value=(data.voucher ? data.voucher.voucher_start : ''), name="voucher_start")
         .form-group 
           label(for="voucher_end") Voucher End
-          input#voucher_end.form-control(type="date", name="voucher_end")
+          input#voucher_end.form-control(type="date", value=(data.voucher ? data.voucher.voucher_end : ''), name="voucher_end")
         .form-group
           label(for="voucher_discount") Voucher Discount 
-          input#voucher_discount.form-control(type="number", name="voucher_discount", min="1",max="100",step="0.01")
+          input#voucher_discount.form-control(type="number", name="voucher_discount", min="1",max="100",step="0.01", value=(data.voucher ? data.voucher.voucher_discount : 1))
         .form-group
           label(for="voucher_script") Voucher Script
-          textarea#voucher_script.form-control(name="voucher_script", rows="4")
+          textarea#voucher_script.form-control(name="voucher_script", rows="4")=(data.voucher ? data.voucher.voucher_script : '')
         .form-group.text-end
-          button.btn.btn-primary.create-voucher-btn(type="submit") Create Voucher
+          button.btn.btn-primary.create-voucher-btn(type="submit")=data.title||""
   script(type="module", src="/js/admin/create-voucher.js") 
   //  SweetAlert2 CDN 
   script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

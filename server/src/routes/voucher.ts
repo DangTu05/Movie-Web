@@ -5,5 +5,6 @@ const voucherService = new VoucherService();
 const voucherController = new VoucherController(voucherService);
 const router: Router = Router();
 router.get("/:view", voucherController.showView);
+router.get("/:view/:id", voucherController.showView);
 router.post("/create-voucher", voucherController.create);
 export default router;

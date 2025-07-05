@@ -34,10 +34,12 @@ abstract class BaseService<TModel, TInput> implements IBaseService<TInput, TMode
     await this.checkId(id);
     const recordData = this.convertData ? await this.convertData(data) : data;
     const updateQuery: UpdateQuery<TModel> = { $set: recordData as Partial<TModel> };
-    const updated = await this.model.findByIdAndUpdate(id, updateQuery, {
-      new: true, // (hoặc returnDocument: 'after')
-      returnDocument: "after" // ✅ cách rõ ràng hơn
-    });
+    const updated = await this.model
+      .findByIdAndUpdate(id, updateQuery, {
+        new: true, // (hoặc returnDocument: 'after')
+        returnDocument: "after" // ✅ cách rõ ràng hơn
+      })
+      .select("-__v -createdAt -updatedAt -deletedAt -deleted");
     // Kiểm tra null để tránh lỗi runtime
     if (!updated) throw new ApiError(StatusCodes.NOT_FOUND, "Không tìm thấy bản ghi để cập nhật");
     return updated as TModel;
