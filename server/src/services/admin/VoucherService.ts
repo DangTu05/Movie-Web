@@ -13,5 +13,11 @@ class VoucherService extends BaseService<IVoucher, IVoucherInput> {
   protected async checkId(id: string): Promise<void> {
     return await existVoucher(id);
   }
+  public async findVoucherById(id: string) {
+    return await this.model
+      .findById({ _id: id, deleted: false })
+      .select("-__v -createdAt -updatedAt -deletedAt -deleted")
+      .lean();
+  }
 }
 export default VoucherService;

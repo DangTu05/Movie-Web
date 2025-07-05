@@ -6,6 +6,7 @@ import VoucherService from "../../services/admin/VoucherService";
 import { IVoucherInput } from "../../interfaces/IVoucherInput";
 import { IVoucher } from "../../models/schema/voucherSchema";
 import VoucherValidate from "../../validations/VoucherValidate";
+import { formatDate } from "../../utils/formatDate";
 const _voucherValidate = new VoucherValidate();
 class VoucherController extends BaseController<VoucherService, IVoucherInput, IVoucher> {
   constructor(private readonly voucherService: VoucherService) {
@@ -16,8 +17,29 @@ class VoucherController extends BaseController<VoucherService, IVoucherInput, IV
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-voucher
   public async render(req: Request, res: Response) {
     logger.info("Rendering create voucher view");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const data: any = {};
+    const viewNames = ["create-voucher", "update-voucher"];
     const viewName = req.params.view;
-    res.render(`admin/pages/${viewName}`);
+    if (viewNames.includes(viewName)) {
+      data.title = viewName === "create-voucher" ? "Create Voucher" : "Update Voucher";
+    }
+    if (viewName === "update-voucher") {
+      const voucher_id = req.params.id;
+      if (!voucher_id) {
+        return res.redirect("/admin/vouchers");
+      }
+      data.voucher = await this.service.findVoucherById(voucher_id);
+      if (!data.voucher) {
+        return res.redirect("/admin/vouchers");
+      }
+      data.voucher.voucher_start = formatDate(data.voucher.voucher_start);
+      data.voucher.voucher_end = formatDate(data.voucher.voucher_end);
+    }
+    const actualView = viewNames.includes(viewName) ? "create-voucher" : viewName;
+    res.render(`admin/pages/${actualView}`, {
+      data: data
+    });
   }
 
   protected service: VoucherService = this.voucherService; // Chưa có service cụ thể, cần implement sau
