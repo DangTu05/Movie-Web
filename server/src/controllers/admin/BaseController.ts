@@ -7,6 +7,8 @@ import { StatusCodes } from "http-status-codes";
 import logger from "../../configs/logger";
 import errorHandler from "../../utils/handler/handleAsync";
 import { IBaseService } from "../../interfaces/IBaseService";
+import ApiError from "../../utils/ApiError";
+import { ZodError } from "zod";
 abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TModel> {
   constructor() {
     // Bọc các phương thức xử lý lỗi bất đồng bộ
@@ -40,7 +42,7 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
     const { success, errors } = this.validate(req);
     if (!success) {
       logger.error("Validation failed", errors);
-      return sendResponse(res, 400, null, "Validation failed", errors);
+      return sendResponse(res, StatusCodes.BAD_REQUEST, null, "Validation failed", errors);
     }
     await this.service.create(req.body);
     logger.info("Create operation successful");
