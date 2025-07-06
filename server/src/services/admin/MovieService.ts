@@ -5,6 +5,8 @@ import { existActor } from "../../helpers/existActor";
 import { existCategory } from "../../helpers/existCategory";
 import BaseService from "./BaseService";
 import { existMovie } from "../../helpers/existMovie";
+import logger from "../../configs/logger";
+import Constants from "../../utils/Constant";
 
 class MovieService extends BaseService<IMovie, IMovieInput> {
   protected model = movieModel;
@@ -55,7 +57,11 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
 
   // Tìm phim theo id
   public async findMovieById(id: string) {
-    const movie = await movieModel.findOne({ _id: id, deleted: false }).lean();
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      logger.warn("Id phim người dùng gửi lên không hợp lệ!");
+      return;
+    }
+    const movie = await movieModel.findOne({ _id: id, deleted: false }).select(Constants.COMMON_SELECT_FIELDS).lean();
     return movie;
   }
 
