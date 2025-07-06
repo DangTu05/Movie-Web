@@ -7,4 +7,5 @@ const router: Router = Router();
 router.get("/:view", voucherController.showView);
 router.get("/:view/:id", voucherController.showView);
 router.post("/create-voucher", voucherController.create);
+router.patch("/update-voucher/:id", voucherController.update);
 export default router;
