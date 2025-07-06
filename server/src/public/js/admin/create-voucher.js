@@ -1,4 +1,4 @@
-import { showInfo } from "../shared/alert.js";
+import { showInfo, showConfirm } from "../shared/alert.js";
 import BaseService from "../service/Base.js";
 import VoucherValidate from "../validations/VoucherValidate.js";
 const _baseService = new BaseService();
@@ -9,6 +9,7 @@ window.onload = () => {
   const voucher_discount = document.getElementById("voucher_discount");
   const voucher_script = document.getElementById("voucher_script");
   const createVoucherForm = document.querySelector(".create-voucher-form");
+  const mode = createVoucherForm.getAttribute("data-mode");
   if (createVoucherForm) {
     createVoucherForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -23,14 +24,31 @@ window.onload = () => {
         return;
       }
       try {
-        const response = await _baseService.create(data, "admin/voucher/create-voucher");
-        if (response.status === 201) {
-          showInfo("Tạo voucher thành công", "", "success");
-          createVoucherForm.reset();
+        if (mode === "Create Voucher") {
+          const response = await _baseService.create(data, "admin/voucher/create-voucher");
+          if (response.status === 201) {
+            showInfo("Tạo voucher thành công", "", "success");
+            createVoucherForm.reset();
+          } else {
+            showInfo("Tạo voucher thất bại", response.error, "error");
+          }
         } else {
-          showInfo("Tạo voucher thất bại", response.error, "error");
+          const isConfirmed = await showConfirm(
+            "Cập nhật",
+            "Bạn có chắc chắn muốn cập nhật voucher này không?",
+            "question"
+          );
+          if (!isConfirmed.isConfirmed) return;
+          const voucher_id = createVoucherForm.getAttribute("voucher_id");
+          const response = await _baseService.update(data, `admin/voucher/update-voucher/${voucher_id}`);
+          if (response.status === 200) {
+            await showInfo("Cập nhật voucher thành công", "", "success");
+            location.reload();
+          } else {
+            showInfo("Cập nhật voucher thất bại", response.error, "error");
+          }
         }
-      } catch (error) {
+      } catch {
         showInfo("Lỗi khi tạo voucher", " Vui lòng thử lại!", "error");
       }
     });
