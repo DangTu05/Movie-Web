@@ -6,19 +6,19 @@ include ../partials/header
 
 block content
   .title
-    h2 Add New Role
+    h2=data.title || ""
 
   .card
     .card-body
-      form(class="create-role-form")
+      form(class="create-role-form", data-mode=data.title||"", role_id=(data.role ? data.role._id : ''))
         .form-group
           label(for="role_name") Role Name:
-          input#role_name.form-control(type="text", name="role_name", required)
+          input#role_name.form-control(type="text", name="role_name", value=(data.role ? data.role.role_name : ''), required)
         .form-group
           label(for="description") Description:
-          textarea#description.form-control(name="description", rows="4", cols="50", placeholder="Nhập mô tả ở đây...") 
+          textarea#description.form-control(name="description", rows="4", cols="50", placeholder="Nhập mô tả ở đây...")= data.role ? data.role.description : ''
         .form-group.text-end
-          button.btn.btn-primary.create-role-btn(type="submit") Create Role
+          button.btn.btn-primary.create-role-btn(type="submit")= data.title||""
   script(type="module", src="/js/admin/create-role.js") 
   //  SweetAlert2 CDN 
   script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")
