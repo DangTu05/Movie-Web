@@ -9,6 +9,7 @@ const accountController = new AccountController();
 accountController.addRevide("accountService", accountService);
 accountController.addRevide("roleService", roleService);
 router.get("/:view", accountController.showView);
+router.get("/:view/:id", accountController.showView);
 router.post("/create-account", accountController.create);
 
 export default router;
