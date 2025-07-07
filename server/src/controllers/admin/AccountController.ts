@@ -1,18 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import BaseController from "./BaseController";
 import { IAccountInput } from "../../interfaces/IAccountInput";
 import { IAccount } from "../../models/schema/accountSchema";
 import AccountService from "../../services/admin/AccountService";
 import AccountValidate from "../../validations/AccountValidate";
 import { removeSpace } from "../../utils/removeSpace";
+import sendResponse from "../../utils/handler/response";
+import errorHandler from "../../utils/handler/handleAsync";
+import logger from "../../configs/logger";
 const _accountValidate = new AccountValidate();
 class AccountController extends BaseController<AccountService, IAccountInput, IAccount> {
-  private revides: any = {};
+  private revides: Record<string, any> = {};
   // Chúng ta sẽ gán service sau khi thêm revide
   protected service!: AccountService; // Chắn chắn gán sau khi thêm revide
   constructor() {
     super();
+    this.update = errorHandler.handleAsyncErrors(this.update.bind(this));
+  }
+  // Ghi đè phương thức update(Do update có thể ko cần gửi mk)
+  public override async update(req: Request, res: Response, next: NextFunction) {
+    const data = req.body;
+    const updated = await this.service.update(req.params.id, data);
+    // Ko trả về cho client password
+    const { password, ...safeData } = updated;
+    logger.info("Update operation successful", { updated });
+    sendResponse(res, 200, safeData, "Cập nhật thành công!", "");
   }
   // Phương thức này sẽ được gọi để thêm các dịch vụ vào MovieController
   // Ví dụ: MovieService, ActorService, CategoryService...
