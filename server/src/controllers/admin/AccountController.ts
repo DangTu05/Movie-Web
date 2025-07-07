@@ -34,10 +34,25 @@ class AccountController extends BaseController<AccountService, IAccountInput, IA
     return req.body as IAccountInput;
   }
   async render(req: Request, res: Response) {
-    const roles = await this.revides["roleService"].getRole();
+    const data: any = {};
+    const viewNames = ["create-account", "update-account"];
     const viewName = req.params.view;
-    res.render(`admin/pages/${viewName}`, {
-      roles: roles || []
+    if (viewNames.includes(viewName)) {
+      data.roles = await this.revides["roleService"].getRole();
+      data.title = viewName === "create-account" ? "Create Account" : "Update Account";
+    }
+    if (viewName === "update-account") {
+      if (!req.params.id) {
+        return res.redirect("/admin/accounts");
+      }
+      data.account = await this.revides["accountService"].findAccountById(req.params.id);
+      if (!data.account) {
+        return res.redirect("/admin/accounts");
+      }
+    }
+    const actualView = viewNames.includes(viewName) ? "create-account" : viewName;
+    res.render(`admin/pages/${actualView}`, {
+      data: data
     });
   }
 }
