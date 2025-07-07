@@ -2,6 +2,9 @@ import BaseService from "./BaseService";
 import roleModel, { IRole } from "../../models/schema/roleSchema";
 import { IRoleInput } from "../../interfaces/IRoleInput";
 import { existRole } from "../../helpers/existRole";
+import Constants from "../../utils/Constant";
+import mongoose from "mongoose";
+import logger from "../../configs/logger";
 interface PermissionUpdate {
   _id: string;
   permissions: string[]; // hoặc: mongoose.Types.ObjectId[] nếu là ref
@@ -33,6 +36,13 @@ class RoleService extends BaseService<IRole, IRoleInput> {
 
   protected async checkId(id: string): Promise<void> {
     return await existRole(id);
+  }
+  public async findRoleById(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      logger.warn("Id role người dùng gửi lên không hợp lệ!");
+      return;
+    }
+    return await this.model.findOne({ _id: id, deleted: false }).select(Constants.COMMON_SELECT_FIELDS).lean();
   }
 }
 export default RoleService;
