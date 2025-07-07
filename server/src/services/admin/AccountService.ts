@@ -9,8 +9,9 @@ import { hashPassword } from "../../utils/passwordUtil";
 import BaseService from "./BaseService";
 import ApiError from "../../utils/ApiError";
 import { StatusCodes } from "http-status-codes";
-import Constants from "../../utils/Constant";
 import logger from "../../configs/logger";
+import { existAccount } from "../../helpers/existAccount";
+import { existRole } from "../../helpers/existRole";
 class AccountService extends BaseService<IAccount, IAccountInput> {
   protected model = accountModel;
   public async create(data: IAccountInput) {
@@ -54,12 +55,24 @@ class AccountService extends BaseService<IAccount, IAccountInput> {
       await session.endSession();
     }
   }
+  protected async convertData(data: IAccountInput) {
+    await existRole(data.role_id);
+    const dataUpdate: Partial<IAccount> = {
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      role_id: new mongoose.Types.ObjectId(data.role_id)
+    };
+    if (data.password) dataUpdate.password = await hashPassword(data.password);
+    else delete dataUpdate.password;
+    return dataUpdate;
+  }
   protected async checkId(id: string): Promise<void> {
-    return;
+    await existAccount(id);
   }
   public async findAccountById(id: string) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      logger.warn("Id tài khoản người dùng gửi lên không hợp lệ!");
+      logger.warn("Id tài khoản người dùng gửi lên không hợp lệ!", { id });
       return;
     }
     const data = await this.model

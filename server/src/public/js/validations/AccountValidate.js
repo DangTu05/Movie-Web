@@ -10,5 +10,13 @@ class AccountValidate {
     if (!hasWhitespace(data.username)) return false;
     return true;
   }
+  static validateUpdateAccount(data) {
+    if (!data.username || !data.email || !data.role_id) {
+      showInfo(constants.WARNING_INFO, constants.WARNING_INPUT, "warning");
+      return false;
+    }
+    if (!hasWhitespace(data.username)) return false;
+    return true;
+  }
 }
 export default AccountValidate;

@@ -11,5 +11,6 @@ accountController.addRevide("roleService", roleService);
 router.get("/:view", accountController.showView);
 router.get("/:view/:id", accountController.showView);
 router.post("/create-account", accountController.create);
+router.patch("/update-account/:id", accountController.update);
 
 export default router;
