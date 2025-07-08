@@ -6,5 +6,7 @@ const actorService = new ActorService();
 const actorController = new ActorController(actorService);
 const router: Router = Router();
 router.get("/:view", actorController.showView);
+router.get("/:view/:id", actorController.showView);
 router.post("/create-actor", uploadImage.single("actor_image"), actorController.create);
+router.patch("/update-actor/:id", uploadImage.single("actor_image"), actorController.update);
 export default router;
