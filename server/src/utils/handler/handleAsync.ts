@@ -8,7 +8,6 @@ import { Request, Response, NextFunction } from "express";
 ✅ Cải thiện độ ổn định của ứng dụng, tránh việc lỗi làm treo request hoặc crash server.*/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleAsync = (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) => {
-  // eslint-disable-next-line no-console
   // console.log(fn);
   return async (req: Request, res: Response, next: NextFunction) => {
     await fn(req, res, next).catch(next);

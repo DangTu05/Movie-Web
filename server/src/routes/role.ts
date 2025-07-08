@@ -7,5 +7,7 @@ const roleController = new RoleController(roleService);
 router.get("/:view", roleController.showView);
 router.get("/:view/:id", roleController.showView);
 router.post("/create-role", roleController.create);
+router.patch("/update-role/:id", roleController.update);
 router.patch("/update-permission", roleController.updatePermission);
+
 export default router;
