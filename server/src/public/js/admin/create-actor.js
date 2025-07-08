@@ -1,4 +1,4 @@
-import { showInfo } from "../shared/alert.js";
+import { showInfo, showConfirm } from "../shared/alert.js";
 import { handleImagePreview } from "../shared/previewMediaFile.js";
 import ActorValidate from "../validations/ActorValidate.js";
 import BaseService from "../service/Base.js";
@@ -12,6 +12,7 @@ window.onload = () => {
   const actor_image = document.getElementById("actor_image");
   const preview = document.querySelector(".preview");
   const createActorForm = document.querySelector(".create-actor-form");
+  const mode = createActorForm.getAttribute("data-mode");
   if (createActorForm) {
     createActorForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -22,7 +23,7 @@ window.onload = () => {
         biography: biography.value,
         gender: gender.value,
         nationality: nationality.value,
-        actor_image: actor_image.files[0]
+        actor_image: actor_image.files[0] ?? preview.src
       };
       if (!ActorValidate.validateCreateActor(data)) {
         return;
@@ -32,16 +33,33 @@ window.onload = () => {
       formData.append("biography", biography.value);
       formData.append("gender", gender.value);
       formData.append("nationality", nationality.value);
-      formData.append("actor_image", actor_image.files[0]);
+      formData.append("actor_image", data.actor_image);
       try {
-        const response = await _baseService.create(formData, "admin/actor/create-actor");
-        if (response.status === 201) {
-          showInfo("Tạo diễn viên thành công", "", "success");
-          createActorForm.reset();
+        if (mode === "Create Actor") {
+          const response = await _baseService.create(formData, "admin/actor/create-actor");
+          if (response.status === 201) {
+            showInfo("Tạo diễn viên thành công", "", "success");
+            createActorForm.reset();
+          } else {
+            showInfo("Tạo diễn viên thất bại", response.error, "error");
+          }
         } else {
-          showInfo("Tạo diễn viên thất bại", response.error, "error");
+          const isConfirmed = await showConfirm(
+            "Cập nhật",
+            "Bạn có chắc chắn muốn cập nhật phim này không?",
+            "question"
+          );
+          if (!isConfirmed.isConfirmed) return;
+          const actor_id = createActorForm.getAttribute("actor_id");
+          const response = await _baseService.update(formData, `admin/actor/update-actor/${actor_id}`);
+          if (response.status === 200) {
+            await showInfo("Cập nhật diễn viên thành công", "", "success");
+            location.reload();
+          } else {
+            showInfo("Cập nhật diễn viên thất bại", response.error, "error");
+          }
         }
-      } catch (error) {
+      } catch {
         showInfo("Lỗi khi tạo diễn viên", " Vui lòng thử lại!", "error");
       }
     });
