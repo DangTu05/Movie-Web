@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 import { Request, Response } from "express";
 import ActorService from "../../services/admin/ActorService";
 import ActorValidate from "../../validations/ActorValidate";
@@ -26,19 +27,21 @@ class ActorController extends BaseController<ActorService, IActorInput, IActor> 
   }
   async render(req: Request, res: Response) {
     const data: any = {};
-    const viewNames = ["create-actor", "update-actor"];
-    const viewName = req.params.view;
-    if (viewNames.includes(viewName)) {
-      data.title = viewName === "create-actor" ? "Create Actor" : "Update Actor";
+    const viewName = req.path.replace(/^\/+/, "").split("/")[0]; // lấy view
+    switch (viewName) {
+      case "create-actor":
+      case "update-actor":
+        data.title = viewName === "create-actor" ? "Create Actor" : "Update Actor";
+        if (viewName === "update-actor") {
+          const actor_id = req.params.id;
+          if (!actor_id) return res.redirect("/admin/actors");
+          data.actor = await this.service.findActorById(actor_id);
+          if (!data.actor) return res.redirect("/admin/actors");
+          data.actor.birthDate = formatDate(data.actor.birthDate);
+        }
+        break;
     }
-    if (viewName === "update-actor") {
-      const actor_id = req.params.id;
-      if (!actor_id) return res.redirect("/admin/actors");
-      data.actor = await this.service.findActorById(actor_id);
-      if (!data.actor) return res.redirect("/admin/actors");
-      data.actor.birthDate = formatDate(data.actor.birthDate);
-    }
-    const actualView = viewNames.includes(viewName) ? "create-actor" : viewName;
+    const actualView = viewName === "update-actor" || viewName === "create-actor" ? "create-actor" : viewName;
     res.render(`admin/pages/${actualView}`, {
       data: data
     });

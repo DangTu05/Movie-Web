@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import MovieValidate from "../../validations/MovieValidate";
@@ -45,25 +46,33 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
   // Phương thức này sẽ hiển thị view tương ứng với controller
   public async render(req: Request, res: Response) {
     logger.info("Fetching all actors for create movie view");
-
     const data: any = {};
-    const viewNames = ["create-movie", "update-movie"];
-    const viewName = req.params.view;
-    if (viewNames.includes(viewName)) {
-      data.actors = await this.revides["actorService"].getAllActor();
-      data.categories = await this.revides["categoryService"].getAllCategories();
-      data.title = viewName === "create-movie" ? "Create Movie" : "Update Movie";
-    }
-    if (viewName === "update-movie") {
-      const movieId = req.params.id;
-      data.movie = await this.service.findMovieById(movieId);
-      if (!data.movie) {
-        return res.redirect("/admin/movies");
-      }
-      data.movie.releaseDate = formatDate(data.movie.releaseDate);
+    const viewName = req.path.replace(/^\/+/, "").split("/")[0]; // lấy view vd:"/update-movie/123" => "update-movie"
+    switch (viewName) {
+      case "create-movie":
+      case "update-movie":
+        data.actors = await this.revides["actorService"].getAllActor();
+        data.categories = await this.revides["categoryService"].getAllCategories();
+        data.title = viewName === "create-movie" ? "Create Movie" : "Update Movie";
+        if (viewName === "update-movie") {
+          const movieId = req.params.id;
+          data.movie = await this.service.findMovieById(movieId);
+          if (!data.movie) return res.redirect("/admin/movies");
+          data.movie.releaseDate = formatDate(data.movie.releaseDate);
+        }
+        break;
+      case "movies":
+        // eslint-disable-next-line no-case-declarations
+        const { pagination, movies } = await this.service.getAllMovie(req.pagination);
+        data.movies = movies;
+        data.pagination = pagination;
+        data.title = "Danh sách phim";
+        break;
+      default:
+        return res.status(404).render("admin/pages/404", { message: "Page not found" });
     }
     // Xác định view thực tế cần render
-    const actualView = viewNames.includes(viewName) ? "create-movie" : viewName;
+    const actualView = viewName === "update-movie" || viewName === "create-movie" ? "create-movie" : viewName;
     res.render(`admin/pages/${actualView}`, {
       data: data
     });

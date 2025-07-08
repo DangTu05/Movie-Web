@@ -7,6 +7,7 @@ import BaseService from "./BaseService";
 import { existMovie } from "../../helpers/existMovie";
 import logger from "../../configs/logger";
 import Constants from "../../utils/Constant";
+import { IPagination } from "../../interfaces/IPagination";
 
 class MovieService extends BaseService<IMovie, IMovieInput> {
   protected model = movieModel;
@@ -64,8 +65,28 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
     const movie = await movieModel.findOne({ _id: id, deleted: false }).select(Constants.COMMON_SELECT_FIELDS).lean();
     return movie;
   }
-
   // End tìm phim theo id
+  // Lấy ra danh sách phim
+  public async getAllMovie(pagination: IPagination) {
+    const [movies, count] = await Promise.all([
+      movieModel
+        .find({ deleted: false })
+        .populate("genre")
+        .populate("actors")
+        .skip(pagination.skip)
+        .limit(pagination.limit),
+      movieModel.countDocuments({ deleted: false })
+    ]);
+    pagination.count = count;
+    pagination.totalPage = Math.ceil(count / pagination.limit);
+    return {
+      pagination: {
+        ...pagination
+      },
+      movies
+    };
+  }
+  // End lấy ra danh sách phim
 }
 
 export default MovieService;

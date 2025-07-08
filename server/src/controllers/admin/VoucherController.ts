@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import { Request, Response } from "express";
 import BaseController from "./BaseController";
@@ -19,29 +20,33 @@ class VoucherController extends BaseController<VoucherService, IVoucherInput, IV
     logger.info("Rendering create voucher view");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = {};
-    const viewNames = ["create-voucher", "update-voucher"];
-    const viewName = req.params.view;
-    if (viewNames.includes(viewName)) {
-      data.title = viewName === "create-voucher" ? "Create Voucher" : "Update Voucher";
+    const viewName = req.params.view || req.path.replace(/^\/+/, "").split("/")[0]; // lấy view
+    switch (viewName) {
+      case "create-voucher":
+      case "update-voucher":
+        data.title = viewName === "create-voucher" ? "Create Voucher" : "Update Voucher";
+        if (viewName === "update-voucher") {
+          const voucher_id = req.params.id;
+          if (!voucher_id) {
+            return res.redirect("/admin/vouchers");
+          }
+          data.voucher = await this.service.findVoucherById(voucher_id);
+          if (!data.voucher) {
+            return res.redirect("/admin/vouchers");
+          }
+          data.voucher.voucher_start = formatDate(data.voucher.voucher_start);
+          data.voucher.voucher_end = formatDate(data.voucher.voucher_end);
+        }
+        break;
+      default:
+        return res.status(404).render("admin/pages/404", { message: "Page not found" });
+        // eslint-disable-next-line no-case-declarations
+        const actualView = viewName === "update-voucher" || viewName === "create-voucher" ? "create-voucher" : viewName;
+        res.render(`admin/pages/${actualView}`, {
+          data: data
+        });
     }
-    if (viewName === "update-voucher") {
-      const voucher_id = req.params.id;
-      if (!voucher_id) {
-        return res.redirect("/admin/vouchers");
-      }
-      data.voucher = await this.service.findVoucherById(voucher_id);
-      if (!data.voucher) {
-        return res.redirect("/admin/vouchers");
-      }
-      data.voucher.voucher_start = formatDate(data.voucher.voucher_start);
-      data.voucher.voucher_end = formatDate(data.voucher.voucher_end);
-    }
-    const actualView = viewNames.includes(viewName) ? "create-voucher" : viewName;
-    res.render(`admin/pages/${actualView}`, {
-      data: data
-    });
   }
-
   protected service: VoucherService = this.voucherService; // Chưa có service cụ thể, cần implement sau
   // Xử lý dữ liệu từ request để tạo voucher
   protected extractDataFromRequest(req: Request) {
