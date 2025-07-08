@@ -7,7 +7,7 @@ include ../partials/header
 block content 
   .container.mt-5
     .card.shadow.p-4
-      h2.mb-4(style="margin-top: 15px;") Danh Sách Phim
+      h2.mb-4(style="margin-top: 15px;")= data.title||"Danh Sách Phim"
       .table-responsive
         table.table.table-bordered.table-hover.text-center.align-middle
           thead.table-light
@@ -18,14 +18,16 @@ block content
               th Trạng Thái
               th Thao Tác
           tbody
-            tr
-              td
-                img.img-thumbnail(src="https://res.cloudinary.com/dry3sdlc1/image/upload/v1751084176/captainamericaa.jpg", style="width: 80px;", alt="Poster")
-              td Avengers: Endgame
-              td Hành động
-              td
-                span.badge.bg-success Đang chiếu
-              td
-                button(style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
-                button.btn.btn-sm.btn-danger Xóa
-            //  Thêm các dòng phim khác tại đây 
+            if data.movies && data.movies.length > 0
+              for movie in data.movies
+                tr
+                  td
+                    img.img-thumbnail(src=movie.poster||"", style="width: 80px;", alt="Poster")
+                  td= movie.title || ""
+                  td= movie.genre.category_name || ""
+                  td
+                    span.badge.bg-success= movie.status || ""
+                  td
+                    a(href=`update-movie/${movie._id}`, style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
+                    button.btn.btn-sm.btn-danger Xóa
+              //  Thêm các dòng phim khác tại đây 

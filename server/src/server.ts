@@ -24,6 +24,10 @@ const startServer = (): Server => {
   app.use(express.static(path.join(__dirname, "public")));
   // Kết nối các router
   router(app);
+  // Xử lý nếu người dùng nhập đường dẫn ko tồn tại
+  app.get(/(.*)/, (req, res) => {
+    res.send("404 Not Found");
+  });
   //Xử lý lỗi tập trung
   //* app locals variable
   app.locals.prefixAdmin = systemConfig.prefixAdmin;
@@ -32,6 +36,7 @@ const startServer = (): Server => {
     logger.info(`Server is running at http://localhost:${port}`);
   });
 };
+
 /// anonymous async function(IIFE)
 (async (): Promise<void> => {
   try {

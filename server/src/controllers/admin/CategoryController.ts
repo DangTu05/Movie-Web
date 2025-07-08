@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 import { Request, Response } from "express";
 import BaseController from "./BaseController";
 import CategoryService from "../../services/admin/CategoryService";
@@ -15,19 +16,23 @@ class CategoryController extends BaseController<CategoryService, ICategoryInput,
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-category
   public async render(req: Request, res: Response) {
     const data: any = {};
-    const viewNames = ["create-category", "update-category"];
-    const viewName = req.params.view;
-    data.title = viewName === "create-category" ? "Create Category" : "Update Category";
-    // Xác định view thực tế cần render
-    if (viewName === "update-category") {
-      const categoryId = req.params.id;
-      data.category = await this.service.findCategoryById(categoryId);
-      if (!data.category) {
-        return res.redirect("/admin/categories");
-      }
+    const viewName = req.path.replace(/^\/+/, "").split("/")[0]; // lấy view
+    switch (viewName) {
+      case "create-category":
+      case "update-category":
+        data.title = viewName === "create-category" ? "Create Category" : "Update Category"; // Xác định view thực tế cần render
+        if (viewName === "update-category") {
+          const categoryId = req.params.id;
+          data.category = await this.service.findCategoryById(categoryId);
+          if (!data.category) {
+            return res.redirect("/admin/categories");
+          }
+        }
+        break;
     }
     // Xác định view thực tế cần render
-    const actualView = viewNames.includes(viewName) ? "create-category" : viewName;
+    const actualView =
+      viewName === "update-category" || viewName === "create-category" ? "create-category" : "categories";
     res.render(`admin/pages/${actualView}`, {
       data: data
     });

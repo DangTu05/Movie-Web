@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable indent */
 import { Request, Response, NextFunction } from "express";
 import BaseController from "./BaseController";
 import { IAccountInput } from "../../interfaces/IAccountInput";
@@ -48,22 +49,25 @@ class AccountController extends BaseController<AccountService, IAccountInput, IA
   }
   async render(req: Request, res: Response) {
     const data: any = {};
-    const viewNames = ["create-account", "update-account"];
-    const viewName = req.params.view;
-    if (viewNames.includes(viewName)) {
-      data.roles = await this.revides["roleService"].getRole();
-      data.title = viewName === "create-account" ? "Create Account" : "Update Account";
+    const viewName = req.path.replace(/^\/+/, "").split("/")[0]; // lấy view
+    switch (viewName) {
+      case "create-account":
+      case "update-account":
+        data.roles = await this.revides["roleService"].getRole();
+        data.title = viewName === "create-account" ? "Create Account" : "Update Account";
+        if (viewName === "update-account") {
+          if (!req.params.id) {
+            return res.redirect("/admin/accounts");
+          }
+          data.account = await this.revides["accountService"].findAccountById(req.params.id);
+          if (!data.account) {
+            return res.redirect("/admin/accounts");
+          }
+        }
+        break;
     }
-    if (viewName === "update-account") {
-      if (!req.params.id) {
-        return res.redirect("/admin/accounts");
-      }
-      data.account = await this.revides["accountService"].findAccountById(req.params.id);
-      if (!data.account) {
-        return res.redirect("/admin/accounts");
-      }
-    }
-    const actualView = viewNames.includes(viewName) ? "create-account" : viewName;
+
+    const actualView = viewName === "update-account" || viewName === "create-account" ? "create-account" : viewName;
     res.render(`admin/pages/${actualView}`, {
       data: data
     });
