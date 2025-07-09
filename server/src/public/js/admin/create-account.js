@@ -8,6 +8,7 @@ window.onload = () => {
   const password = document.getElementById("password");
   const role = document.getElementById("role");
   const createAccountForm = document.querySelector(".create-account-form");
+  const btnSubmit = createAccountForm.querySelector("button[type=submit]");
   const mode = createAccountForm.getAttribute("data-mode");
 
   if (createAccountForm) {
@@ -29,6 +30,7 @@ window.onload = () => {
 
       try {
         if (mode === "Create Account") {
+          btnSubmit.disabled = true;
           const response = await _baseService.create(data, "admin/account/create-account");
           if (response.status === 201) {
             showInfo("Tạo tài khoản thành công", "", "success");
@@ -61,6 +63,7 @@ window.onload = () => {
       } catch {
         showInfo("Lỗi khi tạo tài khoản", " Vui lòng thử lại!", "error");
       }
+      btnSubmit.disabled = false;
     });
   }
 };

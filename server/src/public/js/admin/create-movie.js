@@ -15,6 +15,7 @@ window.onload = () => {
   const duration = document.getElementById("duration");
   const age_permission = document.getElementById("age_permission");
   const createMovieForm = document.querySelector(".create-movie-form");
+  const btnSubmit = createMovieForm.querySelector("button[type=submit]");
   const previewImage = document.querySelector(".preview_image");
   const previewVideo = document.querySelector(".preview_video");
   const mode = createMovieForm.getAttribute("data-mode");
@@ -52,9 +53,14 @@ window.onload = () => {
       formData.append("age_permission", data.age_permission);
       try {
         if (mode === "Create Movie") {
+          btnSubmit.disabled = true;
           const response = await _baseService.create(formData, "admin/movie/create-movie");
           if (response.status === 201) {
             showInfo("Tạo phim thành công", "", "success");
+            createMovieForm.reset();
+            previewImage.src = "";
+            previewVideo.src = "";
+            previewVideo.controls = false; //ẩn thanh điều khiển (play, pause, volume, v.v.)
           } else {
             showInfo("Tạo phim thất bại", response.error, "error");
           }
@@ -77,6 +83,7 @@ window.onload = () => {
       } catch {
         showInfo("Lỗi khi tạo phim", " Vui lòng thử lại!", "error");
       }
+      btnSubmit.disabled = false;
     });
   }
   /// xử lý preview img và video

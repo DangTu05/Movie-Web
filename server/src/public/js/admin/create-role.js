@@ -6,6 +6,7 @@ window.onload = () => {
   const role_name = document.getElementById("role_name");
   const description = document.getElementById("description");
   const createRoleForm = document.querySelector(".create-role-form");
+  const btnSubmit = createRoleForm.querySelector("button[type=submit]");
   const mode = createRoleForm.getAttribute;
   if (createRoleForm) {
     createRoleForm.addEventListener("submit", async (e) => {
@@ -19,6 +20,7 @@ window.onload = () => {
       }
       try {
         if (mode === "Create Role") {
+          btnSubmit.disabled = true;
           const response = await _baseService.create(data, "admin/role/create-role");
           if (response.status === 201) {
             showInfo("Tạo role thành công", "", "success");
@@ -45,6 +47,7 @@ window.onload = () => {
       } catch {
         showInfo("Lỗi khi tạo role", " Vui lòng thử lại!", "error");
       }
+      btnSubmit.disabled = false;
     });
   }
 };

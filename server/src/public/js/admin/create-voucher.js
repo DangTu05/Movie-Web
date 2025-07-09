@@ -9,6 +9,7 @@ window.onload = () => {
   const voucher_discount = document.getElementById("voucher_discount");
   const voucher_script = document.getElementById("voucher_script");
   const createVoucherForm = document.querySelector(".create-voucher-form");
+  const btnSubmit = createVoucherForm.querySelector("button[type=submit]");
   const mode = createVoucherForm.getAttribute("data-mode");
   if (createVoucherForm) {
     createVoucherForm.addEventListener("submit", async (e) => {
@@ -25,6 +26,7 @@ window.onload = () => {
       }
       try {
         if (mode === "Create Voucher") {
+          btnSubmit.disabled = true;
           const response = await _baseService.create(data, "admin/voucher/create-voucher");
           if (response.status === 201) {
             showInfo("Tạo voucher thành công", "", "success");
@@ -51,6 +53,7 @@ window.onload = () => {
       } catch {
         showInfo("Lỗi khi tạo voucher", " Vui lòng thử lại!", "error");
       }
+      btnSubmit.disabled = false;
     });
   }
 };

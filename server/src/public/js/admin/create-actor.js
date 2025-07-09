@@ -12,6 +12,7 @@ window.onload = () => {
   const actor_image = document.getElementById("actor_image");
   const preview = document.querySelector(".preview");
   const createActorForm = document.querySelector(".create-actor-form");
+  const btnSubmit = createActorForm.querySelector("button[type=submit]");
   const mode = createActorForm.getAttribute("data-mode");
   if (createActorForm) {
     createActorForm.addEventListener("submit", async (e) => {
@@ -36,10 +37,12 @@ window.onload = () => {
       formData.append("actor_image", data.actor_image);
       try {
         if (mode === "Create Actor") {
+          btnSubmit.disabled = true;
           const response = await _baseService.create(formData, "admin/actor/create-actor");
           if (response.status === 201) {
             showInfo("Tạo diễn viên thành công", "", "success");
             createActorForm.reset();
+            preview.src = "";
           } else {
             showInfo("Tạo diễn viên thất bại", response.error, "error");
           }
@@ -62,6 +65,7 @@ window.onload = () => {
       } catch {
         showInfo("Lỗi khi tạo diễn viên", " Vui lòng thử lại!", "error");
       }
+      btnSubmit.disabled = false;
     });
   }
   /// xử lý preview img

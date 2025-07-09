@@ -23,7 +23,7 @@ window.onload = () => {
           const response = await _baseService.create(data, "admin/category/create-category");
           if (response.status === 201) {
             showInfo("Tạo thể loại thành công", "", "success");
-            category_name.value = ""; // Reset input field
+            createCategoryForm.reset(); // Reset form
           } else {
             showInfo("Tạo thể loại thất bại", response.error, "error");
           }
