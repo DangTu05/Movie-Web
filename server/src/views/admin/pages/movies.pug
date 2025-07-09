@@ -31,3 +31,17 @@ block content
                     a(href=`update-movie/${movie._id}`, style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
                     button.btn.btn-sm.btn-danger Xóa
               //  Thêm các dòng phim khác tại đây 
+      //- Thanh phân trang
+      .nav-pagination
+        nav(aria-label="Page navigation example")
+          ul.pagination.justify-content-center
+            li.page-item(class=(data.pagination.currentPage === 1 ? 'disabled' : ''))
+              button.page-link(button-pagination=data.pagination.currentPage - 1) «
+            each pageNumber in [...Array(data.pagination.totalPage).keys()].map(n => n + 1)
+              li.page-item(class=(pageNumber === data.pagination.currentPage ? 'active' : ''))
+                button.page-link(button-pagination=pageNumber) #{pageNumber}
+            li.page-item(class=(data.pagination.currentPage === data.pagination.totalPage ? 'disabled' : ''))
+              button.page-link(button-pagination=data.pagination.currentPage + 1) »
+block scripts
+  script(type="module", src="/js/shared/pagination.js") 
+
