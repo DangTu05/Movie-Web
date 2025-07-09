@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable indent */
 import { Request, Response, NextFunction } from "express";
@@ -64,6 +65,14 @@ class AccountController extends BaseController<AccountService, IAccountInput, IA
             return res.redirect("/admin/accounts");
           }
         }
+        break;
+      case "accounts":
+        const result = await this.service.getAllAccount(req.pagination);
+        if (!Array.isArray(result)) {
+          data.accounts = result.accounts;
+          data.pagination = result.pagination;
+        }
+        data.title = "Danh sách tài khoản";
         break;
     }
 

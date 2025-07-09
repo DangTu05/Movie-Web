@@ -12,6 +12,8 @@ import { StatusCodes } from "http-status-codes";
 import logger from "../../configs/logger";
 import { existAccount } from "../../helpers/existAccount";
 import { existRole } from "../../helpers/existRole";
+import { IPagination } from "../../interfaces/IPagination";
+import Constants from "../../utils/Constant";
 class AccountService extends BaseService<IAccount, IAccountInput> {
   protected model = accountModel;
   public async create(data: IAccountInput) {
@@ -81,6 +83,46 @@ class AccountService extends BaseService<IAccount, IAccountInput> {
       .select("user_id username email role_id")
       .lean();
     return data;
+  }
+  public async getAllAccount(pagination?: IPagination) {
+    if (!pagination) {
+      const accounts: IAccount[] = await this.model
+        .find({ deleted: false })
+        .select(Constants.COMMON_SELECT_FIELDS)
+        .lean()
+        .populate("role_id")
+        .populate("user_id");
+      if (accounts.length === 0) {
+        logger.info("No accounts found");
+      }
+      return accounts;
+    } else {
+      const [accounts, count] = await Promise.all([
+        this.model
+          .find({ deleted: false })
+          .select(Constants.COMMON_SELECT_FIELDS)
+          .populate({
+            path: "role_id",
+            select: "role_name" // 🔥lấy field role_name
+          })
+          .populate({
+            path: "user_id",
+            select: "_id"
+          })
+          .skip(pagination.skip)
+          .limit(pagination.limit)
+          .lean(), // <- lean được gọi cuối cùng, sau khi hoàn tất populate và paging,
+        this.model.countDocuments({ deleted: false })
+      ]);
+      pagination.count = count;
+      pagination.totalPage = Math.ceil(count / pagination.limit);
+      return {
+        pagination: {
+          ...pagination
+        },
+        accounts
+      };
+    }
   }
 }
 export default AccountService;
