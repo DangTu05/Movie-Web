@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
@@ -28,6 +29,14 @@ class CategoryController extends BaseController<CategoryService, ICategoryInput,
             return res.redirect("/admin/categories");
           }
         }
+        break;
+      case "categories":
+        const result = await this.service.getAllCategory(req.pagination);
+        if (!Array.isArray(result)) {
+          data.categories = result.categories;
+          data.pagination = result.pagination;
+        }
+        data.title = "Danh sách thể loại";
         break;
     }
     // Xác định view thực tế cần render
