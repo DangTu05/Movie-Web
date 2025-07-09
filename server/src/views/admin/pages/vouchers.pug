@@ -1,0 +1,41 @@
+extends ../layouts/index.pug
+//- include thanh phân trang
+include ../mixins/pagination.pug 
+//- block styles 
+//-   link(rel='stylesheet', href='/assets/css/admin/permission.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content 
+  .container.mt-5
+    .card.shadow.p-4
+      h2.mb-4(style="margin-top: 15px;")= data.title||"Danh Sách Khuyến Mãi"
+      .table-responsive
+        table.table.table-bordered.table-hover.text-center.align-middle
+          thead.table-light
+            tr
+              th Tên Ưu Đãi
+              th Ngày Bắt Đầu
+              th Ngày Kết Thúc
+              th Giảm Giá(%)
+              th Trạng Thái
+              th Thao Tác
+          tbody
+            if data.vouchers && data.vouchers.length > 0
+              for voucher in data.vouchers
+                tr
+                  td= voucher.voucher_name || ""
+                  td= voucher.voucher_start || ""
+                  td= voucher.voucher_end || ""
+                  td= voucher.voucher_discount || ""
+                  td
+                    span.badge.bg-success= voucher.status || ""
+                  td
+                    a(href=`update-voucher/${voucher._id}`, style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
+                    button.btn.btn-sm.btn-danger Xóa
+              //  Thêm các dòng phim khác tại đây 
+      //- Thanh phân trang
+      +pagination(data)
+block scripts
+  script(type="module", src="/js/shared/pagination.js") 
+
