@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { Request, Response } from "express";
@@ -39,6 +40,14 @@ class ActorController extends BaseController<ActorService, IActorInput, IActor> 
           if (!data.actor) return res.redirect("/admin/actors");
           data.actor.birthDate = formatDate(data.actor.birthDate);
         }
+        break;
+      case "actors":
+        const result = await this.service.getAllActor(req.pagination);
+        if (!Array.isArray(result)) {
+          data.actors = result.actors;
+          data.pagination = result.pagination;
+        }
+        data.title = "Danh sách diễn viên";
         break;
     }
     const actualView = viewName === "update-actor" || viewName === "create-actor" ? "create-actor" : viewName;
