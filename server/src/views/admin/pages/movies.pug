@@ -1,4 +1,6 @@
 extends ../layouts/index.pug
+//- include thanh phân trang
+include ../mixins/pagination.pug 
 //- block styles 
 //-   link(rel='stylesheet', href='/assets/css/admin/permission.css')
 include ../partials/sidebar
@@ -32,16 +34,7 @@ block content
                     button.btn.btn-sm.btn-danger Xóa
               //  Thêm các dòng phim khác tại đây 
       //- Thanh phân trang
-      .nav-pagination
-        nav(aria-label="Page navigation example")
-          ul.pagination.justify-content-center
-            li.page-item(class=(data.pagination.currentPage === 1 ? 'disabled' : ''))
-              button.page-link(button-pagination=data.pagination.currentPage - 1) «
-            each pageNumber in [...Array(data.pagination.totalPage).keys()].map(n => n + 1)
-              li.page-item(class=(pageNumber === data.pagination.currentPage ? 'active' : ''))
-                button.page-link(button-pagination=pageNumber) #{pageNumber}
-            li.page-item(class=(data.pagination.currentPage === data.pagination.totalPage ? 'disabled' : ''))
-              button.page-link(button-pagination=data.pagination.currentPage + 1) »
+      +pagination(data)
 block scripts
   script(type="module", src="/js/shared/pagination.js") 
 
