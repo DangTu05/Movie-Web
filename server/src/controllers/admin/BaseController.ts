@@ -15,6 +15,7 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
     this.showView = errorHandler.handleAsyncErrors(this.showView.bind(this));
     this.create = errorHandler.handleAsyncErrors(this.create.bind(this));
     this.update = errorHandler.handleAsyncErrors(this.update.bind(this));
+    this.delete = errorHandler.handleAsyncErrors(this.delete.bind(this));
   }
   // Phương thức render để hiển thị view
   // Phương thức này sẽ được triển khai trong các controller con
@@ -64,6 +65,12 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
     const record = await this.service.update(id, req.body);
     logger.info("Update operation successful");
     sendResponse(res, StatusCodes.OK, record, "Cập nhật thành công!", "Cập nhật thành công!");
+  }
+  public async delete(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id;
+    await this.service.delete(id);
+    logger.info("Delete operation successful");
+    sendResponse(res, StatusCodes.OK, null, "Xóa thành công!", "Xóa thành công!");
   }
 }
 export default BaseController;

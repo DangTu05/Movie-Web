@@ -10,5 +10,8 @@ class BaseService {
   async update(data, enpoint) {
     return await this.httpClient.request(enpoint, httpMethods.PATCH, httpHeaders.content.json, data);
   }
+  async delete(enpoint) {
+    return await this.httpClient.request(enpoint, httpMethods.DELETE, httpHeaders.content.json);
+  }
 }
 export default BaseService;

@@ -11,4 +11,5 @@ router.get("/update-actor/:id", actorController.showView);
 router.get("/actors", paginationMiddleware, actorController.showView);
 router.post("/create-actor", uploadImage.single("actor_image"), actorController.create);
 router.patch("/update-actor/:id", uploadImage.single("actor_image"), actorController.update);
+router.delete("/delete-actor/:id", actorController.delete);
 export default router;
