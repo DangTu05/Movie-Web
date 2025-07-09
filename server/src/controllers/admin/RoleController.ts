@@ -42,10 +42,20 @@ class RoleController extends BaseController<RoleService, IRoleInput, IRole> {
         }
         break;
       case "permission":
-        const roles = await this.roleService.getRole();
+        const roles = await this.roleService.getAllRole();
         const count = await this.roleService.getCountRole();
         data.roles = roles;
         data.count = count;
+        data.title = "Phân quyền";
+        break;
+      case "roles":
+        const result = await this.roleService.getAllRole(req.pagination);
+        if (!Array.isArray(result)) {
+          data.roles = result.roles;
+          data.pagination = result.pagination;
+        }
+        data.title = "Danh sách role";
+        break;
     }
     const actualView = viewName === "update-role" || viewName === "create-role" ? "create-role" : viewName;
     logger.info(`Rendering view: ${actualView}`);

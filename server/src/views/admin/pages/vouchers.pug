@@ -9,29 +9,29 @@ include ../partials/header
 block content 
   .container.mt-5
     .card.shadow.p-4
-      h2.mb-4(style="margin-top: 15px;")= data.title||"Danh Sách Diễn Viên"
+      h2.mb-4(style="margin-top: 15px;")= data.title||"Danh Sách Khuyến Mãi"
       .table-responsive
         table.table.table-bordered.table-hover.text-center.align-middle
           thead.table-light
             tr
-              th Ảnh
-              th Tên Diễn Viên
-              th Ngày Sinh
-              th Giới Tính
-              th Quốc Gia
+              th Tên Ưu Đãi
+              th Ngày Bắt Đầu
+              th Ngày Kết Thúc
+              th Giảm Giá(%)
+              th Trạng Thái
               th Thao Tác
           tbody
-            if data.actors && data.actors.length > 0
-              for actor in data.actors
+            if data.vouchers && data.vouchers.length > 0
+              for voucher in data.vouchers
                 tr
+                  td= voucher.voucher_name || ""
+                  td= voucher.voucher_start || ""
+                  td= voucher.voucher_end || ""
+                  td= voucher.voucher_discount || ""
                   td
-                    img.img-thumbnail(src=actor.actor_image||"", style="width: 80px;", alt="Poster")
-                  td= actor.actor_name || ""
-                  td= actor.birthDate || ""
-                  td=actor.gender||""
-                  td= actor.nationality || ""
+                    span.badge.bg-success= voucher.status || ""
                   td
-                    a(href=`update-actor/${actor._id}`, style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
+                    a(href=`update-voucher/${voucher._id}`, style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
                     button.btn.btn-sm.btn-danger Xóa
               //  Thêm các dòng phim khác tại đây 
       //- Thanh phân trang

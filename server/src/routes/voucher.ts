@@ -1,11 +1,13 @@
 import { Router } from "express";
 import VoucherController from "../controllers/admin/VoucherController";
 import VoucherService from "../services/admin/VoucherService";
+import { paginationMiddleware } from "../middlewares/pagination";
 const voucherService = new VoucherService();
 const voucherController = new VoucherController(voucherService);
 const router: Router = Router();
 router.get("/create-voucher", voucherController.showView);
 router.get("/update-voucher/:id", voucherController.showView);
+router.get("/vouchers", paginationMiddleware, voucherController.showView);
 router.post("/create-voucher", voucherController.create);
 router.patch("/update-voucher/:id", voucherController.update);
 export default router;

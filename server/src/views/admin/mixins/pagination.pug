@@ -1,0 +1,14 @@
+mixin pagination(data)
+  if data && data.pagination
+    .nav-pagination
+      nav(aria-label="Page navigation example")
+        ul.pagination.justify-content-center
+          li.page-item(class=(data.pagination.currentPage === 1 ? 'disabled' : ''))
+            button.page-link(type="button", button-pagination=data.pagination.currentPage - 1) «
+
+          each pageNumber in [...Array(data.pagination.totalPage).keys()].map(n => n + 1)
+            li.page-item(class=(pageNumber === data.pagination.currentPage ? 'active' : ''))
+              button.page-link(type="button", button-pagination=pageNumber) #{pageNumber}
+
+          li.page-item(class=(data.pagination.currentPage === data.pagination.totalPage ? 'disabled' : ''))
+            button.page-link(type="button", button-pagination=data.pagination.currentPage + 1) »

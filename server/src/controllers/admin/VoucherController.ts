@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import { Request, Response } from "express";
@@ -17,10 +18,9 @@ class VoucherController extends BaseController<VoucherService, IVoucherInput, IV
   // render view cho việc tạo mới voucher
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-voucher
   public async render(req: Request, res: Response) {
-    logger.info("Rendering create voucher view");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const data: any = {};
-    const viewName = req.params.view || req.path.replace(/^\/+/, "").split("/")[0]; // lấy view
+    const viewName = req.path.replace(/^\/+/, "").split("/")[0]; // lấy view
     switch (viewName) {
       case "create-voucher":
       case "update-voucher":
@@ -38,14 +38,21 @@ class VoucherController extends BaseController<VoucherService, IVoucherInput, IV
           data.voucher.voucher_end = formatDate(data.voucher.voucher_end);
         }
         break;
+      case "vouchers":
+        const result = await this.service.getAllVoucher(req.pagination);
+        if (!Array.isArray(result)) {
+          data.vouchers = result.vouchers;
+          data.pagination = result.pagination;
+        }
+        data.title = "Danh sách khuyến mãi";
+        break;
       default:
         return res.status(404).render("admin/pages/404", { message: "Page not found" });
-        // eslint-disable-next-line no-case-declarations
-        const actualView = viewName === "update-voucher" || viewName === "create-voucher" ? "create-voucher" : viewName;
-        res.render(`admin/pages/${actualView}`, {
-          data: data
-        });
     }
+    const actualView = viewName === "update-voucher" || viewName === "create-voucher" ? "create-voucher" : viewName;
+    res.render(`admin/pages/${actualView}`, {
+      data: data
+    });
   }
   protected service: VoucherService = this.voucherService; // Chưa có service cụ thể, cần implement sau
   // Xử lý dữ liệu từ request để tạo voucher
