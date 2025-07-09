@@ -1,0 +1,37 @@
+extends ../layouts/index.pug
+//- include thanh phân trang
+include ../mixins/pagination.pug 
+//- block styles 
+//-   link(rel='stylesheet', href='/assets/css/admin/permission.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content 
+  .container.mt-5
+    .card.shadow.p-4
+      h2.mb-4(style="margin-top: 15px;")= data.title||"Danh Sách Quyền"
+      .table-responsive
+        table.table.table-bordered.table-hover.text-center.align-middle
+          thead.table-light
+            tr
+              th Tên Quyền
+              th Mô Tả
+              th Chi Tiết
+              th Thao Tác
+          tbody
+            if data.roles && data.roles.length > 0
+              for role in data.roles
+                tr
+                  td= role.role_name || ""
+                  td= role.description || ""
+                  td 
+                    a(href) xem chi tiết
+                  td
+                    a(href=`update-role/${role._id}`, style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
+                    button.btn.btn-sm.btn-danger Xóa
+              //  Thêm các dòng phim khác tại đây 
+      //- Thanh phân trang
+      +pagination(data)
+block scripts
+  script(type="module", src="/js/shared/pagination.js") 
+

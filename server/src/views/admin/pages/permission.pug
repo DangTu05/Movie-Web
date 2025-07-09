@@ -9,7 +9,7 @@ block content
     //  Permissions Content 
     .permissions-content
       .permissions-header
-        h1 Phân quyền
+        h1= data.title||"Phân Quyền"
         //- if(role.permissions.includes('role_permissions'))
         button.update-btn Cập nhật
         //- else 
