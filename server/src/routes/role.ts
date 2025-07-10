@@ -12,5 +12,5 @@ router.get("/permission", roleController.showView);
 router.post("/create-role", roleController.create);
 router.patch("/update-role/:id", roleController.update);
 router.patch("/update-permission", roleController.updatePermission);
-
+router.delete("/delete-role/:id", roleController.delete);
 export default router;

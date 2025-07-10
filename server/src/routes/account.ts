@@ -14,4 +14,5 @@ router.get("/update-account/:id", accountController.showView);
 router.get("/accounts", paginationMiddleware, accountController.showView);
 router.post("/create-account", accountController.create);
 router.patch("/update-account/:id", accountController.update);
+router.delete("/delete-account/:id", accountController.delete);
 export default router;

@@ -49,6 +49,9 @@ abstract class BaseService<TModel, TInput> implements IBaseService<TInput, TMode
 
   // Phương thức này sẽ được triển khai trong các service con
   // Ví dụ: ActorService, MovieService, CategoryService
-  // abstract delete(id: string): Promise<void>;
+  public async delete(id: string): Promise<void> {
+    await this.checkId(id);
+    await this.model.findByIdAndUpdate(id, { deleted: true });
+  }
 }
 export default BaseService;
