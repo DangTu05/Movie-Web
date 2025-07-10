@@ -52,7 +52,7 @@ class MovieController extends BaseController<MovieService, IMovieInput, IMovie> 
       case "create-movie":
       case "update-movie":
         data.actors = await this.revides["actorService"].getAllActor();
-        data.categories = await this.revides["categoryService"].getAllCategories();
+        data.categories = await this.revides["categoryService"].getAllCategory();
         data.title = viewName === "create-movie" ? "Create Movie" : "Update Movie";
         if (viewName === "update-movie") {
           const movieId = req.params.id;

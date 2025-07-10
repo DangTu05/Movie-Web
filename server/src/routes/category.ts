@@ -10,4 +10,5 @@ router.get("/update-category/:id", categoryController.showView);
 router.get("/categories", paginationMiddleware, categoryController.showView);
 router.post("/create-category", categoryController.create);
 router.patch("/update-category/:id", categoryController.update);
+router.delete("/delete-category/:id", categoryController.delete);
 export default router;

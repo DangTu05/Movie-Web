@@ -10,4 +10,5 @@ router.get("/update-voucher/:id", voucherController.showView);
 router.get("/vouchers", paginationMiddleware, voucherController.showView);
 router.post("/create-voucher", voucherController.create);
 router.patch("/update-voucher/:id", voucherController.update);
+router.delete("/delete-voucher/:id", voucherController.delete);
 export default router;

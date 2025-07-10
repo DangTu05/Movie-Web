@@ -21,4 +21,5 @@ router.get("/create-movie", movieController.showView);
 router.get("/update-movie/:id", movieController.showView);
 router.post("/create-movie", handleMulterError(uploadMedia), movieController.create);
 router.patch("/update-movie/:id", handleMulterError(uploadMedia), movieController.update);
+router.delete("/delete-movie/:id", movieController.delete);
 export default router;

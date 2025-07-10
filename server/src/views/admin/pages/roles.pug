@@ -28,10 +28,11 @@ block content
                     a(href) xem chi tiết
                   td
                     a(href=`update-role/${role._id}`, style="margin-right: 5px;").btn.btn-sm.btn-primary Sửa
-                    button.btn.btn-sm.btn-danger Xóa
+                    a(href=`admin/role/delete-role/${role._id}`, class="delete").btn.btn-sm.btn-danger Xóa
               //  Thêm các dòng phim khác tại đây 
       //- Thanh phân trang
       +pagination(data)
 block scripts
-  script(type="module", src="/js/shared/pagination.js") 
+  script(type="module", src="/js/shared/pagination.js")
+  script(type="module", src="/js/admin/script.js") 
 
