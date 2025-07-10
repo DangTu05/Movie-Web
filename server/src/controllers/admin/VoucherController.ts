@@ -14,7 +14,7 @@ class VoucherController extends BaseController<VoucherService, IVoucherInput, IV
   constructor(private readonly voucherService: VoucherService) {
     super();
   }
-
+  protected service: VoucherService = this.voucherService; // Chưa có service cụ thể, cần implement sau
   // render view cho việc tạo mới voucher
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-voucher
   public async render(req: Request, res: Response) {
@@ -54,7 +54,6 @@ class VoucherController extends BaseController<VoucherService, IVoucherInput, IV
       data: data
     });
   }
-  protected service: VoucherService = this.voucherService; // Chưa có service cụ thể, cần implement sau
   // Xử lý dữ liệu từ request để tạo voucher
   protected extractDataFromRequest(req: Request) {
     // Tự động khởi tạo trạng thái theo ngày

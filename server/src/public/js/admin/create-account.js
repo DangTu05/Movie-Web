@@ -27,16 +27,15 @@ window.onload = () => {
       } else if (!AccountValidate.validateUpdateAccount(data)) {
         return;
       }
-
       try {
+        btnSubmit.disabled = true;
         if (mode === "Create Account") {
-          btnSubmit.disabled = true;
           const response = await _baseService.create(data, "admin/account/create-account");
           if (response.status === 201) {
             showInfo("Tạo tài khoản thành công", "", "success");
             createAccountForm.reset();
           } else {
-            showInfo("Tạo tài khoản thất bại", response.error, "error");
+            showInfo("Tạo tài khoản thất bại", "", "error");
           }
         } else {
           const isConfirmed = await showConfirm(
@@ -57,7 +56,7 @@ window.onload = () => {
             await showInfo("Cập nhật tài khoản thành công", "", "success");
             location.reload();
           } else {
-            showInfo("Cập nhật tài khoản thất bại", response.error, "error");
+            showInfo("Cập nhật tài khoản thất bại", "", "error");
           }
         }
       } catch {

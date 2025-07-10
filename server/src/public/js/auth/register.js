@@ -26,7 +26,7 @@ window.onload = () => {
         } else {
           showInfo("Đăng ký thất bại", " Vui lòng thử lại!", "error");
         }
-      } catch (error) {
+      } catch {
         showInfo("Đăng ký thất bại", "Đã xảy ra lỗi. Vui lòng thử lại sau!", "error");
       } finally {
         registerButton.disabled = false;

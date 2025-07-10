@@ -41,9 +41,9 @@ window.onload = () => {
               await showInfo("Cập nhật thành công", "", "success");
               location.reload();
             } else {
-              showInfo("Cập nhật thất bại", response.error, "error");
+              showInfo("Cập nhật thất bại", "", "error");
             }
-          } catch (error) {
+          } catch {
             showInfo("Lỗi khi cập nhật", " Vui lòng thử lại!", "error");
           }
         }

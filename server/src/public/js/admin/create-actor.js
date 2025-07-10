@@ -36,15 +36,15 @@ window.onload = () => {
       formData.append("nationality", nationality.value);
       formData.append("actor_image", data.actor_image);
       try {
+        btnSubmit.disabled = true;
         if (mode === "Create Actor") {
-          btnSubmit.disabled = true;
           const response = await _baseService.create(formData, "admin/actor/create-actor");
           if (response.status === 201) {
             showInfo("Tạo diễn viên thành công", "", "success");
             createActorForm.reset();
             preview.src = "";
           } else {
-            showInfo("Tạo diễn viên thất bại", response.error, "error");
+            showInfo("Tạo diễn viên thất bại", "", "error");
           }
         } else {
           const isConfirmed = await showConfirm(
@@ -59,7 +59,7 @@ window.onload = () => {
             await showInfo("Cập nhật diễn viên thành công", "", "success");
             location.reload();
           } else {
-            showInfo("Cập nhật diễn viên thất bại", response.error, "error");
+            showInfo("Cập nhật diễn viên thất bại", "", "error");
           }
         }
       } catch {
