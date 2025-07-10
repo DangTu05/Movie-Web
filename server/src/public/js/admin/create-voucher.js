@@ -25,14 +25,14 @@ window.onload = () => {
         return;
       }
       try {
+        btnSubmit.disabled = true;
         if (mode === "Create Voucher") {
-          btnSubmit.disabled = true;
           const response = await _baseService.create(data, "admin/voucher/create-voucher");
           if (response.status === 201) {
             showInfo("Tạo voucher thành công", "", "success");
             createVoucherForm.reset();
           } else {
-            showInfo("Tạo voucher thất bại", response.error, "error");
+            showInfo("Tạo voucher thất bại", "", "error");
           }
         } else {
           const isConfirmed = await showConfirm(
@@ -47,7 +47,7 @@ window.onload = () => {
             await showInfo("Cập nhật voucher thành công", "", "success");
             location.reload();
           } else {
-            showInfo("Cập nhật voucher thất bại", response.error, "error");
+            showInfo("Cập nhật voucher thất bại", "", "error");
           }
         }
       } catch {

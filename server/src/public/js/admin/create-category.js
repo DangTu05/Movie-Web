@@ -25,7 +25,7 @@ window.onload = () => {
             showInfo("Tạo thể loại thành công", "", "success");
             createCategoryForm.reset(); // Reset form
           } else {
-            showInfo("Tạo thể loại thất bại", response.error, "error");
+            showInfo("Tạo thể loại thất bại", "", "error");
           }
         } else {
           const isConfirmed = await showConfirm(
@@ -40,7 +40,7 @@ window.onload = () => {
             await showInfo("Cập nhật thể loại thành công", "", "success");
             location.reload();
           } else {
-            showInfo("Cập nhật thể loại thất bại", response.error, "error");
+            showInfo("Cập nhật thể loại thất bại", "", "error");
           }
         }
       } catch {

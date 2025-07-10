@@ -12,6 +12,7 @@ window.onload = () => {
   const logo = document.getElementById("logo");
   const settingForm = document.querySelector(".setting-form");
   const preview = document.querySelector(".preview");
+  const btnSubmit = settingForm.querySelector("button[type=submit]");
   if (settingForm) {
     settingForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -34,15 +35,17 @@ window.onload = () => {
       formData.append("address", data.address);
       formData.append("map", data.map);
       try {
+        btnSubmit.disabled = true;
         const response = await _baseService.create(formData, "admin/setting/update-setting");
         if (response.status === 201) {
           showInfo("Cập nhật thành công", "", "success");
         } else {
-          showInfo("Cập nhật thất bại", response.error, "error");
+          showInfo("Cập nhật thất bại", "", "error");
         }
-      } catch (error) {
+      } catch {
         showInfo("Lỗi khi cập nhật thông tin trang web", " Vui lòng thử lại!", "error");
       }
+      btnSubmit.disabled = false;
     });
   }
   /// xử lý preview img

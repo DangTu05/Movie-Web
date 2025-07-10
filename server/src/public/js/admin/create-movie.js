@@ -52,8 +52,8 @@ window.onload = () => {
       formData.append("duration", data.duration);
       formData.append("age_permission", data.age_permission);
       try {
+        btnSubmit.disabled = true;
         if (mode === "Create Movie") {
-          btnSubmit.disabled = true;
           const response = await _baseService.create(formData, "admin/movie/create-movie");
           if (response.status === 201) {
             showInfo("Tạo phim thành công", "", "success");
@@ -62,7 +62,7 @@ window.onload = () => {
             previewVideo.src = "";
             previewVideo.controls = false; //ẩn thanh điều khiển (play, pause, volume, v.v.)
           } else {
-            showInfo("Tạo phim thất bại", response.error, "error");
+            showInfo("Tạo phim thất bại", "", "error");
           }
         } else {
           const isConfirmed = await showConfirm(
@@ -77,7 +77,7 @@ window.onload = () => {
             await showInfo("Cập nhật phim thành công", "", "success");
             location.reload();
           } else {
-            showInfo("Tạo phim thất bại", response.error, "error");
+            showInfo("Tạo phim thất bại", "", "error");
           }
         }
       } catch {

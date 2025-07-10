@@ -12,6 +12,7 @@ class SettingController extends BaseController<SettingService, ISettingInput, IS
   constructor(private readonly settingService: SettingService) {
     super();
   }
+  protected service: SettingService = this.settingService;
   public async render(req: Request, res: Response): Promise<void> {
     const viewName = req.params.view;
     const setting = await this.service.getSetting();
@@ -22,7 +23,6 @@ class SettingController extends BaseController<SettingService, ISettingInput, IS
       setting: setting
     });
   }
-  protected service: SettingService = this.settingService;
   protected validate(req: Request) {
     return _settingValidate.validate(req);
   }

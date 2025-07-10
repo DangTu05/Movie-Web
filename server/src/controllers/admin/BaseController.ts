@@ -63,7 +63,7 @@ abstract class BaseController<T extends IBaseService<TInput, TModel>, TInput, TM
       return sendResponse(res, 400, null, "Validation failed", errors);
     }
     const record = await this.service.update(id, req.body);
-    logger.info("Update operation successful");
+    logger.info("Update operation successful", record);
     sendResponse(res, StatusCodes.OK, record, "Cập nhật thành công!", "Cập nhật thành công!");
   }
   public async delete(req: Request, res: Response, next: NextFunction) {

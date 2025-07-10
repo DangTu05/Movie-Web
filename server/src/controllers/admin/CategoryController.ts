@@ -13,6 +13,7 @@ class CategoryController extends BaseController<CategoryService, ICategoryInput,
   constructor(private readonly categoryService: CategoryService) {
     super();
   }
+  protected service: CategoryService = this.categoryService;
   // render view cho việc tạo mới category
   // Phương thức này sẽ được gọi khi người dùng truy cập vào /create-category
   public async render(req: Request, res: Response) {
@@ -21,7 +22,7 @@ class CategoryController extends BaseController<CategoryService, ICategoryInput,
     switch (viewName) {
       case "create-category":
       case "update-category":
-        data.title = viewName === "create-category" ? "Create Category" : "Update Category"; // Xác định view thực tế cần render
+        data.title = viewName === "create-category" ? "Create Category" : "Update Category"; // Xác định tiêu đề
         if (viewName === "update-category") {
           const categoryId = req.params.id;
           data.category = await this.service.findCategoryById(categoryId);
@@ -46,7 +47,6 @@ class CategoryController extends BaseController<CategoryService, ICategoryInput,
       data: data
     });
   }
-  protected service: CategoryService = this.categoryService;
   // Xử lý dữ liệu từ request để tạo category
   protected validate(req: Request): { success: boolean; errors?: any } {
     return _categoryValidate.validate(req);

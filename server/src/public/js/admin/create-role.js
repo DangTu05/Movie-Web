@@ -19,14 +19,14 @@ window.onload = () => {
         return;
       }
       try {
+        btnSubmit.disabled = true;
         if (mode === "Create Role") {
-          btnSubmit.disabled = true;
           const response = await _baseService.create(data, "admin/role/create-role");
           if (response.status === 201) {
             showInfo("Tạo role thành công", "", "success");
             createRoleForm.reset();
           } else {
-            showInfo("Tạo role thất bại", response.error, "error");
+            showInfo("Tạo role thất bại", "", "error");
           }
         } else {
           const isConfirmed = await showConfirm(
@@ -41,7 +41,7 @@ window.onload = () => {
             await showInfo("Cập nhật role thành công", "", "success");
             location.reload();
           } else {
-            showInfo("Cập nhật role thất bại", response.error, "error");
+            showInfo("Cập nhật role thất bại", "", "error");
           }
         }
       } catch {

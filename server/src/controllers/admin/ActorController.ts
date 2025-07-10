@@ -55,6 +55,5 @@ class ActorController extends BaseController<ActorService, IActorInput, IActor> 
       data: data
     });
   }
-  
 }
 export default ActorController;
