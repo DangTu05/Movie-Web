@@ -1,0 +1,27 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+
+block content
+  .title
+    h2= data.title || ""
+
+  .card
+    .card-body
+      form(class="create-article-form")
+        .form-group
+          label(for="title") Tiêu đề 
+          input#title.form-control(type="text", name="title", required)
+        .form-group
+          label(for="content") Nội dung
+          textarea#content.form-control(name="content", rows="4")
+        .form-group.text-end
+          button.btn.btn-primary.create-voucher-btn(type="submit")=data.title||""
+  script(type="module", src="/js/admin/create-article.js") 
+  //- Tinymce CDN
+  script(type="application/javascript", src="/tinymce/tinymce.min.js")
+  script(type="application/javascript", src="/js/shared/tinymce-config.js")
+  //-  SweetAlert2 CDN 
+  script(src="https://cdn.jsdelivr.net/npm/sweetalert2@11")

@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import { Server } from "http";
-import SettingService from "./services/admin/SettingService";
+// import SettingService from "./services/admin/SettingService";
 // import exitHook from "async-exit-hook";
 import logger from "./configs/logger";
 import path from "path";
@@ -24,6 +24,9 @@ const startServer = (): Server => {
   configViewEngine(app);
   // Kết nối các file tĩnh
   app.use(express.static(path.join(__dirname, "public")));
+  /// tinymce
+  const rootPath = path.resolve(__dirname, "..", "..");
+  app.use("/tinymce", express.static(path.join(rootPath, "node_modules", "tinymce")));
   // Kết nối các router
   routerAdmin(app);
   routerClient(app);
