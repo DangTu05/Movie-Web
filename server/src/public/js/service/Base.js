@@ -4,6 +4,9 @@ class BaseService {
   constructor() {
     this.httpClient = new HttpClient();
   }
+  async get(enpoint) {
+    return await this.httpClient.request(enpoint, httpMethods.GET, httpHeaders.content.json);
+  }
   async create(data, enpoint) {
     return await this.httpClient.request(enpoint, httpMethods.POST, httpHeaders.content.json, data);
   }
