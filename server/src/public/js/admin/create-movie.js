@@ -56,7 +56,7 @@ window.onload = () => {
         if (mode === "Create Movie") {
           const response = await _baseService.create(formData, "admin/movie/create-movie");
           if (response.status === 201) {
-            showInfo("Tạo phim thành công", "", "success");
+            await showInfo("Tạo phim thành công", "", "success");
             createMovieForm.reset();
             previewImage.src = "";
             previewVideo.src = "";

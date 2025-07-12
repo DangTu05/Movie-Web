@@ -1,11 +1,13 @@
 import express, { Express } from "express";
 import { Server } from "http";
+import SettingService from "./services/admin/SettingService";
 // import exitHook from "async-exit-hook";
 import logger from "./configs/logger";
 import path from "path";
 import cors from "cors";
 import connectDB from "./configs/connectDB";
-import router from "./routes/index";
+import routerAdmin from "./routes/index";
+import routerClient from "./routes/client/index";
 import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware";
 import systemConfig from "./configs/system";
 import "./jobs/autoUpdateMovie"; // Import cron job to auto update movie status
@@ -23,7 +25,8 @@ const startServer = (): Server => {
   // Kết nối các file tĩnh
   app.use(express.static(path.join(__dirname, "public")));
   // Kết nối các router
-  router(app);
+  routerAdmin(app);
+  routerClient(app);
   // Xử lý nếu người dùng nhập đường dẫn ko tồn tại
   app.get(/(.*)/, (req, res) => {
     res.send("404 Not Found");
@@ -31,6 +34,11 @@ const startServer = (): Server => {
   //Xử lý lỗi tập trung
   //* app locals variable
   app.locals.prefixAdmin = systemConfig.prefixAdmin;
+  // (async () => {
+  //   const setting = await settingService.getSetting();
+  //   app.locals.setting = setting;
+  // })();
+
   app.use(errorHandlingMiddleware);
   return app.listen(port, () => {
     logger.info(`Server is running at http://localhost:${port}`);
