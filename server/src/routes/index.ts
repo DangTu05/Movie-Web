@@ -8,6 +8,7 @@ import settingRoutes from "./setting";
 import systemConfig from "../configs/system";
 import roleRoutes from "./role";
 import accountRoutes from "./account";
+import articleRoutes from "./article";
 const PATH_ADMIN = systemConfig.prefixAdmin;
 function router(app: Application): void {
   app.use("/auth", authRoutes);
@@ -18,5 +19,6 @@ function router(app: Application): void {
   app.use(`${PATH_ADMIN}/setting`, settingRoutes);
   app.use(`${PATH_ADMIN}/role`, roleRoutes);
   app.use(`${PATH_ADMIN}/account`, accountRoutes);
+  app.use(`${PATH_ADMIN}/article`, articleRoutes);
 }
 export default router;
