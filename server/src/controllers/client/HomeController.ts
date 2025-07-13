@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import errorHandler from "../../utils/handler/handleAsync";
-import { getComingSoonMovies, getNowPlayingMovies } from "../../services/shared/movie";
+import { getComingSoonMovies, getNowPlayingMovies } from "../../services/common/movie";
 class HomeController {
   constructor() {
     this.showView = errorHandler.handleAsyncErrors(this.showView.bind(this));

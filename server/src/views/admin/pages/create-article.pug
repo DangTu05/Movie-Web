@@ -10,13 +10,13 @@ block content
 
   .card
     .card-body
-      form(class="create-article-form")
+      form(class="create-article-form", data-mode= data.title||"", article_id=(data.article && data.article._id), enctype="multipart/form-data")
         .form-group
           label(for="title") Tiêu đề 
-          input#title.form-control(type="text", name="title", required)
+          input#title.form-control(type="text", name="title", value=(data.article ? data.article.title : ""), required)
         .form-group
           label(for="content") Nội dung
-          textarea#content.form-control(name="content", rows="4")
+          textarea#content.form-control(name="content", rows="4")=(data.article ? data.article.content : "")
         .form-group
           label(for="image") Image
           input#image.form-control(type="file", name="image", accept="image/*")
