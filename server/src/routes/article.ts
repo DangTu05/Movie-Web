@@ -12,5 +12,6 @@ router.get("/update-article/:id", articleController.showView);
 router.get("/articles", paginationMiddleware, articleController.showView);
 router.post("/create-article", uploadImage.single("image"), articleController.create);
 router.patch("/update-article/:id", uploadImage.single("image"), articleController.update);
+router.delete("/delete-article/:id", articleController.delete);
 
 export default router;
