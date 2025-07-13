@@ -10,6 +10,9 @@ import routerAdmin from "./routes/index";
 import routerClient from "./routes/client/index";
 import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware";
 import systemConfig from "./configs/system";
+import { uploadImage } from "./middlewares/uploadCloud";
+import { uploadImageForTinymce } from "./controllers/common/uploadController";
+
 import "./jobs/autoUpdateMovie"; // Import cron job to auto update movie status
 import "./jobs/autoUpdateVoucher"; // Import cron job to auto update voucher status
 const app: Express = express();
@@ -18,8 +21,8 @@ import configViewEngine from "./configs/viewEngine";
 const startServer = (): Server => {
   app.use(cors());
   // Middleware xử lý JSON
-  app.use(express.json({ limit: "10mb" }));
-  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+  app.use(express.json({ limit: "20mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "20mb" }));
   // Cấu hình view engine
   configViewEngine(app);
   // Kết nối các file tĩnh
@@ -27,6 +30,8 @@ const startServer = (): Server => {
   /// tinymce
   const rootPath = path.resolve(__dirname, "..", "..");
   app.use("/tinymce", express.static(path.join(rootPath, "node_modules", "tinymce")));
+  // Xử lý upload ảnh ở tinymce
+  app.post("/upload-image", uploadImage.single("file"), uploadImageForTinymce);
   // Kết nối các router
   routerAdmin(app);
   routerClient(app);

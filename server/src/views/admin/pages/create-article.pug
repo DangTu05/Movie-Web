@@ -17,6 +17,10 @@ block content
         .form-group
           label(for="content") Nội dung
           textarea#content.form-control(name="content", rows="4")
+        .form-group
+          label(for="image") Image
+          input#image.form-control(type="file", name="image", accept="image/*")
+        img.preview(src=(data.article && data.article.image))
         .form-group.text-end
           button.btn.btn-primary.create-voucher-btn(type="submit")=data.title||""
   script(type="module", src="/js/admin/create-article.js") 

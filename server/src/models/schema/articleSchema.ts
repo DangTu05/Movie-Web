@@ -3,6 +3,7 @@ import { BaseDocument, baseFields } from "../base/BaseDocument";
 interface IArticle extends BaseDocument {
   title: string;
   content: string;
+  image: string;
   author?: mongoose.Types.ObjectId;
 }
 const articleSchema = new Schema(
@@ -10,7 +11,8 @@ const articleSchema = new Schema(
     ...baseFields,
     title: { type: String, required: true },
     content: { type: String, required: true },
-    author: { type: mongoose.Types.ObjectId, ref: "User"}
+    image: { type: String, required: true },
+    author: { type: mongoose.Types.ObjectId, ref: "User" }
   },
   { timestamps: true }
 );

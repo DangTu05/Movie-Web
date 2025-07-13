@@ -14,6 +14,12 @@ class ArticleController extends BaseController<ArticleService, IArticleInput, IA
   protected validate(req: Request): { success: boolean; errors?: any } {
     return _articleValidate.validate(req);
   }
+  protected extractDataFromRequest(req: Request) {
+
+    const image = (req.file as Express.Multer.File)?.path || req.body.image;
+    req.body.image = image;
+    return req.body as IArticleInput;
+  }
   public async render(req: Request, res: Response) {
     const data: any = {};
     const viewName = req.path.replace(/^\/+/, "").split("/")[0]; // lấy view
