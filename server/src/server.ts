@@ -18,8 +18,8 @@ import configViewEngine from "./configs/viewEngine";
 const startServer = (): Server => {
   app.use(cors());
   // Middleware xử lý JSON
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: true, limit: "10mb" }));
   // Cấu hình view engine
   configViewEngine(app);
   // Kết nối các file tĩnh
