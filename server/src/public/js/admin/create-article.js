@@ -10,6 +10,7 @@ window.onload = () => {
   const btnSubmit = createArticleForm.querySelector("button[type=submit]");
   const image = document.getElementById("image");
   const preview = document.querySelector(".preview");
+  const mode = createArticleForm.getAttribute("data-mode");
 
   if (createArticleForm) {
     createArticleForm.addEventListener("submit", async (e) => {
@@ -29,13 +30,30 @@ window.onload = () => {
       formData.append("image", data.image);
       try {
         btnSubmit.disabled = true;
-        const response = await _baseService.create(formData, "admin/article/create-article");
-        if (response.status === 201) {
-          await showInfo("Tạo bài viết thành công", "", "success");
-          createArticleForm.reset();
-          preview.src = "";
+        if (mode === "Create Article") {
+          const response = await _baseService.create(formData, "admin/article/create-article");
+          if (response.status === 201) {
+            await showInfo("Tạo bài viết thành công", "", "success");
+            createArticleForm.reset();
+            preview.src = "";
+          } else {
+            showInfo("Tạo bài viết thất bại", "", "error");
+          }
         } else {
-          showInfo("Tạo bài viết thất bại", "", "error");
+          const isConfirmed = await showConfirm(
+            "Cập nhật",
+            "Bạn có chắc chắn muốn cập nhật bài viết này không?",
+            "question"
+          );
+          if (!isConfirmed.isConfirmed) return;
+          const article_id = createArticleForm.getAttribute("article_id");
+          const response = await _baseService.update(formData, `admin/article/update-article/${article_id}`);
+          if (response.status === 200) {
+            await showInfo("Cập nhật bài viết thành công", "", "success");
+            location.reload();
+          } else {
+            showInfo("Cập nhật bài viết thất bại", "", "error");
+          }
         }
       } catch {
         showInfo("Lỗi khi tạo bài viết", " Vui lòng thử lại!", "error");

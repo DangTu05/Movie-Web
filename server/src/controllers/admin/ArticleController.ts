@@ -15,7 +15,6 @@ class ArticleController extends BaseController<ArticleService, IArticleInput, IA
     return _articleValidate.validate(req);
   }
   protected extractDataFromRequest(req: Request) {
-
     const image = (req.file as Express.Multer.File)?.path || req.body.image;
     req.body.image = image;
     return req.body as IArticleInput;
@@ -32,10 +31,10 @@ class ArticleController extends BaseController<ArticleService, IArticleInput, IA
           if (!article_id) {
             return res.redirect("/admin/articles");
           }
-          // data.article = await this.service.findArticleById(article_id);
-          // if (!data.article) {
-          //   return res.redirect("/admin/articles");
-          // }
+          data.article = await this.service.findArticleById(article_id);
+          if (!data.article) {
+            return res.redirect("/admin/articles");
+          }
         }
         break;
     }
