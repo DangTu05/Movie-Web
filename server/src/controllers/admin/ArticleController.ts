@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable indent */
 import { Request, Response, NextFunction } from "express";
 import BaseController from "./BaseController";
@@ -36,6 +37,14 @@ class ArticleController extends BaseController<ArticleService, IArticleInput, IA
             return res.redirect("/admin/articles");
           }
         }
+        break;
+      case "articles":
+        const result = await this.service.getAllArticle(req.pagination);
+        if (!Array.isArray(result)) {
+          data.articles = result.articles;
+          data.pagination = result.pagination;
+        }
+        data.title = "Danh sách bài viết";
         break;
     }
     const actualView = viewName === "update-article" || viewName === "create-article" ? "create-article" : viewName;
