@@ -4,7 +4,7 @@
 /* eslint-disable indent */
 import { Request, Response } from "express";
 import BaseController from "./BaseController";
-import CategoryService from "../../services/admin/CategoryService";
+import CategoryService from "../../services/CategoryService";
 import CategoryValidate from "../../validations/CategoryValidate";
 import { ICategory } from "../../models/schema/categorySchema";
 import { ICategoryInput } from "../../interfaces/ICategoryInput";

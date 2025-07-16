@@ -1,7 +1,7 @@
 import { Router } from "express";
-import RoleController from "../controllers/admin/RoleController";
-import RoleService from "../services/admin/RoleService";
-import { paginationMiddleware } from "../middlewares/pagination";
+import RoleController from "../../controllers/admin/RoleController";
+import RoleService from "../../services/RoleService";
+import { paginationMiddleware } from "../../middlewares/pagination";
 const router: Router = Router();
 const roleService = new RoleService();
 const roleController = new RoleController(roleService);

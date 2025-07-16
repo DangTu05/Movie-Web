@@ -1,7 +1,7 @@
 import { Router } from "express";
-import VoucherController from "../controllers/admin/VoucherController";
-import VoucherService from "../services/admin/VoucherService";
-import { paginationMiddleware } from "../middlewares/pagination";
+import VoucherController from "../../controllers/admin/VoucherController";
+import VoucherService from "../../services/VoucherService";
+import { paginationMiddleware } from "../../middlewares/pagination";
 const voucherService = new VoucherService();
 const voucherController = new VoucherController(voucherService);
 const router: Router = Router();

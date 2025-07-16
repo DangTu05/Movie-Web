@@ -2,7 +2,7 @@
 import { Request, Response } from "express";
 import getProvinces from "../../helpers/api/getProvinces";
 import BaseController from "./BaseController";
-import SettingService from "../../services/admin/SettingService";
+import SettingService from "../../services/SettingService";
 import { ISettingInput } from "../../interfaces/ISettingInput";
 import { ISetting } from "../../models/schema/settingschema";
 import logger from "../../configs/logger";

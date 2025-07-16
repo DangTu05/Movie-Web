@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from "express";
 import BaseController from "./BaseController";
 import { IAccountInput } from "../../interfaces/IAccountInput";
 import { IAccount } from "../../models/schema/accountSchema";
-import AccountService from "../../services/admin/AccountService";
+import AccountService from "../../services/AccountService";
 import AccountValidate from "../../validations/AccountValidate";
 import { removeSpace } from "../../utils/removeSpace";
 import sendResponse from "../../utils/handler/response";

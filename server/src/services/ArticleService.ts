@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import logger from "../../configs/logger";
-import Constants from "../../utils/Constant";
+import logger from "../configs/logger";
+import Constants from "../utils/Constant";
 import BaseService from "./BaseService";
-import articleModel, { IArticle } from "../../models/schema/articleSchema";
-import { IArticleInput } from "../../interfaces/IArticleInput";
-import { IPagination } from "../../interfaces/IPagination";
-import { existArticle } from "../../helpers/existArticle";
+import articleModel, { IArticle } from "../models/schema/articleSchema";
+import { IArticleInput } from "../interfaces/IArticleInput";
+import { IPagination } from "../interfaces/IPagination";
+import { existArticle } from "../helpers/existArticle";
 class ArticleService extends BaseService<IArticle, IArticleInput> {
   protected model = articleModel;
   protected async checkId(id: string): Promise<void> {

@@ -1,12 +1,12 @@
 import BaseService from "./BaseService";
-import voucherModel, { IVoucher } from "../../models/schema/voucherSchema";
-import { IVoucherInput } from "../../interfaces/IVoucherInput";
-import { existVoucher } from "../../helpers/existVoucher";
+import voucherModel, { IVoucher } from "../models/schema/voucherSchema";
+import { IVoucherInput } from "../interfaces/IVoucherInput";
+import { existVoucher } from "../helpers/existVoucher";
 import mongoose from "mongoose";
-import logger from "../../configs/logger";
-import Constants from "../../utils/Constant";
-import { IPagination } from "../../interfaces/IPagination";
-import { formatDate } from "../../utils/formatDate";
+import logger from "../configs/logger";
+import Constants from "../utils/Constant";
+import { IPagination } from "../interfaces/IPagination";
+import { formatDate } from "../utils/formatDate";
 class VoucherService extends BaseService<IVoucher, IVoucherInput> {
   protected model = voucherModel;
   public getVoucherStatus(startDate: Date, endDate: Date) {

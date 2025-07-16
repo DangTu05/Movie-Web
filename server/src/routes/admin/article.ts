@@ -1,8 +1,8 @@
 import { Router } from "express";
-import ArticleController from "../controllers/admin/ArticleController";
-import ArticleService from "../services/admin/ArticleService";
-import { uploadImage } from "../middlewares/uploadCloud";
-import { paginationMiddleware } from "../middlewares/pagination";
+import ArticleController from "../../controllers/admin/ArticleController";
+import ArticleService from "../../services/ArticleService";
+import { uploadImage } from "../../middlewares/uploadCloud";
+import { paginationMiddleware } from "../../middlewares/pagination";
 
 const articleService = new ArticleService();
 const articleController = new ArticleController(articleService);

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import ActorController from "../controllers/admin/ActorController";
-import ActorService from "../services/admin/ActorService";
-import { uploadImage } from "../middlewares/uploadCloud";
-import { paginationMiddleware } from "../middlewares/pagination";
+import ActorController from "../../controllers/admin/ActorController";
+import ActorService from "../../services/ActorService";
+import { uploadImage } from "../../middlewares/uploadCloud";
+import { paginationMiddleware } from "../../middlewares/pagination";
 const actorService = new ActorService();
 const actorController = new ActorController(actorService);
 const router: Router = Router();

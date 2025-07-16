@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { Request, Response } from "express";
-import ActorService from "../../services/admin/ActorService";
+import ActorService from "../../services/ActorService";
 import ActorValidate from "../../validations/ActorValidate";
 import BaseController from "./BaseController";
 import { IActorInput } from "../../interfaces/IActorInput";

@@ -1,15 +1,11 @@
 import express, { Router } from "express";
-import RegisterController from "../controllers/auth/RegisterController";
-import { RegisterService } from "../services/auth/RegisterService"; // Adjust the import path as necessary
-import { LoginService } from "../services/auth/LoginService"; // Adjust the import path as necessary
-import LoginController from "../controllers/auth/LoginController";
+import AuthService from "../services/AuthService"; // Adjust the import path as necessary
+import AuthController from "../controllers/common/AuthController";
 const router: Router = express.Router();
-const registerService = new RegisterService();
-const registerController = new RegisterController(registerService);
-const loginService = new LoginService();
-const loginController = new LoginController(loginService);
-router.get("/register", registerController.showViewRegister);
-router.get("/login", loginController.showViewLogin);
-router.post("/register", registerController.register);
-router.post("/login", loginController.login);
+const authService = new AuthService();
+const authController = new AuthController(authService);
+router.get("/register", authController.showViewRegister);
+router.get("/login", authController.showViewLogin);
+router.post("/register", authController.register);
+router.post("/login", authController.login);
 export default router;

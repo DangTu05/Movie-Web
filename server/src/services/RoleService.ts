@@ -1,11 +1,11 @@
 import BaseService from "./BaseService";
-import roleModel, { IRole } from "../../models/schema/roleSchema";
-import { IRoleInput } from "../../interfaces/IRoleInput";
-import { existRole } from "../../helpers/existRole";
-import Constants from "../../utils/Constant";
+import roleModel, { IRole } from "../models/schema/roleSchema";
+import { IRoleInput } from "../interfaces/IRoleInput";
+import { existRole } from "../helpers/existRole";
+import Constants from "../utils/Constant";
 import mongoose from "mongoose";
-import logger from "../../configs/logger";
-import { IPagination } from "../../interfaces/IPagination";
+import logger from "../configs/logger";
+import { IPagination } from "../interfaces/IPagination";
 interface PermissionUpdate {
   _id: string;
   permissions: string[]; // hoặc: mongoose.Types.ObjectId[] nếu là ref

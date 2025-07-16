@@ -1,8 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import errorHandler from "../../utils/handler/handleAsync";
-import { getComingSoonMovies, getNowPlayingMovies } from "../../services/common/movie";
-import ArticleService from "../../services/admin/ArticleService";
+import MovieService from "../../services/MovieService";
+import ArticleService from "../../services/ArticleService";
 const _articleService = new ArticleService();
+const _movieService = new MovieService();
 class HomeController {
   constructor() {
     this.showView = errorHandler.handleAsyncErrors(this.showView.bind(this));
@@ -11,8 +12,8 @@ class HomeController {
     const data: any = {};
     req.pagination.limit = 4;
     const [nowPlaying, comingSoon, articles] = await Promise.all([
-      getNowPlayingMovies(),
-      getComingSoonMovies(),
+      _movieService.getNowPlayingMovies(),
+      _movieService.getComingSoonMovies(),
       _articleService.getAllArticle(req.pagination)
     ]);
     data.comingSoonMovies = comingSoon;

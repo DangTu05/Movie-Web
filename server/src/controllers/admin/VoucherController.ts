@@ -4,7 +4,7 @@
 import { Request, Response } from "express";
 import BaseController from "./BaseController";
 import logger from "../../configs/logger";
-import VoucherService from "../../services/admin/VoucherService";
+import VoucherService from "../../services/VoucherService";
 import { IVoucherInput } from "../../interfaces/IVoucherInput";
 import { IVoucher } from "../../models/schema/voucherSchema";
 import VoucherValidate from "../../validations/VoucherValidate";
