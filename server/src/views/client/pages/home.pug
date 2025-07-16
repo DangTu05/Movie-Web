@@ -140,14 +140,16 @@ block content
         .inner-title Tin tức
         .news
           .new-item-big
-            .new-image-big
-              img(src="assets/images/actors/anthonymackie.webp", alt)
-            .new-title Hôm nay điện ảnh có gì mới?
-          .new-item-small
-            .new-item
-              .new-image-small
-                img(src="assets/images/actors/anthonymackie.webp", alt)
-                .new-title Hôm nay điện ảnh có gì mới?
+            if(data.articles && data.articles.length > 0)
+              .new-image-big
+                img(src=data.articles[0].image, alt)
+              .new-title= data.articles[0].title || "Hôm nay có gì mới?"
+          if(data.articles && data.articles.length > 1)
+            .new-item-small
+              each article in data.articles.slice(1, 4) 
+                .new-item
+                  img(src=article.image, alt)
+                  .new-title= article.title || "Hôm nay có gì mới?"
         a.inner-button(href="new.html")
           .button-new Xem thêm
   .section-4
