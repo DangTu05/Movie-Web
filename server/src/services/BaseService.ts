@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { StatusCodes } from "http-status-codes";
-import { IBaseService } from "../../interfaces/IBaseService";
+import { IBaseService } from "../interfaces/IBaseService";
 import { Model, UpdateQuery } from "mongoose";
-import ApiError from "../../utils/ApiError";
-import Constants from "../../utils/Constant";
+import ApiError from "../utils/ApiError";
+import Constants from "../utils/Constant";
 abstract class BaseService<TModel, TInput> implements IBaseService<TInput, TModel> {
   protected abstract model: Model<TModel>;
   protected convertData?(data: TInput): Promise<Partial<TModel> | TModel>;

@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
-import movieModel, { IMovie } from "../../models/schema/movieSchema";
-import { IMovieInput } from "../../interfaces/IMovieInput";
-import { existActor } from "../../helpers/existActor";
-import { existCategory } from "../../helpers/existCategory";
+import movieModel, { IMovie } from "../models/schema/movieSchema";
+import { IMovieInput } from "../interfaces/IMovieInput";
+import { existActor } from "../helpers/existActor";
+import { existCategory } from "../helpers/existCategory";
 import BaseService from "./BaseService";
-import { existMovie } from "../../helpers/existMovie";
-import logger from "../../configs/logger";
-import Constants from "../../utils/Constant";
-import { IPagination } from "../../interfaces/IPagination";
+import { existMovie } from "../helpers/existMovie";
+import logger from "../configs/logger";
+import Constants from "../utils/Constant";
+import { IPagination } from "../interfaces/IPagination";
 
 class MovieService extends BaseService<IMovie, IMovieInput> {
   protected model = movieModel;
@@ -49,7 +49,7 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
   // end update
 
   // Xét trạng thái phim
-  public getMovieStatus(releaseDate: Date) {
+  getMovieStatus(releaseDate: Date) {
     const now = new Date();
     if (now > new Date(releaseDate)) return "Đang chiếu";
     return "Sắp chiếu";
@@ -57,7 +57,7 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
   // end xét trạng thái phim
 
   // Tìm phim theo id
-  public async findMovieById(id: string) {
+  async findMovieById(id: string) {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       logger.warn("Id phim người dùng gửi lên không hợp lệ!");
       return;
@@ -67,14 +67,16 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
   }
   // End tìm phim theo id
   // Lấy ra danh sách phim
-  public async getAllMovie(pagination: IPagination) {
+  async getAllMovie(pagination: IPagination): Promise<{ pagination: IPagination; movies: IMovie[] }> {
     const [movies, count] = await Promise.all([
       movieModel
         .find({ deleted: false })
         .populate("genre")
         .populate("actors")
         .skip(pagination.skip)
-        .limit(pagination.limit),
+        .limit(pagination.limit)
+        .select(Constants.COMMON_SELECT_FIELDS)
+        .lean(),
       movieModel.countDocuments({ deleted: false })
     ]);
     pagination.count = count;
@@ -87,6 +89,29 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
     };
   }
   // End lấy ra danh sách phim
+  async getComingSoonMovies(): Promise<IMovie[]> {
+    return await movieModel
+      .find({ deleted: false, status: "Sắp chiếu" })
+      .populate({
+        path: "genre",
+        select: "category_name"
+      })
+      .limit(10)
+      .select(Constants.COMMON_SELECT_FIELDS)
+      .lean();
+  }
+  // Danh sách phim đang chiếu
+  async getNowPlayingMovies(): Promise<IMovie[]> {
+    return await movieModel
+      .find({ deleted: false, status: "Đang chiếu" })
+      .populate({
+        path: "genre",
+        select: "category_name"
+      })
+      .limit(10)
+      .select(Constants.COMMON_SELECT_FIELDS)
+      .lean();
+  }
 }
 
 export default MovieService;

@@ -1,11 +1,11 @@
 import { Application } from "express";
-import authRoutes from "./auth";
+import authRoutes from "../auth";
 import movieRoutes from "./movie";
 import actorRoutes from "./actor";
 import categoryRoutes from "./category";
 import voucherRoutes from "./voucher";
 import settingRoutes from "./setting";
-import systemConfig from "../configs/system";
+import systemConfig from "../../configs/system";
 import roleRoutes from "./role";
 import accountRoutes from "./account";
 import articleRoutes from "./article";

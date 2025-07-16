@@ -1,7 +1,7 @@
-import settingModel, { ISetting } from "../../models/schema/settingschema";
+import settingModel, { ISetting } from "../models/schema/settingschema";
 import BaseService from "./BaseService";
-import { ISettingInput } from "../../interfaces/ISettingInput";
-import Constants from "../../utils/Constant";
+import { ISettingInput } from "../interfaces/ISettingInput";
+import Constants from "../utils/Constant";
 class SettingService extends BaseService<ISetting, ISettingInput> {
   protected model = settingModel;
   override async create(data: ISettingInput) {

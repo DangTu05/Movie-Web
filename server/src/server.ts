@@ -6,7 +6,7 @@ import logger from "./configs/logger";
 import path from "path";
 import cors from "cors";
 import connectDB from "./configs/connectDB";
-import routerAdmin from "./routes/index";
+import routerAdmin from "./routes/admin/index";
 import routerClient from "./routes/client/index";
 import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware";
 import systemConfig from "./configs/system";

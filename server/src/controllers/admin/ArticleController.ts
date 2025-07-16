@@ -1,10 +1,10 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable indent */
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import BaseController from "./BaseController";
 import { IArticleInput } from "../../interfaces/IArticleInput";
 import { IArticle } from "../../models/schema/articleSchema";
-import ArticleService from "../../services/admin/ArticleService";
+import ArticleService from "../../services/ArticleService";
 import ArticleValidate from "../../validations/ArticleValidate";
 const _articleValidate = new ArticleValidate();
 class ArticleController extends BaseController<ArticleService, IArticleInput, IArticle> {

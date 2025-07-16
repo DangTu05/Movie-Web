@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { NextFunction, Request, Response } from "express";
-import RoleService from "../../services/admin/RoleService";
+import RoleService from "../../services/RoleService";
 import BaseController from "./BaseController";
 import { IRoleInput } from "../../interfaces/IRoleInput";
 import { IRole } from "../../models/schema/roleSchema";

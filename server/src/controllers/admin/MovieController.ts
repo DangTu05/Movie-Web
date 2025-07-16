@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import MovieValidate from "../../validations/MovieValidate";
 import logger from "../../configs/logger";
 import BaseController from "./BaseController";
-import MovieService from "../../services/admin/MovieService";
+import MovieService from "../../services/MovieService";
 import { IMovieInput } from "../../interfaces/IMovieInput";
 import { IMovie } from "../../models/schema/movieSchema";
 import { formatDate } from "../../utils/formatDate";

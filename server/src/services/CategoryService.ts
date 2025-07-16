@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
-import categoryModel from "../../models/schema/categorySchema";
-import { ICategory } from "../../models/schema/categorySchema";
-import { ICategoryInput } from "../../interfaces/ICategoryInput";
+import categoryModel from "../models/schema/categorySchema";
+import { ICategory } from "../models/schema/categorySchema";
+import { ICategoryInput } from "../interfaces/ICategoryInput";
 import BaseService from "./BaseService";
-import { existCategory } from "../../helpers/existCategory";
-import logger from "../../configs/logger";
-import Constants from "../../utils/Constant";
-import { IPagination } from "../../interfaces/IPagination";
+import { existCategory } from "../helpers/existCategory";
+import logger from "../configs/logger";
+import Constants from "../utils/Constant";
+import { IPagination } from "../interfaces/IPagination";
 class CategoryService extends BaseService<ICategory, ICategoryInput> {
   protected model = categoryModel;
   public async getAllCategory(pagination?: IPagination) {

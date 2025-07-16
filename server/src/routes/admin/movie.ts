@@ -1,11 +1,11 @@
 import express, { Router } from "express";
-import MovieService from "../services/admin/MovieService";
-import ActorService from "../services/admin/ActorService";
-import MovieController from "../controllers/admin/MovieController";
-import CategoryService from "../services/admin/CategoryService";
-import uploadMedia from "../middlewares/uploadCloud";
-import { handleMulterError } from "../middlewares/handleMulterError";
-import { paginationMiddleware } from "../middlewares/pagination";
+import MovieService from "../../services/MovieService";
+import ActorService from "../../services/ActorService";
+import MovieController from "../../controllers/admin/MovieController";
+import CategoryService from "../../services/CategoryService";
+import uploadMedia from "../../middlewares/uploadCloud";
+import { handleMulterError } from "../../middlewares/handleMulterError";
+import { paginationMiddleware } from "../../middlewares/pagination";
 const router: Router = express.Router();
 const movieService = new MovieService();
 const actorService = new ActorService();

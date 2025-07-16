@@ -1,7 +1,7 @@
 import { Router } from "express";
-import SettingController from "../controllers/admin/SettingController";
-import SettingService from "../services/admin/SettingService";
-import { uploadImage } from "../middlewares/uploadCloud";
+import SettingController from "../../controllers/admin/SettingController";
+import SettingService from "../../services/SettingService";
+import { uploadImage } from "../../middlewares/uploadCloud";
 const router: Router = Router();
 const settingService = new SettingService();
 const settingController = new SettingController(settingService);

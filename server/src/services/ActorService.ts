@@ -1,12 +1,12 @@
-import logger from "../../configs/logger";
-import actorModel, { IActor } from "../../models/schema/actorSchema";
-import { IActorInput } from "../../interfaces/IActorInput";
+import logger from "../configs/logger";
+import actorModel, { IActor } from "../models/schema/actorSchema";
+import { IActorInput } from "../interfaces/IActorInput";
 import BaseService from "./BaseService";
-import { existActor } from "../../helpers/existActor";
+import { existActor } from "../helpers/existActor";
 import mongoose from "mongoose";
-import Constants from "../../utils/Constant";
-import { IPagination } from "../../interfaces/IPagination";
-import { formatDate } from "../../utils/formatDate";
+import Constants from "../utils/Constant";
+import { IPagination } from "../interfaces/IPagination";
+import { formatDate } from "../utils/formatDate";
 
 class ActorService extends BaseService<IActor, IActorInput> {
   protected model = actorModel;

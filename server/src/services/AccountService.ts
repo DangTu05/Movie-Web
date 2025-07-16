@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
-import accountModel, { IAccount } from "../../models/schema/accountSchema";
-import userModel from "../../models/schema/userSchema";
-import roleModel from "../../models/schema/roleSchema";
-import { IAccountInput } from "../../interfaces/IAccountInput";
-import { existEmail } from "../../helpers/existEmail";
-import { existUsername } from "../../helpers/existUsername";
-import { hashPassword } from "../../utils/passwordUtil";
+import accountModel, { IAccount } from "../models/schema/accountSchema";
+import userModel from "../models/schema/userSchema";
+import roleModel from "../models/schema/roleSchema";
+import { IAccountInput } from "../interfaces/IAccountInput";
+import { existEmail } from "../helpers/existEmail";
+import { existUsername } from "../helpers/existUsername";
+import { hashPassword } from "../utils/passwordUtil";
 import BaseService from "./BaseService";
-import ApiError from "../../utils/ApiError";
+import ApiError from "../utils/ApiError";
 import { StatusCodes } from "http-status-codes";
-import logger from "../../configs/logger";
-import { existAccount } from "../../helpers/existAccount";
-import { existRole } from "../../helpers/existRole";
-import { IPagination } from "../../interfaces/IPagination";
-import Constants from "../../utils/Constant";
+import logger from "../configs/logger";
+import { existAccount } from "../helpers/existAccount";
+import { existRole } from "../helpers/existRole";
+import { IPagination } from "../interfaces/IPagination";
+import Constants from "../utils/Constant";
 class AccountService extends BaseService<IAccount, IAccountInput> {
   protected model = accountModel;
   public async create(data: IAccountInput) {
