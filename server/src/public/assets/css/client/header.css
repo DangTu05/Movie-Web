@@ -56,11 +56,11 @@
   background-color: blue;
 }
 
-.header .inner-wrap .inner-regist {
+.header .inner-wrap .inner-register {
   height: 80px;
 }
 
-.header .inner-wrap .inner-regist ul {
+.header .inner-wrap .inner-register ul {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,11 +68,11 @@
   height: 100%;
 }
 
-.header .inner-regist ul li {
+.header .inner-register ul li {
   margin-right: 10px;
 }
 
-.header .inner-regist ul li button {
+.header .inner-register ul li button {
   padding: 10px 25px;
   border-radius: 30px;
   border: 0;
@@ -80,27 +80,27 @@
   font-weight: 600;
 }
 
-.header .inner-regist ul li .button a {
+.header .inner-register ul li .button a {
   color: white;
   font-weight: 400;
 }
 
-.header .inner-regist ul li .button-dn {
+.header .inner-register ul li .button-dn {
   background: linear-gradient(90deg, #5de0e6, #004aad);
 }
 
-.header .inner-regist ul li .button-dk {
+.header .inner-register ul li .button-dk {
   background: linear-gradient(90deg, #ff5757, #8c52ff);
 }
 
-.header .inner-regist ul li .button-dn:hover {
+.header .inner-register ul li .button-dn:hover {
   padding: 10px 25px;
   border-radius: 30px;
   border: 0;
   background: linear-gradient(90deg, #ff5757, #8c52ff);
 }
 
-.header .inner-regist ul li .button-dk:hover {
+.header .inner-register ul li .button-dk:hover {
   padding: 10px 25px;
   border-radius: 30px;
   border: 0;
@@ -125,7 +125,7 @@
     padding: 10px 0;
   }
 
-  .inner-regist {
+  .inner-register {
     display: none;
     flex-direction: column;
     background-color: #2e4ba6;
@@ -151,7 +151,7 @@
     width: 100%;
   }
 
-  .inner-regist.show-regist {
+  .inner-register.show-register {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -159,19 +159,19 @@
     padding: 30px 0;
   }
 
-  .inner-regist ul {
+  .inner-register ul {
     flex-direction: column;
     width: 100%;
     padding: 0;
   }
 
-  .inner-regist ul li {
+  .inner-register ul li {
     width: 100%;
     text-align: center;
     margin: 5px 0;
   }
 
-  .inner-regist ul li button {
+  .inner-register ul li button {
     width: 80%;
   }
 
@@ -188,7 +188,7 @@
     width: 100%;
   }
 
-  .inner-regist {
+  .inner-register {
     display: none;
     flex-direction: column;
     background-color: #2e4ba6;
