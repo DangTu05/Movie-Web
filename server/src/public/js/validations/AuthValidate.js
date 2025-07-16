@@ -24,6 +24,7 @@ class AuthValidate {
       return false;
     }
     if (!hasWhitespace(data.username)) return false;
+    return true;
   }
   static validateLogin(data) {
     if (!data.username || !data.password) {

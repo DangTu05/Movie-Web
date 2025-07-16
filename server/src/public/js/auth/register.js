@@ -22,7 +22,7 @@ window.onload = () => {
         const response = await _authServices.registerUser(data);
         if (response.status === 201) {
           await showInfo("Đăng ký thành công", " Vui lòng đăng nhập!", "success");
-          window.location.href = "/login";
+          window.location.href = "/auth/login";
         } else {
           showInfo("Đăng ký thất bại", " Vui lòng thử lại!", "error");
         }
