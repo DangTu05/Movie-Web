@@ -5,6 +5,7 @@ import { Server } from "http";
 import logger from "./configs/logger";
 import path from "path";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import connectDB from "./configs/connectDB";
 import routerAdmin from "./routes/admin/index";
 import routerClient from "./routes/client/index";
@@ -12,7 +13,6 @@ import { errorHandlingMiddleware } from "./middlewares/errorHandling.middleware"
 import systemConfig from "./configs/system";
 import { uploadImage } from "./middlewares/uploadCloud";
 import { uploadImageForTinymce } from "./controllers/common/uploadController";
-
 import "./jobs/autoUpdateMovie"; // Import cron job to auto update movie status
 import "./jobs/autoUpdateVoucher"; // Import cron job to auto update voucher status
 const app: Express = express();
@@ -20,6 +20,8 @@ const port: number | string = 5000;
 import configViewEngine from "./configs/viewEngine";
 const startServer = (): Server => {
   app.use(cors());
+  // Middleware xử lý cookie
+  app.use(cookieParser());
   // Middleware xử lý JSON
   app.use(express.json({ limit: "20mb" }));
   app.use(express.urlencoded({ extended: true, limit: "20mb" }));

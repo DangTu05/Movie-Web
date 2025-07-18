@@ -1,6 +1,8 @@
 import accountModel from "../models/schema/accountSchema";
-const existUsername = async (username: string) => {
-  const account = await accountModel.findOne({ deleted: false, username: username }).select("_id");
-  return !!account;
+import { StatusCodes } from "http-status-codes";
+import ApiError from "../utils/ApiError";
+const existUsername = async (username: string): Promise<void> => {
+  const account = await accountModel.exists({ deleted: false, username: username });
+  if (account) throw new ApiError(StatusCodes.CONFLICT, "Username đã tồn tại");
 };
 export { existUsername };

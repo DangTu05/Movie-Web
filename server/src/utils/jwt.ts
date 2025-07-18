@@ -3,9 +3,9 @@ import { ISignTokenParams } from "../interfaces/ISignTokenParams";
 import env from "../configs/environment";
 import jwt from "jsonwebtoken";
 
-const expireToken = env.ACCESS_TOKEN_EXPIRES_IN ? parseInt(env.ACCESS_TOKEN_EXPIRES_IN, 10) : 3600; // 1 giờ
-const expireRefreshToken = env.REFRESH_TOKEN_EXPIRES_IN ? parseInt(env.REFRESH_TOKEN_EXPIRES_IN, 10) : 7 * 24 * 3600; // 7 ngày
-
+const expireToken: string = env.ACCESS_TOKEN_EXPIRES_IN ?? "10p"; // 1op
+const expireRefreshToken: string = env.REFRESH_TOKEN_EXPIRES_IN ?? "7d"; // 7 ngày
+const jwt_secret: string = env.JWT_SECRET ?? "dangquangtu77";
 const signToken = ({
   payload,
   privateKey = env.JWT_SECRET as string,
@@ -13,9 +13,8 @@ const signToken = ({
 }: ISignTokenParams): Promise<string> => {
   const isAccessToken = typeof payload === "object" && "type" in payload && payload.type === TokenType.AccessToken;
   const expiresIn = isAccessToken ? expireToken : expireRefreshToken;
-
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, privateKey, { ...option, expiresIn }, (err, token) => {
+    jwt.sign(payload, privateKey, { ...option, expiresIn: expiresIn as jwt.SignOptions["expiresIn"] }, (err, token) => {
       if (err || !token) return reject(err || new Error("Failed to sign token"));
       resolve(token);
     });
@@ -24,7 +23,7 @@ const signToken = ({
 
 const verifyToken = async ({
   token,
-  privateKey = env.JWT_SECRET as string
+  privateKey = jwt_secret
 }: {
   token: string;
   privateKey?: string;

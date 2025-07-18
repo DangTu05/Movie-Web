@@ -69,5 +69,11 @@ class RoleService extends BaseService<IRole, IRoleInput> {
     }
     return await this.model.findOne({ _id: id, deleted: false }).select(Constants.COMMON_SELECT_FIELDS).lean();
   }
+  async getRoleUser(role_name: string): Promise<IRole | null> {
+    return await this.model
+      .findOne({ role_name: role_name, deleted: false })
+      .select(Constants.COMMON_SELECT_FIELDS)
+      .lean();
+  }
 }
 export default RoleService;

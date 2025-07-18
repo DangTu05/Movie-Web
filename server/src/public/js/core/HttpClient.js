@@ -3,11 +3,13 @@ import AppError from "../shared/Error.js";
 class HttpClient {
   async request(endpoint, method, header, data = null) {
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const requestOptions = {
         method: method,
         headers: {
           ...header,
-          Accept: "application/json"
+          Accept: "application/json",
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})
         },
         credentials: "include" // gửi cookie nếu cần (ví dụ: đăng nhập)
       };

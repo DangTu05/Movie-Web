@@ -17,9 +17,11 @@ window.onload = () => {
       if (!AuthValidate.validateLogin(data)) return;
       try {
         const response = await _authServices.loginUser(data);
+        const accessToken = response.data?.access_token;
+        if (accessToken) localStorage.setItem("accessToken", accessToken);
         if (response.status === 200) {
           showInfo("Thành Công", "Đăng nhập thành công!", "success").then(() => {
-            window.location.href = "/";
+            window.location.href = "/home";
             return;
           });
         } else {

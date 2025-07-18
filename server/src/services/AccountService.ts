@@ -24,8 +24,8 @@ class AccountService extends BaseService<IAccount, IAccountInput> {
       const emailExists = await existEmail(data.email);
       if (emailExists) throw new ApiError(StatusCodes.BAD_REQUEST, "Email đã tồn tại");
       // Kiểm tra username
-      const usernameExists = await existUsername(data.username);
-      if (usernameExists) throw new ApiError(StatusCodes.BAD_REQUEST, "Username đã tồn tại");
+      await existUsername(data.username);
+
       // Tạo user
       const user = await userModel.create([{}], { session });
 
@@ -79,7 +79,26 @@ class AccountService extends BaseService<IAccount, IAccountInput> {
     }
     const data = await this.model
       .findOne({ _id: id })
-      .populate("role_id")
+      .populate({
+        path: "role_id",
+        select: "role_name"
+      })
+      .select("user_id username email role_id")
+      .lean();
+    return data;
+  }
+  // Lấy ra thông tin tài khoản theo username
+  async findAccountByUsername(username: string): Promise<IAccount | null> {
+    const data = await this.model
+      .findOne({ username })
+      .populate({
+        path: "role_id",
+        select: "role_name"
+      })
+      .populate({
+        path: "user_id",
+        select: "_id user_image reward_points"
+      })
       .select("user_id username email role_id")
       .lean();
     return data;
