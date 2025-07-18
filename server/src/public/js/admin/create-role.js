@@ -7,7 +7,7 @@ window.onload = () => {
   const description = document.getElementById("description");
   const createRoleForm = document.querySelector(".create-role-form");
   const btnSubmit = createRoleForm.querySelector("button[type=submit]");
-  const mode = createRoleForm.getAttribute;
+  const mode = createRoleForm.getAttribute("data-mode");
   if (createRoleForm) {
     createRoleForm.addEventListener("submit", async (e) => {
       e.preventDefault();

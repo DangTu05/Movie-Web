@@ -5,6 +5,10 @@ import ApiError from "../utils/ApiError";
 import { comparePassword } from "../utils/passwordUtil";
 import userModel from "../models/schema/userSchema";
 import { hashPassword } from "../utils/passwordUtil";
+import { signToken } from "../utils/jwt";
+import { TokenType } from "../constants/enum";
+import { existUsername } from "../helpers/existUsername";
+import refreshTokenModel from "../models/schema/refreshTokenSchema";
 
 class AuthService {
   // Đăng kí tài khoản
@@ -15,6 +19,8 @@ class AuthService {
       logger.error("Email already exists", { email: account.email });
       throw new ApiError(StatusCodes.CONFLICT, "Email đã được sử dụng");
     }
+    // Kiểm tra username có tồn tại hay chưa
+    await existUsername(account.username);
     /// Mã hóa mật khẩu trước khi lưu vào DataBase
     const passwordHashed = await hashPassword(account.password);
     // Tạo user mới
@@ -43,6 +49,36 @@ class AuthService {
     }
     // Nếu tài khoản và mật khẩu hợp lệ, trả về thông tin tài khoản
     logger.info("Login successful", { username });
+    const [access_token, refresh_token] = await this.signToken(username);
+    await this.saveRefreshToken(username, refresh_token);
+    return {
+      access_token,
+      refresh_token
+    };
+  }
+  // Sign accesstoken
+  private async signAccessToken(username: string) {
+    return signToken({
+      payload: { username, sub: username, type: TokenType.AccessToken }
+    });
+  }
+  // Sign refreshtoken
+  private async signRefreshToken(username: string) {
+    return signToken({
+      payload: { username, sub: username, type: TokenType.RefreshToken }
+    });
+  }
+  // Sign token
+  private signToken(username: string) {
+    return Promise.all([this.signAccessToken(username), this.signRefreshToken(username)]);
+  }
+  // save refreshToken
+  async saveRefreshToken(username: string, refreshToken: string) {
+    await refreshTokenModel.create({ username, token: refreshToken });
+  }
+  // delete refreshToken
+  async revokeToken(refreshToken: string) {
+    return await refreshTokenModel.deleteOne({ refreshToken });
   }
 }
 export default AuthService;

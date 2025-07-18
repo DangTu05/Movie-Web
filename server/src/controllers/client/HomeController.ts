@@ -10,6 +10,8 @@ class HomeController {
   }
   public async showView(req: Request, res: Response, next: NextFunction) {
     const data: any = {};
+    const _user = res.locals._user;
+    if (_user) data.user = _user;
     req.pagination.limit = 4;
     const [nowPlaying, comingSoon, articles] = await Promise.all([
       _movieService.getNowPlayingMovies(),
