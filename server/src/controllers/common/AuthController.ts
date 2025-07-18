@@ -22,14 +22,15 @@ class AuthController {
   constructor(private readonly authService: AuthService) {
     this.register = errorHandler.handleAsyncErrors(this.register.bind(this));
     this.login = errorHandler.handleAsyncErrors(this.login.bind(this));
+    this.logout = errorHandler.handleAsyncErrors(this.logout.bind(this));
   }
-  public async showViewRegister(req: Request, res: Response): Promise<void> {
+  async showViewRegister(req: Request, res: Response): Promise<void> {
     res.render("auth/register");
   }
-  public async showViewLogin(req: Request, res: Response): Promise<void> {
+  async showViewLogin(req: Request, res: Response): Promise<void> {
     res.render("auth/login");
   }
-  public async register(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async register(req: Request, res: Response, next: NextFunction): Promise<void> {
     // Validate input data
     const { success, errors } = ValidateAuth.validateRegister(req);
     if (!success) {
@@ -41,7 +42,7 @@ class AuthController {
     await this.authService.register(req.body);
     sendResponse(res, StatusCodes.CREATED, null, "User registered successfully", "Registration successful");
   }
-  public async login(req: Request, res: Response, next: NextFunction): Promise<void> {
+  async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     const { username, password } = req.body;
     const { success, errors } = ValidateAuth.validateLogin(req);
     if (!success) {
@@ -56,6 +57,16 @@ class AuthController {
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 ngày
     });
     sendResponse(res, 200, { access_token }, "Login successful");
+  }
+  async logout(req: Request, res: Response, next: NextFunction) {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) {
+      res.redirect("/auth/login");
+      return;
+    }
+    await this.authService.logout(refreshToken);
+    res.clearCookie("refreshToken");
+    sendResponse(res, StatusCodes.OK, null, "Logout successful");
   }
 
   async getRefreshToken(req: Request, res: Response) {

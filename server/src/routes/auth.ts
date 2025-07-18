@@ -8,4 +8,6 @@ router.get("/register", authController.showViewRegister);
 router.get("/login", authController.showViewLogin);
 router.post("/register", authController.register);
 router.post("/login", authController.login);
+router.post("/logout", authController.logout);
+router.get("/refresh-token", authController.getRefreshToken);
 export default router;

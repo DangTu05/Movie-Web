@@ -12,7 +12,7 @@ import refreshTokenModel from "../models/schema/refreshTokenSchema";
 
 class AuthService {
   // Đăng kí tài khoản
-  public async register(account: { username: string; email: string; password: string }) {
+  async register(account: { username: string; email: string; password: string }) {
     // Kiểm tra email có tồn tại hay chưa
     const existingAccount = await accountModel.findOne({ email: account.email });
     if (existingAccount) {
@@ -34,7 +34,7 @@ class AuthService {
     });
   }
   // Đăng nhập
-  public async login(username: string, password: string) {
+  async login(username: string, password: string) {
     // Kiểm tra tài khoản có tồn tại hay không
     const account = await accountModel.findOne({ username });
     if (!account) {
@@ -55,6 +55,10 @@ class AuthService {
       access_token,
       refresh_token
     };
+  }
+  // Đăng xuất
+  async logout(refreshToken: string) {
+    await this.revokeToken(refreshToken);
   }
   // Sign accesstoken
   private async signAccessToken(username: string) {
