@@ -164,8 +164,8 @@ select {
 }
 
 .section-1 .inner-film .film-detail {
-  height: 450px;
-  margin-right: 10px;
+  height: auto; /* Thay đổi từ 450px thành auto */
+  margin-right: 0; /* Loại bỏ margin-right */
   margin-bottom: 40px;
   cursor: pointer;
 }
@@ -355,7 +355,7 @@ select {
 #close {
   position: fixed;
   top: 17%;
-  left: 79%;
+  right: 0%;
   font-size: 35px;
   z-index: 6;
   cursor: pointer;
@@ -364,12 +364,18 @@ select {
 }
 
 .inner-iframe {
-  text-align: center;
   position: fixed;
-  top: 20%;
-  left: 25%;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  max-width: 860px;
+  aspect-ratio: 16 / 9;
   z-index: 5;
   display: none;
+  background-color: black;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 /*css cho section-6*/

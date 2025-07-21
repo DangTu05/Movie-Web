@@ -1,17 +1,14 @@
-import { Request, Response, NextFunction } from "express";
-import errorHandler from "../../utils/handler/handleAsync";
+import { Request, Response } from "express";
 import MovieService from "../../services/MovieService";
 import ArticleService from "../../services/ArticleService";
+import BaseController from "./BaseController";
 const _articleService = new ArticleService();
 const _movieService = new MovieService();
-class HomeController {
-  constructor() {
-    this.showView = errorHandler.handleAsyncErrors(this.showView.bind(this));
-  }
-  public async showView(req: Request, res: Response, next: NextFunction) {
+class HomeController extends BaseController {
+  async render(req: Request, res: Response) {
     const data: any = {};
-    const _user = res.locals._user;
-    if (_user) data.user = _user;
+    // const _user = res.locals._user;
+    // if (_user) data.user = _user;
     req.pagination.limit = 4;
     const [nowPlaying, comingSoon, articles] = await Promise.all([
       _movieService.getNowPlayingMovies(),

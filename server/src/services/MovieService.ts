@@ -65,6 +65,20 @@ class MovieService extends BaseService<IMovie, IMovieInput> {
     const movie = await movieModel.findOne({ _id: id, deleted: false }).select(Constants.COMMON_SELECT_FIELDS).lean();
     return movie;
   }
+  // Lấy thông tin chi tiết của bộ phim
+  async findMovieDetailById(id: string): Promise<IMovie | null> {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      logger.warn("Id phim người dùng gửi lên không hợp lệ!");
+      return null;
+    }
+    const movie = await movieModel
+      .findOne({ _id: id, deleted: false })
+      .populate("genre", "category_name")
+      .populate("actors", "actor_name actor_image")
+      .select(Constants.COMMON_SELECT_FIELDS)
+      .lean();
+    return movie;
+  }
   // End tìm phim theo id
   // Lấy ra danh sách phim
   async getAllMovie(pagination: IPagination): Promise<{ pagination: IPagination; movies: IMovie[] }> {

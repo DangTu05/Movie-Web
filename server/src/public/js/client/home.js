@@ -12,6 +12,7 @@ const getMovies = async () => {
   const response = await _movieApi.getMovies();
   return response.data;
 };
+
 // Hàm mở trailer
 const showTrailer = (src) => {
   overlay.style.display = "block";

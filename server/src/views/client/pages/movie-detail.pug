@@ -1,0 +1,94 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel="stylesheet", href="/assets/css/client/movie-detail.css")
+//-Nhúng header 
+block header
+  include ../partials/header.pug
+block content
+
+  .section-1
+    .film-poster-big#film-poster-big
+      img(src= data.movieDetail.poster || "", alt="Trailler of " + data.movieDetail.title || "Trailer Poster")
+      .film-overlay
+      .film-icon-play#play-button
+        i.fa-solid.fa-circle-play
+  .section-2#section-2
+    .container
+      .inner-wrap
+        .inner-image
+          img(src= data.movieDetail.poster || "", alt="Poster of " + data.movieDetail.title || "Movie Poster")
+        .inner-content
+          h2= data.movieDetail.title || ""
+          .inner-basic
+            .inner-icon
+              i.fa-solid.fa-clock
+              p #{data.movieDetail.duration || ""} phút
+            .inner-icon
+              i.fa-solid.fa-calendar
+              p #{data.movieDetail.releaseDate || ""}
+          .inner-director 
+            p Đạo diễn: #{data.movieDetail.director || "Chưa cập nhật"}
+          .inner-category
+            p Thể loại:
+            .category
+              a(href="#") #{data.movieDetail.genre.category_name || ""}
+          .inner-age T#{data.movieDetail.age_permission || ""}
+          .inner-button
+            a.button.button-one#button-trailer(href="#") TRAILER
+            a.button.button-two(href="#target-section") ĐẶT VÉ
+  .section-3#section-3
+    .container
+      .inner-wrap
+        .inner-content
+          .list.inner-list
+          h2.inner-title Nội dung
+        p #{data.movieDetail.description || "Chưa cập nhật nội dung phim."}
+  .section-4
+    .container
+      .inner-wrap
+        .inner-content
+          .list.inner-list
+          h2.title Diễn viên
+        .actor-list#actor-list
+          if(data.movieDetail.actors && data.movieDetail.actors.length > 0)
+            each actor in data.movieDetail.actors
+              .actor-item
+                img(src=actor.actor_image || "../assets/images/actors/default.png", alt=actor.actor_name || "default.png")
+                .inner-name #{actor.actor_name || "Unknown Actor"}
+          
+  #overlay
+  #close
+    i.fa-solid.fa-circle-xmark
+  .inner-iframe#inner-iframe
+    iframe(width="860", height="515", src=data.movieDetail.trailer||"", allowfullscreen)
+  .section-5
+    .container
+      .inner-wrap
+        .inner-content
+          .list.inner-list
+          h2.title#target-section Lịch chiếu
+        .schedules#schedules
+          .schedule-item 27-05-2025
+          .schedule-item 28-05-2025
+          .schedule-item 29-05-2025
+        .showtimes
+          .showtime-item
+            .cinema BingeBox Cinema Hoàn Kiếm
+            .times
+              .time-item
+                .time-number 20:00
+                .time-info
+                  .time-subtitle Phụ đề
+                  .time-format 2D
+              .time-item
+                .time-number 23:00
+                .time-info
+                  .time-subtitle Phụ đề
+                  .time-format 2D
+          .showtime-item
+            .cinema BingeBox Cinema Hoàn Kiếm
+            .times
+  blocks scripts
+    script(type="module", src="/js/client/movie-detail.js") 
+block footer 
+  include ../partials/footer.pug
