@@ -37,6 +37,9 @@ block content
                   selected=(data.movie && data.movie.actors.includes(actor._id))
                 )= actor.actor_name
         .form-group
+          label(for="director") Đạo diễn
+          input#director.form-control(type="text", name="director", required, value=(data.movie && data.movie.director ? data.movie.director : ''))
+        .form-group
           label(for="releaseDate") Release Date
           input#releaseDate.form-control(type="date", name="releaseDate", value=(data.movie ? data.movie.releaseDate : ''))
 

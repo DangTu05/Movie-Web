@@ -7,6 +7,7 @@ interface IMovie extends BaseDocument {
   genre: ObjectId; // Reference to Category
   poster: string;
   trailer: string;
+  director?: string;
   releaseDate: Date;
   duration: number;
   age_permission: number;
@@ -26,6 +27,7 @@ const movieSchema = new Schema(
     duration: { type: Number, required: true },
     age_permission: { type: Number, required: true },
     actors: [{ type: mongoose.Types.ObjectId, ref: "Actor" }],
+    director: { type: String },
     status: {
       type: String,
       required: true,

@@ -69,13 +69,13 @@ block content
                 .col-xl-3.col-lg-4.col-md-4.col-sm-6.xs-6
                   .inner-film
                     .film-detail
-                      a(href="#").
+                      a(href=`/movie-detail/${movie._id}`).
                         
                         
                       .film-poster
-                        a(href="#")
+                        a(href=`/movie-detail/${movie._id}`)
                           img(src=movie.poster)
-                        .inner-icon(data-trailer=movie.trailer||"")
+                        .inner-icon(data-trailer=movie.trailer || "")
                           a(href="#").
                             
                             
@@ -94,7 +94,7 @@ block content
                           p.infor.subtitle Phụ đề
                         li
                           p.infor.film-format 2D IMAX
-                      a(href="#")
+                      a(href=`/movie-detail/${movie._id}`)
                         h2.film-name= movie.title
                       h3.film-category Thể loại: #{movie.genre.category_name}
           //-phim sắp chiếu 
@@ -108,11 +108,11 @@ block content
                 .col-xl-3
                   .inner-film
                     .film-detail
-                      a(href="#").
+                      a(href=`/movie-detail/${movie._id}`).
                         
                         
                       .film-poster
-                        a(href="#")
+                        a(href=`/movie-detail/${movie._id}`)
                           img(src=movie.poster)
                         .inner-icon(data-trailer=movie.trailer||"")
                           a(href="#").
@@ -127,7 +127,7 @@ block content
                           p.infor.subtitle Phụ đề
                         li
                           p.infor.film-format 2D IMAX
-                      a(href="#")
+                      a(href=`/movie-detail/${movie._id}`)
                         h2.film-name #{movie.title}
                       h3.film-category Thể loại: #{movie.genre.category_name}
   #overlay

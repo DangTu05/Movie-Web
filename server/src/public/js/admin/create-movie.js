@@ -13,6 +13,7 @@ window.onload = () => {
   const trailer = document.getElementById("trailer");
   const releaseDate = document.getElementById("releaseDate");
   const duration = document.getElementById("duration");
+  const director = document.getElementById("director");
   const age_permission = document.getElementById("age_permission");
   const createMovieForm = document.querySelector(".create-movie-form");
   const btnSubmit = createMovieForm.querySelector("button[type=submit]");
@@ -35,7 +36,8 @@ window.onload = () => {
         releaseDate: releaseDate.value,
         duration: duration.value ? parseInt(duration.value, 10) : 0,
         age_permission: age_permission.value ? parseInt(age_permission.value, 10) : 0,
-        actors: selectedActors ? selectedActors : []
+        actors: selectedActors ? selectedActors : [],
+        director: director.value ?? ""
       };
       if (!MovieValidate.validateCreateMovie(data)) {
         return;
@@ -51,6 +53,7 @@ window.onload = () => {
       formData.append("releaseDate", releaseDate.value);
       formData.append("duration", data.duration);
       formData.append("age_permission", data.age_permission);
+      formData.append("director", data.director);
       try {
         btnSubmit.disabled = true;
         if (mode === "Create Movie") {
