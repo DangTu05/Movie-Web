@@ -25,6 +25,10 @@ window.onload = () => {
           if (response.status === 201) {
             showInfo("Tạo phòng thành công", "", "success");
             createRoomForm.reset();
+          } else if (response.status === 400) {
+            showInfo("Phòng đã tồn tại", "Vui lòng kiểm tra lại thông tin phòng!", "error");
+          } else if (response.status === 500) {
+            showInfo("Lỗi máy chủ", "Vui lòng thử lại sau!", "error");
           } else {
             showInfo("Tạo phòng thất bại", "", "error");
           }

@@ -35,7 +35,7 @@ class RoomController extends BaseController<RoomService, IRoomInput, IRoom> {
           if (!room_id) {
             return res.redirect("/admin/rooms");
           }
-          // data.room = await this.service.findById(room_id);
+          data.room = await this.service.findRoomById(room_id);
           if (!data.room) {
             return res.redirect("/admin/rooms");
           }
