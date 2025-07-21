@@ -1,0 +1,19 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+block content
+  .title
+    h2=data.title || ""
+
+  .card
+    .card-body
+      form(class="create-seattype-form", data-mode=data.title||"", room_id=(data.seattype ? data.seattype._id : ''))
+        .form-group
+          label(for="seat_type") Loại ghế:
+          input#seat_type.form-control(name="seat_type", type="text", value=(data.seattype ? data.seattype.seat_type : ''), required)
+        .form-group.text-end
+          button.btn.btn-primary.create-role-btn(type="submit")= data.title || ""
+  script(type="module", src="/js/admin/create-seattype.js") 
+  //  SweetAlert2 CDN 

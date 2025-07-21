@@ -10,6 +10,7 @@ import roleRoutes from "./role";
 import accountRoutes from "./account";
 import articleRoutes from "./article";
 import roomRoutes from "./room";
+import seatRoutes from "./seattype";
 const PATH_ADMIN = systemConfig.prefixAdmin;
 function router(app: Application): void {
   app.use("/auth", authRoutes);
@@ -22,5 +23,6 @@ function router(app: Application): void {
   app.use(`${PATH_ADMIN}/account`, accountRoutes);
   app.use(`${PATH_ADMIN}/article`, articleRoutes);
   app.use(`${PATH_ADMIN}/room`, roomRoutes);
+  app.use(`${PATH_ADMIN}/seattype`, seatRoutes);
 }
 export default router;
