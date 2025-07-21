@@ -11,10 +11,7 @@ block content
     .card-body
       form(class="create-room-form", data-mode=data.title||"", room_id=(data.room ? data.room._id : ''))
         .form-group
-          label(for="room_name") Tên phòng:
-          input#room_name.form-control(type="text", name="room_name", value=(data.room ? data.room.room_name : ''), required)
-        .form-group
-          label(for="room_number") Só lượng người tối đa:
+          label(for="room_number") Số phòng:
           input#room_number.form-control(name="room_number", type="number" min= "1" value=(data.room ? data.room.room_number : ''), required)
         .form-group
           label(for="chair_total") Só lượng ghế tối đa:
