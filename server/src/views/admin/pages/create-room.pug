@@ -14,7 +14,7 @@ block content
           label(for="room_number") Số phòng:
           input#room_number.form-control(name="room_number", type="number" min= "1" value=(data.room ? data.room.room_number : ''), required)
         .form-group
-          label(for="chair_total") Só lượng ghế tối đa:
+          label(for="chair_total") Số lượng ghế tối đa:
           input#chair_total.form-control(name="chair_total", type="number" min= "1" value=(data.room ? data.room.chair_total : ''), required)
         .form-group.text-end
           button.btn.btn-primary.create-role-btn(type="submit")= data.title||""
