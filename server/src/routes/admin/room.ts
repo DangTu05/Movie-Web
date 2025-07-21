@@ -5,5 +5,7 @@ const roomService = new RoomService();
 const roomController = new RoomController(roomService);
 const router: Router = Router();
 router.get("/create-room", roomController.showView);
+router.get("/update-room/:id", roomController.showView);
 router.post("/create-room", roomController.create);
+router.patch("/update-room/:id", roomController.update);
 export default router;
