@@ -8,4 +8,5 @@ router.get("/create-room", roomController.showView);
 router.get("/update-room/:id", roomController.showView);
 router.post("/create-room", roomController.create);
 router.patch("/update-room/:id", roomController.update);
+router.delete("/delete-room/:id", roomController.delete);
 export default router;
