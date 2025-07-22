@@ -1,0 +1,37 @@
+extends ../layouts/index.pug
+block styles 
+  link(rel='stylesheet', href='/assets/css/admin/create.css')
+include ../partials/sidebar
+include ../partials/header
+block content
+  .title
+    h2=data.title || ""
+
+  .card
+    .card-body
+      form(class="create-seat-form", data-mode=data.title||"", room_id=(data.room ? data.room._id : ''))
+        .form-group
+          label(for="room") Số phòng
+          select#room.form-control(name="room")
+            option(value="") -- Select Room --
+            if data.rooms && data.rooms.length
+              for room in data.rooms
+                option(value=room._id
+                  selected=(data.seat && room._id.toString() === data.seat.roomId.toString())
+                )= room.room_number 
+        .form-group
+          label(for="seattype") Loại ghế
+          select#seattype.form-control(name="seattype")
+            option(value="") -- Select Seat Type --
+            if data.seattypes && data.seattypes.length
+              for seattype in data.seattypes
+                option(value=seattype._id
+                  selected=(data.seat && seattype._id.toString() === data.seat.seattypeId.toString())
+                )= seattype.seat_type
+        .form-group
+          label(for="row_total") Số hàng ghế :
+          input#row_total.form-control(name="row_total", type="number" min= "1" value=(data.seat ? data.seat.row_total : ''), required)
+        .form-group.text-end
+          button.btn.btn-primary.create-role-btn(type="submit")= data.title||""
+  script(type="module", src="/js/admin/create-seat.js") 
+  //  SweetAlert2 CDN 
